@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="wWar:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/wWar_jar</output-path>
+    <root id="archive" name="wWar.jar">
+      <element id="module-output" name="wWar" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,212 @@
+Iniciando jogo
+Singleton sendo construido
+Estou rodando!
++++++++++++++++++++++++
+Continente América do Norte tem os seguintes territorios
+--------------------------
+Terriotorio Alasca faz fronteira com:
+Vancouver
+Vladivostok
+--------------------------
+--------------------------
+Terriotorio Vancouver faz fronteira com:
+Groelândia
+Califórnia
+Alasca
+--------------------------
+--------------------------
+Terriotorio Califórnia faz fronteira com:
+Vancouver
+Otawa
+México
+--------------------------
+--------------------------
+Terriotorio México faz fronteira com:
+Califórnia
+Nova York
+Colômbia
+--------------------------
+--------------------------
+Terriotorio Groelândia faz fronteira com:
+Ingralterra
+Otawa
+Vancouver
+--------------------------
+--------------------------
+Terriotorio Otawa faz fronteira com:
+Groelândia
+Nova York
+Califórnia
+--------------------------
+--------------------------
+Terriotorio Nova York faz fronteira com:
+Otawa
+Nigéria
+México
+--------------------------
++++++++++++++++++++++++
+Continente América do Sul tem os seguintes territorios
+--------------------------
+Terriotorio Chile faz fronteira com:
+Colômbia
+Argentina
+Japão
+--------------------------
+--------------------------
+Terriotorio Argentina faz fronteira com:
+Chile
+Brasil
+Nova Guiné 
+--------------------------
+--------------------------
+Terriotorio Colômbia faz fronteira com:
+México
+Brasil
+Chile
+--------------------------
+--------------------------
+Terriotorio Brasil faz fronteira com:
+Colômbia
+Argentina
+--------------------------
++++++++++++++++++++++++
+Continente Europa tem os seguintes territorios
+--------------------------
+Terriotorio Ingralterra faz fronteira com:
+Itália
+Groelândia
+--------------------------
+--------------------------
+Terriotorio Itália faz fronteira com:
+Suécia
+Alemanha
+Ingralterra
+--------------------------
+--------------------------
+Terriotorio Alemanha faz fronteira com:
+Itália
+Moscou
+Egito
+--------------------------
+--------------------------
+Terriotorio Suécia faz fronteira com:
+Moscou
+Itália
+--------------------------
+--------------------------
+Terriotorio Moscou faz fronteira com:
+Suécia
+Omsk
+Oriente Médio
+Alemanha
+--------------------------
++++++++++++++++++++++++
+Continente Africa tem os seguintes territorios
+--------------------------
+Terriotorio Nigéria faz fronteira com:
+Egito
+Congo
+Nova York
+--------------------------
+--------------------------
+Terriotorio Congo faz fronteira com:
+Nigéria
+Sudão
+África do Sul
+--------------------------
+--------------------------
+Terriotorio África do Sul faz fronteira com:
+Congo
+Madagascar
+--------------------------
+--------------------------
+Terriotorio Egito faz fronteira com:
+Alemanha
+Oriente Médio
+Sudão
+Nigéria
+--------------------------
+--------------------------
+Terriotorio Sudão faz fronteira com:
+Egito
+Sumatra
+Madagascar
+Congo
+--------------------------
+--------------------------
+Terriotorio Madagascar faz fronteira com:
+Sudão
+África do Sul
+--------------------------
++++++++++++++++++++++++
+Continente Asia tem os seguintes territorios
+--------------------------
+Terriotorio Oriente Médio faz fronteira com:
+Moscou
+Índia
+Sumatra
+Egito
+--------------------------
+--------------------------
+Terriotorio Omsk faz fronteira com:
+Sibéria
+Índia
+Moscou
+--------------------------
+--------------------------
+Terriotorio Índia faz fronteira com:
+Omsk
+China
+Bornéu
+Oriente Médio
+--------------------------
+--------------------------
+Terriotorio Vladivostok faz fronteira com:
+Alasca
+Sibéria
+--------------------------
+--------------------------
+Terriotorio Sibéria faz fronteira com:
+Vladivostok
+China
+Omsk
+--------------------------
+--------------------------
+Terriotorio China faz fronteira com:
+Sibéria
+Japão
+Índia
+--------------------------
+--------------------------
+Terriotorio Japão faz fronteira com:
+China
+Chile
+Nova Guiné 
+Bornéu
+--------------------------
++++++++++++++++++++++++
+Continente Oceania tem os seguintes territorios
+--------------------------
+Terriotorio Sumatra faz fronteira com:
+Oriente Médio
+Bornéu
+Sudão
+--------------------------
+--------------------------
+Terriotorio Bornéu faz fronteira com:
+Índia
+Japão
+Austrália
+Sumatra
+--------------------------
+--------------------------
+Terriotorio Austrália faz fronteira com:
+Bornéu
+Nova Guiné 
+--------------------------
+--------------------------
+Terriotorio Nova Guiné  faz fronteira com:
+Japão
+Argentina
+Austrália
+--------------------------
