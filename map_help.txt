@@ -1,0 +1,31 @@
+O mapa deve ser criado a partir de um arquivo de entrada, a qual o programa interpreta e monta.
+Ele deve ser disposto da seguinte maneira:
+    Inicialização do mapa:
+        Na primeira linha deve conter a flag de inicialização de mapa (MAPAINICIO), para sinalizar
+        o interpretador que o que está sendo lido é um mapa
+    Inicialização dos continentes com os países:
+        Após iniciar o mapa devem ser definidos os continentes e seus respectivos países. Na primeira linha do continente
+        deve conter a flag de início (CONTINENTEINCIO). Logo após a flag, deve conter o nome do continente e então
+        o nome dos países. Quando a lista de países terminar, deve constar a flag de fim (CONTINENTEFIM)
+        Obs.: A ordem em que os continentes e países forem definidos será a ordem em que serão
+        indexados.
+        Exemplo:
+        CONTINENTEINICIO
+        Nome do Continente
+        Nome do País1
+        Nome do País2
+        ...
+        CONTINENTEFIM
+    Definição das fronteiras:
+        Quando os continentes forem definidos, devem ser criadas as fronteiras, começando por sua flag (FRONTEIRASINICIO).
+        Após a flag, devem ser inseridos os dados e então a flag de fim de fronteiras (FRONTEIRASFIM). Elas devem
+        ser descritas da seguinte forma:
+        FRONTEIRASINICIO
+        Número_do_continente_do_país_a_ser_configurado1 Número_do_país_a_ser_configurado1 Continente_do_país_vizinho1 Número_do_país_vizinho1
+        ...
+        FRONTEIRASFIM
+    Finalização do mapa:
+        Após os dados serem inseridos, o mapa deve ser finalizado com a flag de fim (MAPAFIM), para interpretador
+        terminar a leitura do mapa
+
+Um exemplo prático pode ser visto no arquivo war_map.txt, onde se encontra uma representação do mapa mundi.
