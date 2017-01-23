@@ -1,6 +1,7 @@
 package bcco.wWar.mapa;
 
 import bcco.wWar.mapa.continentes.*;
+import bcco.wWar.mapa.continentes.exceptions.ContinenteException;
 import bcco.wWar.mapa.exceptions.MapaException;
 
 import java.util.List;
@@ -11,7 +12,9 @@ import java.util.List;
  */
 public class Mapa {
     private String map_file_;
+    private String table_file_;
     private Continente[] continentes_;
+    private int[][][] tabela_mapa_;
 
     /**
      * Retorna a instância de um continente a partir do seu index
@@ -43,6 +46,26 @@ public class Mapa {
     }
 
     /**
+     * Retorna um território a partir do index do seu continente e do próprio território
+     * @param cont_index Index do continente ao qual o território pertence
+     * @param terr_index Index do território a ser retornado
+     * @return A instância do território
+     * @throws MapaException Caso houver erro
+     */
+    public Territorio getTerritorio(int cont_index, int terr_index) throws MapaException {
+        if((cont_index < continentes_.length) && (cont_index >= 0)){
+            try {
+                return continentes_[cont_index].getTerritorio(terr_index);
+            } catch (ContinenteException e) {
+                throw new MapaException(e);
+            }
+        }
+        else{
+            throw new MapaException("Index de continente inválido");
+        }
+    }
+
+    /**
      * Escreve os detalhes do mapa
      */
     public void printMapa(){
@@ -52,11 +75,33 @@ public class Mapa {
     }
 
     /**
+     * Escreve a tabela de países
+     */
+    public void printTabela(){
+        for(int i = 0; i < tabela_mapa_.length; i++){
+            for(int j = 0; j < tabela_mapa_[i].length; j++){
+                if(tabela_mapa_[i][j][0] == -1){
+                    System.out.print("--------| ");
+                }
+                else {
+                    try {
+                        System.out.print(getTerritorio(tabela_mapa_[i][j][0], tabela_mapa_[i][j][1]).getNome() + "| ");
+                    } catch (MapaException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    /**
      * Cria uma instância do mapa com o caminho para a sua leitura
      * @param map_file O caminho para o arquivo
      */
-    Mapa(String map_file){
+    Mapa(String map_file, String table_file){
         map_file_ = map_file;
+        table_file_ = table_file;
 
     }
 
@@ -77,5 +122,13 @@ public class Mapa {
         else{
             continentes_ = new_continentes;
         }
+    }
+
+    /**
+     * Define a tabela que organiza os territórios
+     * @param tabela A tabela cosntruída
+     */
+    void setTabela(int[][][] tabela){
+        tabela_mapa_ = tabela;
     }
 }

@@ -1,4 +1,6 @@
-O mapa deve ser criado a partir de um arquivo de entrada, a qual o programa interpreta e monta.
+    O mapa deve ser criado a partir de 2 arquivos de entrada, a qual o programa interpreta e monta. Eles
+devem ter nomes iguais, apenas com um identificador no nome diferenciando. O primeiro deve ser o arquivo
+que define os continentes, países e fronteiras.
 Ele deve ser disposto da seguinte maneira:
     Inicialização do mapa:
         Na primeira linha deve conter a flag de inicialização de mapa (MAPAINICIO), para sinalizar
@@ -28,4 +30,25 @@ Ele deve ser disposto da seguinte maneira:
         Após os dados serem inseridos, o mapa deve ser finalizado com a flag de fim (MAPAFIM), para interpretador
         terminar a leitura do mapa
 
-Um exemplo prático pode ser visto no arquivo war_map.txt, onde se encontra uma representação do mapa mundi.
+O segundo define como ele será montado na interface (tabela), ele deve ser configurado assim:
+    Inicialização:
+        A primeira linha deve conter a flag de inicialização (MAPATINICIO), inicando
+        que estamos lendo uma tabela
+    Definição da tabela:
+        A tabela pode ser contruída da maneira que o usuário desejar, mas se recomenda
+        seguir a lógica das fronteiras que foram difindas por uma questão de sentido.
+        Cada linha será uma linha da tabela e cada dupla (index_continente index_território)
+        será uma coluna. Caso deseja deixar um espaço em branco, utilize o index 0 0, exemplo:
+        0 0 1 2 3 1 1 4
+        1 1 1 3 3 2 1 5
+        2 1 2 2 3 3 2 3
+
+Os arquivos devem estar no mesmo diretório e deverão ser definidos no arquivo de configuração, sendo
+que na primeira linha deve conter o caminho para o arquivo de mapa e na segunda o caminho para
+o arquivo da tabela. O identificador de tabela é _t, então o nome do arquivo de mapa deve ser
+nome_t, exemplo de arquivo de configuração:
+
+war_map
+war_map_t
+
+Um exemplo prático pode ser visto no arquivo war_map e war_map_t, onde se encontra uma representação do mapa mundi.

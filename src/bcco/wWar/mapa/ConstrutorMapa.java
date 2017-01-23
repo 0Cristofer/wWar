@@ -22,6 +22,9 @@ public class ConstrutorMapa {
     private static final String CONTINENTE_FIM_ = "CONTINENTEFIM";
     private static final String FRONTEIRAS_INICIO_ = "FRONTEIRASINICIO";
     private static final String FRONTEIRAS_FIM_ = "FRONTEIRASFIM";
+    private static final String TABELA_INICIO_ = "MAPATINICIO";
+    private static final String TABELA_FIM_ = "MAPATFIM";
+
 
     private static ConstrutorMapa instance_;
 
@@ -37,12 +40,15 @@ public class ConstrutorMapa {
 
     /**
      * Constrói uma instância do Mapa a partir de um arquivo
-     * @param map_file O caminho para o arquivo a ser lido
+     * @param map_file O caminho para o arquivo de mapa a ser lido
+     * @param table_file O caminha para o arquivo da tabela a ser lido
      * @return A instância do mapa
      * @throws ConstrutorException caso houver algum erro na construção
      */
-    public Mapa buildMap(String map_file) throws ConstrutorException {
+    public Mapa buildMap(String map_file, String table_file) throws ConstrutorException {
         List<String> map_text = null;
+        List<String> table_text = null;
+        Mapa new_mapa = new Mapa(map_file, table_file);
 
         //Le o arquivo de entrada
         try {
@@ -55,29 +61,36 @@ public class ConstrutorMapa {
             throw new ConstrutorException();
         }
         else{
-            return build(map_file, map_text);
+            buildM(map_file, map_text, new_mapa);
+
+            //Le o arquivo de entrada
+            try {
+                table_text = IOManager.getInstance().readTextFile(table_file);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+
+            if(table_text == null){
+                throw new ConstrutorException();
+            }
+            else{
+                new_mapa.setTabela(buildTable(table_text));
+            }
+
+            return new_mapa;
         }
-    }
-
-    /**
-     * Construtor privado sem argumentos
-     */
-    private ConstrutorMapa(){
-
     }
 
     /**
      * Função privada que efetivamente constrói o mapa. Para informações de como construir o arquivo do mapa, ler map_help.txt
      * @param map_file O caminho para o mapa
      * @param map_text A lista de strings represetando o arquivo
-     * @return A instância do map criado
      * @throws ConstrutorException caso haja algum erro na interpretação do mapa
      */
-    private Mapa build(String map_file, List<String> map_text) throws ConstrutorException {
+    private void buildM(String map_file, List<String> map_text, Mapa new_mapa) throws ConstrutorException {
         //Efetivamente constrói o mapa.
         //Cria duas listas, uma para os continentes e uma para os teritórios
         //as popula conforme o arquivo do mapa e então retorna ele pronto.
-        Mapa new_mapa = new Mapa(map_file);
         List<Continente> continentes = new ArrayList<>();
         List<Territorio> territorios = new ArrayList<>();
 
@@ -163,38 +176,58 @@ public class ConstrutorMapa {
                         default:
                             //Se estamos lendo as fronteiras
                             if(is_fronteiras){
-                                //Cria uam lista e lê os caracteres da linha para definir as fronteiras
+                                //Cria uma lista e lê os caracteres da linha para definir as fronteiras
                                 List<Territorio> fronteiras = new ArrayList<>();
                                 Territorio atual;
-                                int continente_index = (Character.getNumericValue(line.charAt(0))-1);
-                                int territorio_index = (Character.getNumericValue(line.charAt(2))-1);
-                                try {
-                                    //Le o primeiro caracter, transforma-o em int e subtrai 1 (pois os indeces no arquivo
-                                    // começam em 1), pega o continente respectivo, pula um caracter e lê o país respectivo da mesma maneira
-                                    atual = continentes.get(continente_index).getTerritorio(territorio_index);
-                                } catch (ContinenteException e) {
-                                    System.out.println(e.getMessage());
-                                    throw new ConstrutorException("Erro ao ler fronteira na linha " + (i + 1));
-                                }
 
-                                //For que lê a linha inteira. Pula 4 caracteres pois temos que ler 2 carateres separados
-                                //por 1 espaço cada um. Adiciona o país selecionado na lista de fronteira
-                                for(int j = 4; j < line.length(); j = j+4){
-                                    continente_index = (Character.getNumericValue(line.charAt(j))-1);
-                                    territorio_index = (Character.getNumericValue(line.charAt(j+2))-1);
+                                //Divide a linha por espaços
+                                String[] div = line.split(" ");
+
+                                //Se o tamanho da linha não for nulo, transformas as substrings em inteiros
+                                if(div.length < 1){
+                                    throw new ConstrutorException("Mapa com erro na linha " + (i + 1) + ", linha vazia");
+                                }
+                                else{
+                                    int[] vals = new int[div.length];
+                                    for (int j = 0; j < vals.length; j++) {
+                                        vals[j] = Integer.parseInt(div[j]);
+                                    }
+
+                                    //O primeiro e o segundo valor da linha representam o continente e o terrotório
+                                    //ao qual essa fronteira se refere
+                                    int continente_index = vals[0] - 1;
+                                    int territorio_index = vals[1] - 1;
                                     try {
-                                        fronteiras.add(continentes.get(continente_index).getTerritorio(territorio_index));
-                                    } catch (ContinenteException e) {
+                                        atual = continentes.get(continente_index).getTerritorio(territorio_index);
+                                    }
+                                    catch (IndexOutOfBoundsException ie){
+                                        System.out.println(ie.getMessage());
+                                        throw new ConstrutorException("Index errado de continente na linha " + (i + 1));
+                                    }
+                                    catch (ContinenteException e) {
                                         System.out.println(e.getMessage());
                                         throw new ConstrutorException("Erro ao ler fronteira na linha " + (i + 1));
                                     }
-                                }
 
-                                //Após ler toda a linha, atribui a fronteira ao país de destino
-                                try {
-                                    atual.setFronteira(fronteiras);
-                                } catch (TerritorioException e) {
-                                    throw new ConstrutorException(e.getMessage());
+                                    //For que lê a linha inteira. Pula 4 caracteres pois temos que ler 2 carateres separados
+                                    //por 1 espaço cada um. Adiciona o país selecionado na lista de fronteira
+                                    for(int j = 2; j < vals.length; j = j + 2){
+                                        continente_index = vals[j] - 1;
+                                        territorio_index = vals[j+1] - 1;
+                                        try {
+                                            fronteiras.add(continentes.get(continente_index).getTerritorio(territorio_index));
+                                        } catch (ContinenteException e) {
+                                            System.out.println(e.getMessage());
+                                            throw new ConstrutorException("Erro ao ler fronteira na linha " + (i + 1));
+                                        }
+                                    }
+
+                                    //Após ler toda a linha, atribui a fronteira ao país de destino
+                                    try {
+                                        atual.setFronteira(fronteiras);
+                                    } catch (TerritorioException e) {
+                                        throw new ConstrutorException(e.getMessage());
+                                    }
                                 }
                             }
                             else{
@@ -235,6 +268,72 @@ public class ConstrutorMapa {
             }
         }
 
-        return new_mapa;
+    }
+
+
+    /**
+     * Cria uma tabela de duplas que representa o mapa na interface
+     * @param text A lista de Strings que formam a tabela
+     * @return A tabela construída
+     * @throws ConstrutorException Ao haver erro na leitura
+     */
+    private int[][][] buildTable(List<String> text) throws ConstrutorException {
+        //Cria uma matriz com o tamanho do arquivo -2 linhas.
+        //-2 pois a primeira e última linha serão flags
+        int[][][] tabela = new int[(text.size() - 2)][][];
+
+        boolean is_table = false;
+        int j = 0;
+        for(int i = 0; i < text.size(); i++){
+            String line = text.get(i);
+
+            //Verifica se estamos lendo uma tabela
+            if(is_table) {
+                if(line.equals(TABELA_FIM_)){
+                    is_table = false;
+                }
+                else{
+                    //Lê a linha e a divide
+                    String[] div = line.split(" ");
+
+                    if(div.length < 1){
+                        throw new ConstrutorException("Erro ao ler tabela na linha " + (i + 1) + ", linha vazia");
+                    }
+                    else{
+                        //Cria a linha na tabela do tamanho equivalente a metade da
+                        //linha lida pois a cada 2 valores formam uma cédula
+                        tabela[j] = new int[(div.length/2)][];
+
+                        //Lê o vetor de valores retirado do arquivo
+                        //Cada célula é uma dupla
+                        int l = 0;
+                        for(int k = 0; k < div.length; k = k + 2){
+                            tabela[j][l] = new int[2];
+                            tabela[j][l][0] = Integer.parseInt(div[k]) -1;
+                            tabela[j][l][1] = Integer.parseInt(div[k+1]) -1;
+                            l++;
+                        }
+                        j++;
+                    }
+                }
+            }
+            else{
+                if(line.equals(TABELA_INICIO_)){
+                    is_table = true;
+                }
+                else{
+                    throw new ConstrutorException("Tabela com erro na linha " + (i + 1) + ", tabela sem começo");
+                }
+            }
+        }
+
+        return tabela;
+    }
+
+    /**
+     * Construtor privado sem argumentos
+     */
+    private ConstrutorMapa(){
+
     }
 }

@@ -48,7 +48,7 @@ public class wWar {
         }
         else{
             System.out.println("Estou pronto para funcionar");
-            //mapa_.printMapa();
+            //mapa_.printTabela();
         }
     }
 
@@ -75,13 +75,18 @@ public class wWar {
     private void readConfigs() throws IOException, wWarException {
         config_ = IOManager.getInstance().readTextFile("config");
 
-        //Tenta contruir o mapa_ a partir do arquivo lido nas configurações
+        //Tenta contruir o mapa a partir do arquivo lido nas configurações
         try {
-            mapa_ = ConstrutorMapa.getInstance().buildMap(config_.get(0));
+            mapa_ = ConstrutorMapa.getInstance().buildMap(config_.get(0), config_.get(1));
         } catch (ConstrutorException e) {
             System.out.println(e.getMessage());
             throw new wWarException("Erro ao ler arquivo de mapa", e);
         }
+        catch (IndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
+            throw new wWarException("Erro ao ler arquivo de configuração", e);
+        }
+
     }
 
     /**
