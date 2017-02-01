@@ -4,9 +4,12 @@ import bcco.wWar.game.Game;
 import bcco.wWar.mapa.continentes.Territorio;
 import bcco.wWar.mapa.exceptions.MapaException;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
@@ -51,7 +54,7 @@ public class Gui {
     }
 
     /**
-     * Mostra a janela_
+     * Mostra a janela
      */
     public void show(){
         janela_.setVisible(true);
@@ -59,7 +62,7 @@ public class Gui {
     }
 
     /**
-     * Esconde a janela_
+     * Esconde a janela
      */
     private void hide(){
         janela_.setVisible(false);
@@ -86,6 +89,7 @@ public class Gui {
         c.fill = GridBagConstraints.HORIZONTAL;
 
         JLabel inicio = new JLabel("Bem vindo ao War Game");
+
         pane.add(inicio, c);
 
         JButton inicia = new JButton("Inciar jogo");
@@ -119,6 +123,17 @@ public class Gui {
 
     //Separa a tela em 2 panes para centralização
     private void telaJogo(){
+        try {
+            final Image backgroundImage = ImageIO.read(new File("SketchWarGame.png"));
+            janela_.setContentPane(new JPanel(new GridBagLayout()) {
+                @Override public void paintComponent(Graphics g) {
+                    g.drawImage(backgroundImage, 0, 0, null);
+                }
+            });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         GridBagConstraints c = new GridBagConstraints();
 
         //Panes
@@ -167,7 +182,7 @@ public class Gui {
                             game_.mudaRodada();
                             rodada.setText("Vez de " + game_.getJogadorDaVez().getNome());
 
-                            atacar.setEnabled(!atacar.isEnabled());
+                            updateInfos(pais, dono, num_terr, num_aereo, vizinhos, atacar, -1, -1);
                         }
                         else{
                             JOptionPane.showMessageDialog(title_pane, "Ataque em andamento, cancele ou termine" +
@@ -259,6 +274,10 @@ public class Gui {
     }
 
     private void updateInfos(JLabel pais, JLabel dono, JLabel num_terr, JLabel num_aereo, JLabel vizinhos, JButton atacar, int row, int col){
+        if(row == -1){
+            atacar.setEnabled(false);
+            return;
+        }
         if(game_.getMapa().getTablaMapa()[row][col][0] == -1){
             atacar.setEnabled(false);
             return;
