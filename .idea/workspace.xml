@@ -8,8 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b516ea51-8b46-48f7-bf50-72962dbab64a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/game/Game.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/game/Game.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/game/jogadores/Jogador.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/game/jogadores/Jogador.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$1.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$10.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$10.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$2.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$2.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$3.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$3.class" />
@@ -20,8 +18,9 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$8.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$8.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$9.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$9.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/wWar.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/wWar.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bcco/wWar/game/Game.java" afterPath="$PROJECT_DIR$/src/bcco/wWar/game/Game.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java" afterPath="$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -44,19 +43,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/bcco/wWar/game/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="123" column="31" lean-forward="true" selection-start-line="123" selection-start-column="31" selection-end-line="123" selection-end-column="31" />
+            <state relative-caret-position="342">
+              <caret line="94" column="30" lean-forward="false" selection-start-line="94" selection-start-column="30" selection-end-line="94" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2342#2343#0" expanded="true" />
                 <element signature="e#2367#2368#0" expanded="true" />
-                <element signature="e#2809#2810#0" expanded="true" />
-                <element signature="e#2843#2844#0" expanded="true" />
-                <element signature="e#3371#3372#0" expanded="true" />
-                <element signature="e#3406#3407#0" expanded="true" />
+                <element signature="e#2851#2852#0" expanded="true" />
+                <element signature="e#2885#2886#0" expanded="true" />
+                <element signature="e#3413#3414#0" expanded="true" />
+                <element signature="e#3448#3449#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -87,26 +86,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Gui.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Gui.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="645">
-              <caret line="40" column="11" lean-forward="false" selection-start-line="40" selection-start-column="11" selection-end-line="40" selection-end-column="11" />
+            <state relative-caret-position="306">
+              <caret line="113" column="32" lean-forward="true" selection-start-line="113" selection-start-column="32" selection-end-line="113" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1597#1598#0" expanded="true" />
                 <element signature="e#1678#1679#0" expanded="true" />
                 <element signature="e#2170#2171#0" expanded="true" />
                 <element signature="e#2211#2212#0" expanded="true" />
-                <element signature="e#4671#5653#0" expanded="true" />
-                <element signature="e#5652#5653#0" expanded="true" />
-                <element signature="e#6649#6650#0" expanded="true" />
-                <element signature="e#6705#6706#0" expanded="true" />
-                <element signature="e#12270#12271#0" expanded="true" />
-                <element signature="e#12352#12353#0" expanded="true" />
-                <element signature="e#12549#12550#0" expanded="true" />
-                <element signature="e#12631#12632#0" expanded="true" />
-                <element signature="class#14250:14971" expanded="false" />
+                <element signature="e#5093#6075#0" expanded="true" />
+                <element signature="e#6074#6075#0" expanded="true" />
+                <element signature="e#7071#7072#0" expanded="true" />
+                <element signature="e#7127#7128#0" expanded="true" />
+                <element signature="e#12692#12693#0" expanded="true" />
+                <element signature="e#12774#12775#0" expanded="true" />
+                <element signature="e#12971#12972#0" expanded="true" />
+                <element signature="e#13053#13054#0" expanded="true" />
+                <element signature="class#14672:15393" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -185,11 +184,11 @@
         <option value="$PROJECT_DIR$/src/bcco/wWar/mapa/Mapa.java" />
         <option value="$PROJECT_DIR$/src/bcco/wWar/gui/MapTable.java" />
         <option value="$PROJECT_DIR$/src/bcco/wWar/mapa/continentes/Territorio.java" />
-        <option value="$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java" />
         <option value="$PROJECT_DIR$/src/bcco/wWar/game/jogadores/Jogador.java" />
         <option value="$PROJECT_DIR$/config" />
         <option value="$PROJECT_DIR$/src/bcco/wWar/wWar.java" />
         <option value="$PROJECT_DIR$/src/bcco/wWar/game/Game.java" />
+        <option value="$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java" />
       </list>
     </option>
   </component>
@@ -1033,7 +1032,7 @@
       <workItem from="1485791732564" duration="7488000" />
       <workItem from="1485888987713" duration="15330000" />
       <workItem from="1485913585250" duration="1266000" />
-      <workItem from="1485915130943" duration="3151000" />
+      <workItem from="1485915130943" duration="4343000" />
     </task>
     <task id="LOCAL-00001" summary="Modificado método construtor da Classe Game, Adicionado sistema de nome do jogador CPU aleatório de uma lista no arquivo config.">
       <created>1485917747339</created>
@@ -1049,11 +1048,18 @@
       <option name="project" value="LOCAL" />
       <updated>1485918253858</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Modificado método construtor da Classe Game, Adicionado sistema de nome do jogador CPU aleatório de uma lista no arquivo config.">
+      <created>1485918295752</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1485918295752</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="117960000" />
+    <option name="totallyTimeSpent" value="119152000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="24" width="1366" height="744" extended-state="6" />
@@ -1068,7 +1074,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.44394618" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44394618" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32884902" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -1441,13 +1447,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/bcco/wWar/game/jogadores/Jogador.java">
+    <entry file="file://$PROJECT_DIR$/src/bcco/wWar/game/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+        <state relative-caret-position="342">
+          <caret line="94" column="30" lean-forward="false" selection-start-line="94" selection-start-column="30" selection-end-line="94" selection-end-column="30" />
           <folding>
-            <element signature="e#404#405#0" expanded="true" />
-            <element signature="e#434#435#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2342#2343#0" expanded="true" />
+            <element signature="e#2367#2368#0" expanded="true" />
+            <element signature="e#2851#2852#0" expanded="true" />
+            <element signature="e#2885#2886#0" expanded="true" />
+            <element signature="e#3413#3414#0" expanded="true" />
+            <element signature="e#3448#3449#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1462,41 +1473,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/bcco/wWar/game/jogadores/Jogador.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding>
+            <element signature="e#404#405#0" expanded="true" />
+            <element signature="e#434#435#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="645">
-          <caret line="40" column="11" lean-forward="false" selection-start-line="40" selection-start-column="11" selection-end-line="40" selection-end-column="11" />
+        <state relative-caret-position="306">
+          <caret line="113" column="32" lean-forward="true" selection-start-line="113" selection-start-column="32" selection-end-line="113" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1597#1598#0" expanded="true" />
             <element signature="e#1678#1679#0" expanded="true" />
             <element signature="e#2170#2171#0" expanded="true" />
             <element signature="e#2211#2212#0" expanded="true" />
-            <element signature="e#4671#5653#0" expanded="true" />
-            <element signature="e#5652#5653#0" expanded="true" />
-            <element signature="e#6649#6650#0" expanded="true" />
-            <element signature="e#6705#6706#0" expanded="true" />
-            <element signature="e#12270#12271#0" expanded="true" />
-            <element signature="e#12352#12353#0" expanded="true" />
-            <element signature="e#12549#12550#0" expanded="true" />
-            <element signature="e#12631#12632#0" expanded="true" />
-            <element signature="class#14250:14971" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/bcco/wWar/game/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="123" column="31" lean-forward="true" selection-start-line="123" selection-start-column="31" selection-end-line="123" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2342#2343#0" expanded="true" />
-            <element signature="e#2367#2368#0" expanded="true" />
-            <element signature="e#2809#2810#0" expanded="true" />
-            <element signature="e#2843#2844#0" expanded="true" />
-            <element signature="e#3371#3372#0" expanded="true" />
-            <element signature="e#3406#3407#0" expanded="true" />
+            <element signature="e#5093#6075#0" expanded="true" />
+            <element signature="e#6074#6075#0" expanded="true" />
+            <element signature="e#7071#7072#0" expanded="true" />
+            <element signature="e#7127#7128#0" expanded="true" />
+            <element signature="e#12692#12693#0" expanded="true" />
+            <element signature="e#12774#12775#0" expanded="true" />
+            <element signature="e#12971#12972#0" expanded="true" />
+            <element signature="e#13053#13054#0" expanded="true" />
+            <element signature="class#14672:15393" expanded="false" />
           </folding>
         </state>
       </provider>
