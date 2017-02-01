@@ -332,9 +332,13 @@ public class Gui {
         num_aereo.setText("Exércitos Aéreos: " + "2");
     }
 
+    /**
+     * Mostra a tela poup-up de ataque
+     */
     private void atacar(){
         atacando_ = true;
 
+        //Verifica quantos e quais territórios estão disponíveis para atacar (são inimigos)
         List<Territorio> f = new ArrayList<>();
         for(Territorio t : selecionado_.getFronteira()){
           if(t.getOcupante() != game_.getJogadorDaVez()){
@@ -353,11 +357,52 @@ public class Gui {
             fronteiras[i] = f.get(i);
         }
 
+        //Cria a nova janela
         JFrame frame = new JFrame("Atacar");
-        frame.getContentPane().setLayout(new GridBagLayout());
-
         JPanel pane = new JPanel(new GridBagLayout());
+        frame.getContentPane().setLayout(new GridBagLayout());
+        frame.setLocationRelativeTo(null);
+        frame.getContentPane().setLayout(new GridBagLayout());
+        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        frame.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
 
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                atacando_ = false;
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
+
+        GridBagConstraints c = new GridBagConstraints();
+
+        //Componentes
         JLabel titulo = new JLabel("Atacando de: " + selecionado_.getNome());
         JLabel atacar = new JLabel("Atacar: ");
         JLabel dono = new JLabel("Dono: ");
@@ -366,19 +411,19 @@ public class Gui {
         JLabel num = new JLabel("Quantidade: ");
         JComboBox<Territorio> combo = new JComboBox<>(fronteiras);
 
-        JRadioButton terr = new JRadioButton("Terrestre");
-        terr.setActionCommand("Terrestre");
-
-        JRadioButton aereo = new JRadioButton("Aereo");
-        aereo.setActionCommand("Aereo");
-
         ButtonGroup bg = new ButtonGroup();
-        bg.add(terr);
-        bg.add(aereo);
-        terr.doClick();
+        JRadioButton terr = new JRadioButton("Terrestre");
+        JRadioButton aereo = new JRadioButton("Aereo");
 
         JTextField num_exe = new JTextField(5);
         JButton ok = new JButton("Cofirmar");
+
+        //Configur os radio buttons
+        terr.setActionCommand("Terrestre");
+        aereo.setActionCommand("Aereo");
+        terr.doClick(); //Simula um clique
+        bg.add(terr);
+        bg.add(aereo);
 
         //Listeners
         combo.addActionListener(
@@ -419,9 +464,9 @@ public class Gui {
 
         updateAtacado(dono, num_terr, num_aereo, (Territorio)(combo.getSelectedItem()));
 
-        GridBagConstraints c = new GridBagConstraints();
-
+        //Layout
         c.insets = new Insets(5, 5, 5, 5);
+
         c.gridx = 0;
         c.gridy = 0;
         c.gridwidth = 1;
@@ -480,44 +525,6 @@ public class Gui {
 
         frame.getContentPane().add(pane, c);
 
-        frame.setLocationRelativeTo(null);
-        frame.getContentPane().setLayout(new GridBagLayout());
-        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-        frame.addWindowListener(new WindowListener() {
-            @Override
-            public void windowOpened(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowClosing(WindowEvent e) {
-                atacando_ = false;
-            }
-
-            @Override
-            public void windowClosed(WindowEvent e) {
-            }
-
-            @Override
-            public void windowIconified(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowDeiconified(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowActivated(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowDeactivated(WindowEvent e) {
-
-            }
-        });
         frame.pack();
         frame.setVisible(true);
 
