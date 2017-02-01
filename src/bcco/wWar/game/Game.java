@@ -91,7 +91,8 @@ public class Game {
     /**
      * Configura um novo jogo
      */
-    public void iniciarJogo(){
+    public void iniciarJogo(String nome){
+        humano_.setNome(nome);
         rodada_ = 0;
         distribuiTerritorios();
     }
@@ -145,6 +146,10 @@ public class Game {
         nomesCPU_.add(nome);
     }
 
+    /**
+     *
+     * @return O nome escolhido aleatóriamente
+     */
     private String getrandomNomeCPU(){
         Random r = new Random();
         return nomesCPU_.get(r.nextInt(nomesCPU_.size()));

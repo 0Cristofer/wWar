@@ -100,6 +100,8 @@ public class Gui {
         JPanel pane = new JPanel(new GridBagLayout());
 
         //Componentes
+        JLabel nome = new JLabel("Insira seu nome:");
+        JTextField nome_input = new JTextField(10);
         JLabel inicio = new JLabel("Bem vindo ao War Game");
         JButton inicia = new JButton("Inciar jogo");
 
@@ -108,7 +110,7 @@ public class Gui {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        game_.iniciarJogo();
+                        game_.iniciarJogo(nome_input.getText());
                         clear();
                         telaJogo();
                     }
@@ -125,11 +127,23 @@ public class Gui {
         c.fill = GridBagConstraints.HORIZONTAL;
         pane.add(inicio, c);
 
-        c.gridx = 1;
+        c.gridx = 0;
         c.gridy = 2;
-        c.gridwidth = 3;
+        c.gridwidth = 1;
         c.gridheight = 1;
         c.fill = GridBagConstraints.NONE;
+        pane.add(nome, c);
+
+        c.gridx = 1;
+        c.gridwidth = 2;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        pane.add(nome_input,c);
+
+        c.gridx = 0;
+        c.gridy = 3;
+        c.gridwidth = 3;
+        c.gridheight = 1;
+        c.fill = GridBagConstraints.HORIZONTAL;
         pane.add(inicia, c);
 
         c.gridx = 0;
