@@ -6,7 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b516ea51-8b46-48f7-bf50-72962dbab64a" name="Default" comment="Modificado método construtor da Classe Game, Adicionado sistema de nome do jogador CPU aleatório de uma lista no arquivo config.">
+    <list default="true" id="b516ea51-8b46-48f7-bf50-72962dbab64a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/game/Game.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/game/Game.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/game/jogadores/Jogador.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/game/jogadores/Jogador.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$1.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$1.class" />
@@ -125,6 +125,7 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
+        <option value="Bruno Cesar Puli Dala Rosa &lt;bcesar.g6@gmail.com&gt;" />
         <option value="Bruno" />
       </list>
     </option>
@@ -459,7 +460,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="js.eslint.eslintPackage" value="" />
-    <property name="settings.editor.selected.configurable" value="preferences.customizations" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
@@ -1032,7 +1033,7 @@
       <workItem from="1485791732564" duration="7488000" />
       <workItem from="1485888987713" duration="15330000" />
       <workItem from="1485913585250" duration="1266000" />
-      <workItem from="1485915130943" duration="3107000" />
+      <workItem from="1485915130943" duration="3151000" />
     </task>
     <task id="LOCAL-00001" summary="Modificado método construtor da Classe Game, Adicionado sistema de nome do jogador CPU aleatório de uma lista no arquivo config.">
       <created>1485917747339</created>
@@ -1041,11 +1042,18 @@
       <option name="project" value="LOCAL" />
       <updated>1485917747339</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Modificado método construtor da Classe Game, Adicionado sistema de nome do jogador CPU aleatório de uma lista no arquivo config.">
+      <created>1485918253858</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1485918253858</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="117916000" />
+    <option name="totallyTimeSpent" value="117960000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="24" width="1366" height="744" extended-state="6" />
