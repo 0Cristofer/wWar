@@ -29,7 +29,7 @@ public class Gui {
 
     private boolean atacando_ = false;
     private Territorio selecionado_ = null;
-    private String tipo_exerc;
+    private String tipo_exerc_;
 
     /**
      * Cria as estruturas basicas para a janela_
@@ -42,11 +42,24 @@ public class Gui {
         game_ = game;
         tabela_mapa_ = new MapTable(game_.getMapa());
 
+        //Configura a janela
         screen_width_ = screen_width;
         screen_heigth_ = screen_height;
         janela_ = new JFrame(titulo);
 
-        janela_.getContentPane().setLayout(new GridBagLayout());
+        //Define o contentPane como um JPanel com background
+        try {
+            final Image background_image = ImageIO.read(new File("SketchWarGame.png"));
+            janela_.setContentPane(new JPanel(new GridBagLayout()) {
+                @Override
+                public void paintComponent(Graphics g) {
+                    g.drawImage(background_image, 0, 0, null);
+                }
+            });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         janela_.setSize(screen_width_, screen_heigth_);
         //Posiciona a tela no centro
         janela_.setLocationRelativeTo(null);
@@ -68,6 +81,9 @@ public class Gui {
         janela_.setVisible(false);
     }
 
+    /**
+     * Remove todos os componentes da tela
+     */
     private void clear(){
         Component[] componentes = janela_.getContentPane().getComponents();
 
@@ -76,10 +92,30 @@ public class Gui {
         }
     }
 
+    /**
+     * Mostra a tela inicial
+     */
     public void telaInicial(){
         GridBagConstraints c = new GridBagConstraints();
         JPanel pane = new JPanel(new GridBagLayout());
 
+        //Componentes
+        JLabel inicio = new JLabel("Bem vindo ao War Game");
+        JButton inicia = new JButton("Inciar jogo");
+
+        //Listeners
+        inicia.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        game_.iniciarJogo();
+                        clear();
+                        telaJogo();
+                    }
+                }
+        );
+
+        //Layout
         c.insets = new Insets(10, 10, 10, 10);
 
         c.gridx = 0;
@@ -87,28 +123,12 @@ public class Gui {
         c.gridwidth = 3;
         c.gridheight = 2;
         c.fill = GridBagConstraints.HORIZONTAL;
-
-        JLabel inicio = new JLabel("Bem vindo ao War Game");
-
         pane.add(inicio, c);
-
-        JButton inicia = new JButton("Inciar jogo");
-
-        //Cria uma classe anônima
-        ActionListener sairListener = new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                game_.iniciarJogo();
-                clear();
-                telaJogo();
-            }
-        };
-        inicia.addActionListener(sairListener);
 
         c.gridx = 1;
         c.gridy = 2;
         c.gridwidth = 3;
         c.gridheight = 1;
-        c.anchor = GridBagConstraints.CENTER;
         c.fill = GridBagConstraints.NONE;
         pane.add(inicia, c);
 
@@ -117,32 +137,22 @@ public class Gui {
         c.gridwidth = 1;
         c.gridheight = 1;
         c.fill = GridBagConstraints.BOTH;
+
+        //Adiciona tudo ao pane principal
         janela_.getContentPane().add(pane, c);
 
     }
 
-    //Separa a tela em 2 panes para centralização
+    /**
+     * Tela principal de jogo
+     */
     private void telaJogo(){
-        try {
-            final Image backgroundImage = ImageIO.read(new File("SketchWarGame.png"));
-            janela_.setContentPane(new JPanel(new GridBagLayout()) {
-                @Override public void paintComponent(Graphics g) {
-                    g.drawImage(backgroundImage, 0, 0, null);
-                }
-            });
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
         GridBagConstraints c = new GridBagConstraints();
 
-        //Panes
-        JPanel title_pane = new JPanel(new GridBagLayout());
         JPanel table_pane = new JPanel(new GridBagLayout());
 
-        //Labels + tabela + botões
-        JLabel titulo = new JLabel("War game");
-        JLabel rodada = new JLabel("Vez de " + game_.getJogadorDaVez().getNome());
+        //Componentes
+        JLabel vez_de = new JLabel("Vez de " + game_.getJogadorDaVez().getNome());
         JTable tabela = new JTable(tabela_mapa_);
         JLabel pais = new JLabel("País selecionado : ");
         JLabel dono = new JLabel("Dono: ");
@@ -151,6 +161,8 @@ public class Gui {
         JLabel vizinhos = new JLabel("Vizinhos: ");
         JButton prox_rodada = new JButton("Terminar rodada");
         JButton atacar = new JButton("Iniciar ataque");
+
+        atacar.setEnabled(false); //Desativado por default
 
         //Listeners
         tabela.addMouseListener(
@@ -168,6 +180,9 @@ public class Gui {
                                 e1.printStackTrace();
                             }
                         }
+                        else{
+                            selecionado_ = null;
+                        }
 
                         updateInfos(pais, dono, num_terr, num_aereo, vizinhos, atacar, row, col);
                     }
@@ -180,12 +195,14 @@ public class Gui {
                     public void actionPerformed(ActionEvent e) {
                         if(!atacando_) {
                             game_.mudaRodada();
-                            rodada.setText("Vez de " + game_.getJogadorDaVez().getNome());
+                            vez_de.setText("Vez de " + game_.getJogadorDaVez().getNome());
 
-                            updateInfos(pais, dono, num_terr, num_aereo, vizinhos, atacar, -1, -1);
+                            if(selecionado_ != null){
+                                atacar.setEnabled(!atacar.isEnabled());
+                            }
                         }
                         else{
-                            JOptionPane.showMessageDialog(title_pane, "Ataque em andamento, cancele ou termine" +
+                            JOptionPane.showMessageDialog(table_pane, "Ataque em andamento, cancele ou termine" +
                                     "antes de continuar");
                         }
                     }
@@ -201,32 +218,21 @@ public class Gui {
                 }
         );
 
-        //Titulo
+        //Layout
         c.insets = new Insets(5, 5, 5, 5);
-        c.gridx = 1;
-        c.gridy = 0;
-        c.gridwidth = 3;
-        c.gridheight = 1;
-        c.fill = GridBagConstraints.HORIZONTAL;
 
-        title_pane.add(titulo, c);
-
-        //Tebela + infos
         c.gridx = 0;
         c.gridy = 0;
         c.gridwidth = 1;
         c.gridheight = 1;
-        c.fill = GridBagConstraints.BOTH;
+        c.fill = GridBagConstraints.NONE;
 
         table_pane.add(tabela, c);
 
         c.gridx = 1;
-        c.gridy = 0;
-        c.gridwidth = 1;
-        c.gridheight = 1;
-        c.fill = GridBagConstraints.PAGE_START;
+        c.anchor = GridBagConstraints.LINE_START;
 
-        table_pane.add(rodada, c);
+        table_pane.add(vez_de, c);
 
         c.gridy = 1;
 
@@ -249,40 +255,38 @@ public class Gui {
         table_pane.add(vizinhos, c);
 
         c.gridy = 6;
+        c.anchor = GridBagConstraints.CENTER;
 
         table_pane.add(prox_rodada, c);
 
         c.gridy = 7;
 
-        atacar.setEnabled(false);
         table_pane.add(atacar, c);
 
-        //Primeiro pane
-        c.gridx = 0;
-        c.gridy = 0;
-        c.fill = GridBagConstraints.BOTH;
-
-        janela_.getContentPane().add(title_pane, c);
-
-        //Segundo pane
-        c.gridx = 0;
-        c.gridy = 1;
-
-        janela_.getContentPane().add(table_pane, c);
+        janela_.getContentPane().add(table_pane);
 
         show();
     }
 
+    /**
+     * Atualiza as informações mostradas na tela de jogo
+     * @param pais O label do país
+     * @param dono O label do dono
+     * @param num_terr O label referente ao número de exércitos terrestres
+     * @param num_aereo O label referente ao número de exércitos aéreos
+     * @param vizinhos Label que mostra os países vizinhos
+     * @param atacar Botão que é ativado ou não dependendo das informações
+     * @param row Linha da tabela selecionada
+     * @param col Coluna da tabela selecionada
+     */
     private void updateInfos(JLabel pais, JLabel dono, JLabel num_terr, JLabel num_aereo, JLabel vizinhos, JButton atacar, int row, int col){
-        if(row == -1){
-            atacar.setEnabled(false);
-            return;
-        }
+        //Se a célula for vazia desativa o botão
         if(game_.getMapa().getTablaMapa()[row][col][0] == -1){
             atacar.setEnabled(false);
             return;
         }
 
+        //Lê o território na respectiva célula
         Territorio t = null;
         try {
             t = game_.getMapa().getTerritorio(game_.getMapa().getTablaMapa()[row][col][0], game_.getMapa().getTablaMapa()[row][col][1]);
@@ -290,6 +294,7 @@ public class Gui {
             e.printStackTrace();
         }
 
+        //Atualiza os campos com os respectivos dados
         if(t != null) {
             if(t.getOcupante().getNome().equals(game_.getJogadorDaVez().getNome())){
                 atacar.setEnabled(true);
@@ -314,12 +319,17 @@ public class Gui {
         }
     }
 
+    /**
+     * Atualiza os dados da tela de ataque
+     * @param dono Label do dono do território
+     * @param num_terr O label do número de exércitos terrestres
+     * @param num_aereo Label referente ao número de exércitos aéros
+     * @param t Território utilizado para atualizar os dados
+     */
     private void updateAtacado(JLabel dono, JLabel num_terr, JLabel num_aereo, Territorio t){
-
         dono.setText("Dono: " + t.getOcupante().getNome());
         num_terr.setText("Exércitos Terrestres: " + "3");
         num_aereo.setText("Exércitos Aéreos: " + "2");
-
     }
 
     private void atacar(){
@@ -384,7 +394,7 @@ public class Gui {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        tipo_exerc = e.getActionCommand();
+                        tipo_exerc_ = e.getActionCommand();
                     }
                 }
         );
@@ -393,7 +403,7 @@ public class Gui {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        tipo_exerc = e.getActionCommand();
+                        tipo_exerc_ = e.getActionCommand();
                     }
                 }
         );
