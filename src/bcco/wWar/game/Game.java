@@ -7,6 +7,8 @@ import bcco.wWar.mapa.continentes.Territorio;
 import bcco.wWar.mapa.continentes.exceptions.ContinenteException;
 import bcco.wWar.mapa.exceptions.MapaException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /** Representa um jogo pronto para ser utilizado
@@ -19,25 +21,34 @@ public class Game {
 
     private Jogador humano_;
     private Jogador pc_;
+    private List<String> nomesCPU_;
 
     private boolean running_ = false;
     private GameStates state_;
     private int rodada_;
 
     /**
-     * Contrói a instância do jogo com o mapa construído e os nomes dos jogadores
+     * Constrói a instância do jogo com o mapa construído e os nomes dos jogadores
      * @param mapa O mapa construído a partir do arquivo
-     * @param nome_humano O nome do jogador humano
-     * @param nome_pc O nome do jogador PC
      */
-    public Game(Mapa mapa, String nome_humano, String nome_pc){
+    public Game(Mapa mapa){
         mapa_ = mapa;
 
-        humano_ = new Jogador(nome_humano, false);
-        pc_ = new Jogador(nome_pc, true);
+        humano_ = new Jogador(false);
+
+        nomesCPU_ = new ArrayList<>();
 
         state_ = GameStates.INICIO;
+    }
 
+    /**
+     * Cria e configura o jogador CPU
+     */
+    public void createCPU(){
+        pc_ = new Jogador(true);
+        pc_.setNome(getrandomNomeCPU());
+
+        //TODO Implementar uma IA maneira :)
     }
 
     /**
@@ -130,4 +141,12 @@ public class Game {
         return state_;
     }
 
+    public void insertNomeCPU(String nome){
+        nomesCPU_.add(nome);
+    }
+
+    private String getrandomNomeCPU(){
+        Random r = new Random();
+        return nomesCPU_.get(r.nextInt(nomesCPU_.size()));
+    }
 }

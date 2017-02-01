@@ -81,10 +81,7 @@ public class wWar {
         //e cria a instancia do jogo
         try {
             game_ = new Game(
-                    ConstrutorMapa.getInstance().buildMap(config_.get(0), config_.get(1)),
-                    config_.get(2),
-                    config_.get(3)
-            );
+                    ConstrutorMapa.getInstance().buildMap(config_.get(0), config_.get(1)));
 
             if(game_.getMapa() == null){
                 throw new wWarException("Mapa não foi criado, reinicie o sistema");
@@ -98,6 +95,13 @@ public class wWar {
             throw new wWarException("Erro ao ler arquivo de configuração", e);
         }
 
+        //Loop que lê os nomes dos oponentes, estes se encontram no arquivo config após MAPA e TABELA
+        for (int i = 2; i < config_.size() ; i++) {
+            //System.out.println(config_.get(i));
+            game_.insertNomeCPU(config_.get(i));
+        }
+
+        game_.createCPU();
     }
 
     /**
