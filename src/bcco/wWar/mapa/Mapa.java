@@ -65,6 +65,18 @@ public class Mapa {
         }
     }
 
+    public int[][][] getTablaMapa(){
+        return tabela_mapa_;
+    }
+
+    /**
+     * @return A quantidade de continentes nesse mapa
+     */
+    public int numContinentes(){
+        return continentes_.length;
+    }
+
+
     /**
      * Escreve os detalhes do mapa
      */
@@ -125,7 +137,7 @@ public class Mapa {
     }
 
     /**
-     * Define a tabela que organiza os territórios
+     * Define a tabela que organiza os territórios e cria
      * @param tabela A tabela cosntruída
      */
     void setTabela(int[][][] tabela){

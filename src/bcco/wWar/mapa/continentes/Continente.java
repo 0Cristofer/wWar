@@ -58,6 +58,13 @@ public class Continente{
     }
 
     /**
+     * @return A quantidade de territorios nesse continente
+     */
+    public int numTerritorios(){
+        return territorios_.length;
+    }
+
+    /**
      * Recebe uma lista de territórios e cria um vetor que definirá os territórios que compõem esse continente
      * @param territorios A lista de territórios
      * @throws ContinenteException Caso a lista seja vazia

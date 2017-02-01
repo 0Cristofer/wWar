@@ -1,8 +1,8 @@
 package bcco.wWar.mapa.continentes;
 
-import bcco.wWar.exercitos.Aereo;
-import bcco.wWar.exercitos.Terrestre;
-import bcco.wWar.jogadores.Jogador;
+import bcco.wWar.game.exercitos.Aereo;
+import bcco.wWar.game.exercitos.Terrestre;
+import bcco.wWar.game.jogadores.Jogador;
 import bcco.wWar.mapa.continentes.exceptions.TerritorioException;
 
 import java.util.List;
@@ -75,7 +75,21 @@ public class Territorio {
         for (Territorio territorio : faz_fronteira_) {
             System.out.println(territorio   .nome_);
         }
+        System.out.println("Ocupante: " + ocupante_.getNome());
         System.out.println("--------------------------");
 
+    }
+
+    public Territorio[] getFronteira(){
+        return faz_fronteira_;
+    }
+
+    public Jogador getOcupante(){
+        return ocupante_;
+    }
+
+    @Override
+    public String toString(){
+        return getNome();
     }
 }

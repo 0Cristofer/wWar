@@ -1,4 +1,6 @@
-package bcco.wWar.exercitos;
+package bcco.wWar.game.exercitos;
+
+import java.util.Random;
 
 /** Classe abstrata representante de um exércio
  *  @author Cristofer Oswald
@@ -6,4 +8,7 @@ package bcco.wWar.exercitos;
  */
 
 abstract class Exercito {
+    Random gerador = new Random();
+
+    public abstract int combater();
 }
