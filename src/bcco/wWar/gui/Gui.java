@@ -51,7 +51,7 @@ public class Gui {
 
         //Define o contentPane como um JPanel com background
         try {
-            final Image background_image = ImageIO.read(new File("SketchWarGame.png"));
+            final Image background_image = ImageIO.read(new File("tela_inicial.png"));
             janela_.setContentPane(new JPanel(new GridBagLayout()) {
                 @Override
                 public void paintComponent(Graphics g) {
@@ -140,17 +140,34 @@ public class Gui {
      * Tela principal de jogo
      */
     private void telaJogo(){
+        try {
+            final Image background_image = ImageIO.read(new File("tela_jogo.png"));
+            janela_.setContentPane(new JPanel(new GridBagLayout()) {
+                @Override
+                public void paintComponent(Graphics g) {
+                    g.drawImage(background_image, 0, 0, null);
+                }
+            });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         GridBagConstraints c = new GridBagConstraints();
 
-        JPanel jogo_pane = new JPanel(new GridBagLayout());
+        JPanel tabela_pane = new JPanel(new GridBagLayout());
+        JPanel jogador_pane = new JPanel(new GridBagLayout());
+        JPanel cpu_pane = new JPanel(new GridBagLayout());
 
         //Componentes
-        JLabel vez_de = new JLabel("Vez de " + game_.getJogadorDaVez().getNome());
+        JLabel nome_jogador = new JLabel(game_.getHumano().getNome());
+        JLabel jogador_num_terr = new JLabel("Exércitos Terrestres: ");
+        JLabel jogador_num_aereo = new JLabel("Exércitos Aéreos: ");
+        JLabel nome_cpu = new JLabel(game_.getPc().getNome());
+        JLabel cpu_num_terr = new JLabel("Exércitos Terrestres: ");
+        JLabel cpu_num_aereo = new JLabel("Exércitos Aéreos: ");
         JTable tabela = new JTable(tabela_mapa_);
         JLabel pais = new JLabel("País selecionado : ");
         JLabel dono = new JLabel("Dono: ");
-        JLabel num_terr = new JLabel("Exércitos Terrestres: ");
-        JLabel num_aereo = new JLabel("Exércitos Aéreos: ");
         JLabel vizinhos = new JLabel("Vizinhos: ");
         JButton prox_rodada = new JButton("Terminar rodada");
         JButton atacar = new JButton("Iniciar ataque");
@@ -180,7 +197,7 @@ public class Gui {
                             selecionado_ = null;
                         }
 
-                        updateInfos(pais, dono, num_terr, num_aereo, vizinhos, atacar, movimentar, row, col);
+                        updateInfos(pais, dono, jogador_num_terr, jogador_num_aereo, vizinhos, atacar, movimentar, row, col);
                     }
                 }
         );
@@ -190,13 +207,13 @@ public class Gui {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if((!atacando_) && (!movimentando_)) {
-                            if(JOptionPane.showConfirmDialog(jogo_pane,
+                            if(JOptionPane.showConfirmDialog(tabela_pane,
                                     "Tem certeza que deseja terminar a rodada?",
                                     "Tem certeza?", JOptionPane.YES_NO_OPTION) ==
                                     JOptionPane.YES_OPTION){
 
                                 game_.mudaRodada();
-                                vez_de.setText("Vez de " + game_.getJogadorDaVez().getNome());
+                                nome_jogador.setText("Vez de " + game_.getJogadorDaVez().getNome());
 
                                 if(selecionado_ != null){
                                     atacar.setEnabled(!atacar.isEnabled());
@@ -205,7 +222,7 @@ public class Gui {
                             }
                         }
                         else{
-                            JOptionPane.showMessageDialog(jogo_pane, "Ataque ou movimentação em andamento, " +
+                            JOptionPane.showMessageDialog(tabela_pane, "Ataque ou movimentação em andamento, " +
                                     "cancele ou termine antes de continuar");
                         }
 
@@ -218,7 +235,7 @@ public class Gui {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if(terminado_ataque_){
-                            JOptionPane.showMessageDialog(jogo_pane, "Você começou a movimentar tropas," +
+                            JOptionPane.showMessageDialog(tabela_pane, "Você começou a movimentar tropas," +
                                     "não pode mais atacar");
                         }
                         else{
@@ -233,7 +250,7 @@ public class Gui {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if(!terminado_ataque_) {
-                            if (JOptionPane.showConfirmDialog(jogo_pane,
+                            if (JOptionPane.showConfirmDialog(tabela_pane,
                                     "Tem certeza que deseja movimentar? Você não poderá mais atacar",
                                     "Tem certeza?", JOptionPane.YES_NO_OPTION) ==
                                     JOptionPane.YES_OPTION) {
@@ -255,49 +272,44 @@ public class Gui {
         c.gridy = 0;
         c.gridwidth = 1;
         c.gridheight = 1;
-        c.fill = GridBagConstraints.NONE;
-
-        jogo_pane.add(tabela, c);
-
-        c.gridx = 1;
+        c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.LINE_START;
 
-        jogo_pane.add(vez_de, c);
+        jogador_pane.add(nome_jogador, c);
 
         c.gridy = 1;
 
-        jogo_pane.add(pais, c);
+        jogador_pane.add(jogador_num_terr, c);
 
         c.gridy = 2;
 
-        jogo_pane.add(dono, c);
+        jogador_pane.add(jogador_num_aereo, c);
 
-        c.gridy = 3;
+        c.gridx = 0;
+        c.gridy = 0;
 
-        jogo_pane.add(num_terr, c);
+        tabela_pane.add(tabela, c);
 
-        c.gridy = 4;
 
-        jogo_pane.add(num_aereo, c);
+        c.insets = new Insets(300, -300, 5, 0);
+        c.gridx = 0;
+        c.gridy = 0;
+        c.anchor = GridBagConstraints.FIRST_LINE_START;
+        c.fill = GridBagConstraints.NONE;
 
-        c.gridy = 5;
+        jogador_pane.setOpaque(false);
+        janela_.getContentPane().add(jogador_pane, c);
 
-        jogo_pane.add(vizinhos, c);
+        c.insets = new Insets(600, 0, 5, 0);
+        c.gridx = 1;
 
-        c.gridy = 6;
-        c.anchor = GridBagConstraints.CENTER;
+        tabela_pane.setOpaque(false);
+        janela_.getContentPane().add(tabela_pane, c);
 
-        jogo_pane.add(prox_rodada, c);
+        c.insets = new Insets(300, 0, 5, 0);
+        c.gridx = 2;
 
-        c.gridy = 7;
-
-        jogo_pane.add(atacar, c);
-
-        c.gridy = 8;
-
-        jogo_pane.add(movimentar, c);
-
-        janela_.getContentPane().add(jogo_pane);
+        janela_.getContentPane().add(cpu_pane, c);
 
         show();
     }

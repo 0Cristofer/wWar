@@ -46,7 +46,7 @@ public class Game {
      */
     public void createCPU(){
         pc_ = new Jogador(true);
-        pc_.setNome(getrandomNomeCPU());
+        pc_.setNome(getRandomNomeCPU());
 
         //TODO Implementar uma IA maneira :)
     }
@@ -116,7 +116,7 @@ public class Game {
     /**
      * @return O nome escolhido aleatóriamente
      */
-    private String getrandomNomeCPU(){
+    private String getRandomNomeCPU(){
         Random r = new Random();
         return nomesCPU_.get(r.nextInt(nomesCPU_.size()));
     }
@@ -163,9 +163,9 @@ public class Game {
      */
     public Jogador getJogadorDaVez(){
         if((rodada_ % 2) == 0){
-            return humano_;
+            return getHumano();
         }
-        return pc_;
+        return getPc();
     }
 
     /**
@@ -187,5 +187,19 @@ public class Game {
      */
     public GameStates getState(){
         return state_;
+    }
+
+    /**
+     * @return O jogador humano
+     */
+    public Jogador getHumano(){
+        return humano_;
+    }
+
+    /**
+     * @return O jogador controlado pelo PC
+     */
+    public Jogador getPc(){
+        return pc_;
     }
 }
