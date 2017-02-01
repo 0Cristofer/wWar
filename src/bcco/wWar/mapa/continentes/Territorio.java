@@ -5,6 +5,7 @@ import bcco.wWar.game.exercitos.Terrestre;
 import bcco.wWar.game.jogadores.Jogador;
 import bcco.wWar.mapa.continentes.exceptions.TerritorioException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /** Representa um território no tabuleiro que pode ser conquistado.
@@ -28,6 +29,9 @@ public class Territorio {
     public Territorio(Continente continente, String nome){
         this.continente_ = continente;
         this.nome_ = nome;
+
+        exercitos_terrestres_ = new ArrayList<>();
+        exercitos_aereos_ = new ArrayList<>();
     }
 
     /**
@@ -80,12 +84,32 @@ public class Territorio {
 
     }
 
+    /**
+     * @return O vetor de territórios que fazem fronteira
+     */
     public Territorio[] getFronteira(){
         return faz_fronteira_;
     }
 
+    /**
+     * @return O jogador ocupante deste território
+     */
     public Jogador getOcupante(){
         return ocupante_;
+    }
+
+    /**
+     * @return O número de exércitos terrestres
+     */
+    public int getNumExTerrestres(){
+        return exercitos_terrestres_.size();
+    }
+
+    /**
+     * @return O número de exércitos aéreos
+     */
+    public int getNumExAereos(){
+        return exercitos_aereos_.size();
     }
 
     @Override

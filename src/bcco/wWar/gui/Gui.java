@@ -232,11 +232,16 @@ public class Gui {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        if(JOptionPane.showConfirmDialog(jogo_pane,
-                                "Tem certeza que deseja movimentar? Você não poderá mais atacar",
-                                "Tem certeza?", JOptionPane.YES_NO_OPTION) ==
-                                JOptionPane.YES_OPTION) {
-                            terminado_ataque_ = true;
+                        if(!terminado_ataque_) {
+                            if (JOptionPane.showConfirmDialog(jogo_pane,
+                                    "Tem certeza que deseja movimentar? Você não poderá mais atacar",
+                                    "Tem certeza?", JOptionPane.YES_NO_OPTION) ==
+                                    JOptionPane.YES_OPTION) {
+                                terminado_ataque_ = true;
+                                movimentar();
+                            }
+                        }
+                        else{
                             movimentar();
                         }
                     }

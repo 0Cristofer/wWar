@@ -136,6 +136,29 @@ public class Game {
     }
 
     /**
+     * Calcula a quantidade de territórios que um jogador possúi
+     * @param jogador O jogador a ser verificado
+     * @return O número de territórios
+     */
+    public int getNumTerritorios(Jogador jogador){
+        int num = 0;
+
+        for(int i = 0; i < mapa_.numContinentes(); i++){
+            try {
+                for(int j = 0; j < mapa_.getContinente(i).numTerritorios(); j++){
+                    if(mapa_.getTerritorio(i, j).getOcupante() == jogador){
+                        num++;
+                    }
+                }
+            } catch (MapaException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return num;
+    }
+
+    /**
      * @return O jogador que joga nesta rodada
      */
     public Jogador getJogadorDaVez(){
