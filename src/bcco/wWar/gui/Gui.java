@@ -125,6 +125,7 @@ public class Gui {
         c.gridwidth = 3;
         c.gridheight = 2;
         c.fill = GridBagConstraints.HORIZONTAL;
+
         pane.add(inicio, c);
 
         c.gridx = 0;
@@ -132,24 +133,26 @@ public class Gui {
         c.gridwidth = 1;
         c.gridheight = 1;
         c.fill = GridBagConstraints.NONE;
+
         pane.add(nome, c);
 
         c.gridx = 1;
         c.gridwidth = 2;
         c.fill = GridBagConstraints.HORIZONTAL;
+
         pane.add(nome_input,c);
 
         c.gridx = 0;
         c.gridy = 3;
         c.gridwidth = 3;
-        c.gridheight = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
+
         pane.add(inicia, c);
 
         c.gridx = 0;
         c.gridy = 0;
         c.gridwidth = 1;
-        c.gridheight = 1;
+
         c.fill = GridBagConstraints.BOTH;
 
         //Adiciona tudo ao pane principal

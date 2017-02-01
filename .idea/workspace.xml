@@ -6,7 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b516ea51-8b46-48f7-bf50-72962dbab64a" name="Default" comment="">
+    <list default="true" id="b516ea51-8b46-48f7-bf50-72962dbab64a" name="Default" comment="Organizado código da gui pt2">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java" afterPath="$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java" />
     </list>
@@ -31,24 +31,13 @@
       <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/bcco/wWar/game/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2214">
-              <caret line="135" column="0" lean-forward="false" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
+            <state relative-caret-position="2232">
+              <caret line="136" column="0" lean-forward="false" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2342#2343#0" expanded="true" />
                 <element signature="e#2367#2368#0" expanded="true" />
-                <element signature="e#2809#2810#0" expanded="true" />
-                <element signature="e#2843#2844#0" expanded="true" />
-                <element signature="e#2947#2948#0" expanded="true" />
-                <element signature="e#2977#2978#0" expanded="true" />
-                <element signature="e#3059#3060#0" expanded="true" />
-                <element signature="e#3090#3091#0" expanded="true" />
-                <element signature="e#3180#3181#0" expanded="true" />
-                <element signature="e#3208#3209#0" expanded="true" />
-                <element signature="e#3297#3298#0" expanded="true" />
-                <element signature="e#3326#3327#0" expanded="true" />
-                <element signature="e#3371#3372#0" expanded="true" />
-                <element signature="e#3406#3407#0" expanded="true" />
+                <marker date="1485919833220" expanded="true" signature="3558:3657" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -83,17 +72,17 @@
       <file leaf-file-name="Gui.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1611">
-              <caret line="400" column="11" lean-forward="false" selection-start-line="400" selection-start-column="11" selection-end-line="400" selection-end-column="11" />
+            <state relative-caret-position="-1503">
+              <caret line="165" column="28" lean-forward="true" selection-start-line="165" selection-start-column="28" selection-end-line="165" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1597#1598#0" expanded="true" />
                 <element signature="e#1678#1679#0" expanded="true" />
                 <element signature="e#2170#2171#0" expanded="true" />
                 <element signature="e#2211#2212#0" expanded="true" />
-                <element signature="e#4671#5653#0" expanded="true" />
-                <element signature="e#5652#5653#0" expanded="true" />
-                <element signature="class#11307:12028" expanded="false" />
+                <element signature="e#5046#6028#0" expanded="true" />
+                <element signature="e#6027#6028#0" expanded="true" />
+                <element signature="class#11682:12403" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -1049,7 +1038,7 @@
       <workItem from="1485731652151" duration="12566000" />
       <workItem from="1485791732564" duration="7488000" />
       <workItem from="1485888987713" duration="15330000" />
-      <workItem from="1485913585250" duration="6194000" />
+      <workItem from="1485913585250" duration="6482000" />
     </task>
     <task id="LOCAL-00001" summary="Organizado código da gui">
       <created>1485918006387</created>
@@ -1058,11 +1047,25 @@
       <option name="project" value="LOCAL" />
       <updated>1485918006387</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Organizado código da gui pt2">
+      <created>1485919817606</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1485919817606</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Organizado código da gui pt2">
+      <created>1485919913848</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1485919913848</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="119737000" />
+    <option name="totallyTimeSpent" value="120025000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="24" width="1920" height="1056" extended-state="6" />
@@ -1107,8 +1110,10 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
     <MESSAGE value="Organizado código da gui" />
-    <option name="LAST_COMMIT_MESSAGE" value="Organizado código da gui" />
+    <MESSAGE value="Organizado código da gui pt2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Organizado código da gui pt2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1453,24 +1458,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/bcco/wWar/game/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2214">
-          <caret line="135" column="0" lean-forward="false" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
+        <state relative-caret-position="2232">
+          <caret line="136" column="0" lean-forward="false" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2342#2343#0" expanded="true" />
             <element signature="e#2367#2368#0" expanded="true" />
-            <element signature="e#2809#2810#0" expanded="true" />
-            <element signature="e#2843#2844#0" expanded="true" />
-            <element signature="e#2947#2948#0" expanded="true" />
-            <element signature="e#2977#2978#0" expanded="true" />
-            <element signature="e#3059#3060#0" expanded="true" />
-            <element signature="e#3090#3091#0" expanded="true" />
-            <element signature="e#3180#3181#0" expanded="true" />
-            <element signature="e#3208#3209#0" expanded="true" />
-            <element signature="e#3297#3298#0" expanded="true" />
-            <element signature="e#3326#3327#0" expanded="true" />
-            <element signature="e#3371#3372#0" expanded="true" />
-            <element signature="e#3406#3407#0" expanded="true" />
+            <marker date="1485919833220" expanded="true" signature="3558:3657" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1499,17 +1493,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1611">
-          <caret line="400" column="11" lean-forward="false" selection-start-line="400" selection-start-column="11" selection-end-line="400" selection-end-column="11" />
+        <state relative-caret-position="-1503">
+          <caret line="165" column="28" lean-forward="true" selection-start-line="165" selection-start-column="28" selection-end-line="165" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1597#1598#0" expanded="true" />
             <element signature="e#1678#1679#0" expanded="true" />
             <element signature="e#2170#2171#0" expanded="true" />
             <element signature="e#2211#2212#0" expanded="true" />
-            <element signature="e#4671#5653#0" expanded="true" />
-            <element signature="e#5652#5653#0" expanded="true" />
-            <element signature="class#11307:12028" expanded="false" />
+            <element signature="e#5046#6028#0" expanded="true" />
+            <element signature="e#6027#6028#0" expanded="true" />
+            <element signature="class#11682:12403" expanded="false" />
           </folding>
         </state>
       </provider>
