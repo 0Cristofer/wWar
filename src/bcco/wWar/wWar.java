@@ -97,10 +97,8 @@ public class wWar {
 
         //Loop que lê os nomes dos oponentes, estes se encontram no arquivo config após MAPA e TABELA
         for (int i = 2; i < config_.size() ; i++) {
-            //System.out.println(config_.get(i));
             game_.insertNomeCPU(config_.get(i));
         }
-
         game_.createCPU();
     }
 

@@ -19,12 +19,14 @@ public class Jogador {
     }
 
     /**
+     * @param nome O nome do jogador
+     */
+    public void setNome(String nome){ nome_  = nome;}
+
+    /**
      * @return O nome do jogador
      */
     public String getNome(){
         return nome_;
     }
-
-    public void setNome(String nome){ nome_  = nome;}
-
 }

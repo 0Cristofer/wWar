@@ -34,9 +34,9 @@ public class Game {
     public Game(Mapa mapa){
         mapa_ = mapa;
 
-        humano_ = new Jogador(false);
-
         nomesCPU_ = new ArrayList<>();
+
+        humano_ = new Jogador(false);
 
         state_ = GameStates.INICIO;
     }
@@ -67,6 +67,10 @@ public class Game {
                 e.printStackTrace();
             }
 
+            if(continente == null){
+                return;
+            }
+
             for (int j = 0; j < continente.numTerritorios(); j++) {
                 Territorio territorio = null;
                 try {
@@ -74,16 +78,20 @@ public class Game {
                 } catch (ContinenteException e) {
                     e.printStackTrace();
                 }
-                if (random.nextInt(2) == 0) {
-                    territorio.setOcupante_(humano_);
-                } else {
-                    territorio.setOcupante_(pc_);
+                if(territorio != null) {
+                    if (random.nextInt(2) == 0) {
+                        territorio.setOcupante_(humano_);
+                    } else {
+                        territorio.setOcupante_(pc_);
+                    }
                 }
             }
-
         }
     }
 
+    /**
+     * Muda a rodada atual para a próxima
+     */
     public void mudaRodada(){
         rodada_++;
     }
@@ -98,13 +106,19 @@ public class Game {
     }
 
     /**
-     * @return O jogador que joga nesta rodada
+     * Insere um nome na lista de nomes possíveis para a cpu
+     * @param nome O nome a ser adicionado
      */
-    public Jogador getJogadorDaVez(){
-        if((rodada_ % 2) == 0){
-            return humano_;
-        }
-        return pc_;
+    public void insertNomeCPU(String nome){
+        nomesCPU_.add(nome);
+    }
+
+    /**
+     * @return O nome escolhido aleatóriamente
+     */
+    private String getrandomNomeCPU(){
+        Random r = new Random();
+        return nomesCPU_.get(r.nextInt(nomesCPU_.size()));
     }
 
     /**
@@ -119,6 +133,16 @@ public class Game {
      */
     public void setState(GameStates state){
         state_ = state;
+    }
+
+    /**
+     * @return O jogador que joga nesta rodada
+     */
+    public Jogador getJogadorDaVez(){
+        if((rodada_ % 2) == 0){
+            return humano_;
+        }
+        return pc_;
     }
 
     /**
@@ -140,18 +164,5 @@ public class Game {
      */
     public GameStates getState(){
         return state_;
-    }
-
-    public void insertNomeCPU(String nome){
-        nomesCPU_.add(nome);
-    }
-
-    /**
-     *
-     * @return O nome escolhido aleatóriamente
-     */
-    private String getrandomNomeCPU(){
-        Random r = new Random();
-        return nomesCPU_.get(r.nextInt(nomesCPU_.size()));
     }
 }
