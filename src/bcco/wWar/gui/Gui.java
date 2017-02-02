@@ -494,7 +494,7 @@ public class Gui {
         frame.getContentPane().setLayout(new GridBagLayout());
         frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 
-        //Classe que define o comportamento dos textFields dos terrestres
+        //Classe que define o comportamento dos terrTextFields dos terrestres
         class InTerrListener implements DocumentListener {
             private JTextField text;
 
@@ -547,7 +547,7 @@ public class Gui {
             }
         }
 
-        //Classe que define o comportamento dos textFields dos aereos
+        //Classe que define o comportamento dos terrTextFields dos aereos
         class InAereoListener implements DocumentListener {
             private JTextField text;
 
@@ -602,32 +602,45 @@ public class Gui {
 
         //Classe que configura o comportamento do botão de confirmação
         class Distribuir implements ActionListener{
-            private List<Integer> valores;
-            private List<JTextField> textFields;
+            private List<Integer> valoresTerr;
+            private List<JTextField> terrTextFields;
+            private List<Integer> valoresAereo;
+            private List<JTextField> aereoTextFields;
 
-            private Distribuir(List<JTextField> textFields){
-                this.textFields = textFields;
-                valores = new ArrayList<>();
+            private Distribuir(List<JTextField> terrTextFields, List<JTextField> aereoTextFields) {
+                this.terrTextFields = terrTextFields;
+                valoresTerr = new ArrayList<>();
+
+                this.aereoTextFields = aereoTextFields;
+                valoresAereo = new ArrayList<>();
             }
 
 
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                int soma = 0;
+                int somaTerr = 0;
+                int somaAereo = 0;
 
-                for (JTextField textField: textFields) {
-                    valores.add(Integer.parseInt(textField.getText()));
-                    soma += Integer.parseInt(textField.getText());
+                //Exercitos terrestres
+                for (JTextField textField : terrTextFields) {
+                    valoresTerr.add(Integer.parseInt(textField.getText()));
+                    somaTerr += Integer.parseInt(textField.getText());
                 }
 
-                if (soma > terr_recebidos) {
+                //Exercitos aereos
+                for (JTextField textField : aereoTextFields) {
+                    valoresAereo.add(Integer.parseInt(textField.getText()));
+                    somaAereo += Integer.parseInt(textField.getText());
+                }
+
+                if (somaTerr > terr_recebidos || somaAereo > aereo_recebidos) {
                     JOptionPane.showMessageDialog(null, "Erro, valor total da distribuição maior que" +
                             " total de exércitos disponiveis!","ERRO",JOptionPane.OK_OPTION);
-                } else if (soma == terr_recebidos) {
+                } else if (somaTerr == terr_recebidos && somaAereo == aereo_recebidos) {
                     JOptionPane.showMessageDialog(null, "Tropas distribuídas!",
                             "Sucesso",JOptionPane.OK_CANCEL_OPTION);
 
-                    game_.distribuirExercitos(valores);
+                    game_.distribuirExercitos(valoresTerr, valoresAereo);
                     frame.setVisible(false);
                     updateJogadoresInfos();
                 } else {
@@ -704,7 +717,7 @@ public class Gui {
             pane.add(qtd, c4);
             i++;
 
-            //Adiciona a lista de textFields
+            //Adiciona a lista de terrTextFields
             terr_text_fields.add(in_terr);
             aereo_text_fields.add(in_aereo);
         }
@@ -723,7 +736,7 @@ public class Gui {
         c4.gridheight = 2;
         c4.fill = GridBagConstraints.VERTICAL;
 
-        distribuir.addActionListener(new Distribuir(terr_text_fields));
+        distribuir.addActionListener(new Distribuir(terr_text_fields, aereo_text_fields));
         pane.add(distribuir, c4);
 
         frame.getContentPane().add(pane, c1);
