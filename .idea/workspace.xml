@@ -6,7 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b516ea51-8b46-48f7-bf50-72962dbab64a" name="Default" comment="Modificado sistema de distribuição de exército: Adicionado exércitos aereos">
+    <list default="true" id="b516ea51-8b46-48f7-bf50-72962dbab64a" name="Default" comment="Corrigido sistema de distribuição de tropas">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/Main.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/Main.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/game/Game.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/game/Game.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/game/jogadores/Jogador.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/game/jogadores/Jogador.class" />
@@ -22,8 +22,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/mapa/continentes/Continente.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/mapa/continentes/Continente.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/wWar.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/wWar.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bcco/wWar/game/Game.java" afterPath="$PROJECT_DIR$/src/bcco/wWar/game/Game.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java" afterPath="$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -110,22 +108,22 @@
                 <element signature="e#18768#18769#0" expanded="true" />
                 <element signature="e#18860#18861#0" expanded="true" />
                 <element signature="e#18899#18900#0" expanded="true" />
-                <element signature="e#28086#28087#0" expanded="true" />
-                <element signature="e#28135#28136#0" expanded="true" />
-                <element signature="e#30111#30112#0" expanded="true" />
-                <element signature="e#30193#30194#0" expanded="true" />
-                <element signature="e#30390#30391#0" expanded="true" />
-                <element signature="e#30472#30473#0" expanded="true" />
-                <element signature="e#30666#30667#0" expanded="true" />
-                <element signature="e#30751#30752#0" expanded="true" />
-                <element signature="e#33286#33287#0" expanded="true" />
-                <element signature="e#33339#33340#0" expanded="true" />
-                <element signature="e#35317#35318#0" expanded="true" />
-                <element signature="e#35399#35400#0" expanded="true" />
-                <element signature="e#35596#35597#0" expanded="true" />
-                <element signature="e#35678#35679#0" expanded="true" />
-                <element signature="e#35872#35873#0" expanded="true" />
-                <element signature="e#35957#35958#0" expanded="true" />
+                <element signature="e#28089#28090#0" expanded="true" />
+                <element signature="e#28138#28139#0" expanded="true" />
+                <element signature="e#30114#30115#0" expanded="true" />
+                <element signature="e#30196#30197#0" expanded="true" />
+                <element signature="e#30393#30394#0" expanded="true" />
+                <element signature="e#30475#30476#0" expanded="true" />
+                <element signature="e#30669#30670#0" expanded="true" />
+                <element signature="e#30754#30755#0" expanded="true" />
+                <element signature="e#33289#33290#0" expanded="true" />
+                <element signature="e#33342#33343#0" expanded="true" />
+                <element signature="e#35320#35321#0" expanded="true" />
+                <element signature="e#35402#35403#0" expanded="true" />
+                <element signature="e#35599#35600#0" expanded="true" />
+                <element signature="e#35681#35682#0" expanded="true" />
+                <element signature="e#35875#35876#0" expanded="true" />
+                <element signature="e#35960#35961#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1067,7 +1065,7 @@
       <workItem from="1485961921055" duration="143000" />
       <workItem from="1485962120053" duration="22918000" />
       <workItem from="1486002719211" duration="3074000" />
-      <workItem from="1486049542077" duration="1471000" />
+      <workItem from="1486049542077" duration="1512000" />
     </task>
     <task id="LOCAL-00001" summary="Organizado código da gui">
       <created>1485918006387</created>
@@ -1153,11 +1151,18 @@
       <option name="project" value="LOCAL" />
       <updated>1486004961038</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Corrigido sistema de distribuição de tropas">
+      <created>1486051081275</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1486051081275</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="150721000" />
+    <option name="totallyTimeSpent" value="150762000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="24" width="1920" height="1056" extended-state="6" />
@@ -1213,7 +1218,8 @@
     <MESSAGE value="Organizado tela principal" />
     <MESSAGE value="Arrumado null pointer" />
     <MESSAGE value="Modificado sistema de distribuição de exército: Adicionado exércitos aereos" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modificado sistema de distribuição de exército: Adicionado exércitos aereos" />
+    <MESSAGE value="Corrigido sistema de distribuição de tropas" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corrigido sistema de distribuição de tropas" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -1589,22 +1595,22 @@
             <element signature="e#18768#18769#0" expanded="true" />
             <element signature="e#18860#18861#0" expanded="true" />
             <element signature="e#18899#18900#0" expanded="true" />
-            <element signature="e#28086#28087#0" expanded="true" />
-            <element signature="e#28135#28136#0" expanded="true" />
-            <element signature="e#30111#30112#0" expanded="true" />
-            <element signature="e#30193#30194#0" expanded="true" />
-            <element signature="e#30390#30391#0" expanded="true" />
-            <element signature="e#30472#30473#0" expanded="true" />
-            <element signature="e#30666#30667#0" expanded="true" />
-            <element signature="e#30751#30752#0" expanded="true" />
-            <element signature="e#33286#33287#0" expanded="true" />
-            <element signature="e#33339#33340#0" expanded="true" />
-            <element signature="e#35317#35318#0" expanded="true" />
-            <element signature="e#35399#35400#0" expanded="true" />
-            <element signature="e#35596#35597#0" expanded="true" />
-            <element signature="e#35678#35679#0" expanded="true" />
-            <element signature="e#35872#35873#0" expanded="true" />
-            <element signature="e#35957#35958#0" expanded="true" />
+            <element signature="e#28089#28090#0" expanded="true" />
+            <element signature="e#28138#28139#0" expanded="true" />
+            <element signature="e#30114#30115#0" expanded="true" />
+            <element signature="e#30196#30197#0" expanded="true" />
+            <element signature="e#30393#30394#0" expanded="true" />
+            <element signature="e#30475#30476#0" expanded="true" />
+            <element signature="e#30669#30670#0" expanded="true" />
+            <element signature="e#30754#30755#0" expanded="true" />
+            <element signature="e#33289#33290#0" expanded="true" />
+            <element signature="e#33342#33343#0" expanded="true" />
+            <element signature="e#35320#35321#0" expanded="true" />
+            <element signature="e#35402#35403#0" expanded="true" />
+            <element signature="e#35599#35600#0" expanded="true" />
+            <element signature="e#35681#35682#0" expanded="true" />
+            <element signature="e#35875#35876#0" expanded="true" />
+            <element signature="e#35960#35961#0" expanded="true" />
           </folding>
         </state>
       </provider>
