@@ -84,6 +84,10 @@ public class Territorio {
 
     }
 
+    public void insereTerrestre(Terrestre exercito){
+        exercitos_terrestres_.add(exercito);
+    }
+
     /**
      * @return O vetor de territórios que fazem fronteira
      */
@@ -116,4 +120,5 @@ public class Territorio {
     public String toString(){
         return getNome();
     }
+
 }

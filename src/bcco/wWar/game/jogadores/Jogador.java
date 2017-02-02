@@ -9,6 +9,8 @@ import java.util.List;
 public class Jogador {
     private String nome_;
     private boolean is_pc_;
+    private int terrestres_recebidos_;
+    private int aereos_recebidos_;
 
     /**
      * Define o nome do jogador e se ele é ou não controlado pelo computador
@@ -29,4 +31,39 @@ public class Jogador {
     public String getNome(){
         return nome_;
     }
+
+    /**
+     *
+     * @return
+     */
+    public int getTerrestres_recebidos_() {
+        return terrestres_recebidos_;
+    }
+
+    /**
+     *
+     * @param terrestres_recebidos_
+     */
+    public void setTerrestres_recebidos_(int terrestres_recebidos_) {
+        this.terrestres_recebidos_ = terrestres_recebidos_;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getAereos_recebidos_() {
+        return aereos_recebidos_;
+    }
+
+    /**
+     *
+     * @param aereos_recebidos_
+     */
+    public void setAereos_recebidos_(int aereos_recebidos_) {
+        this.aereos_recebidos_ = aereos_recebidos_;
+    }
+
+
+
 }

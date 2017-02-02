@@ -6,6 +6,8 @@ import bcco.wWar.mapa.exceptions.MapaException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -88,6 +90,7 @@ public class Gui {
                     public void actionPerformed(ActionEvent e) {
                         game_.iniciarJogo(nome_input.getText());
                         clear();
+                        distribuirExercito(); //Arrumar
                         telaJogo();
                     }
                 }
@@ -314,8 +317,177 @@ public class Gui {
         show();
     }
 
+
     /**
-     * Mostra a tela pop-up de ataque
+     * Tela de distribuição de exército
+     */
+    public void distribuirExercito(){
+        int qtd_recebida = game_.getHumano().getTerrestres_recebidos_();
+        int soma = 0;
+        int i = 1;
+        List<Territorio> territorios = game_.getTerritorios(game_.getHumano());
+
+        JFrame frame = new JFrame("Distribuir Exércitos");
+        JPanel pane = new JPanel(new GridBagLayout());
+        frame.getContentPane().setLayout(new GridBagLayout());
+        frame.setLocationRelativeTo(null);
+        frame.getContentPane().setLayout(new GridBagLayout());
+        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+
+        class InListener implements DocumentListener{
+            private JTextField text;
+
+            InListener(JTextField text) {
+                this.text = text;
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent documentEvent) {
+                check();
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent documentEvent) {
+                check();
+
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent documentEvent) {
+                check();
+
+            }
+
+            private void check(){
+                Runnable doCheck = new Runnable() {
+                    @Override
+                    public void run() {
+                        int v = 0;
+                        try {
+                            v = Integer.parseInt(text.getText());
+                        } catch (NumberFormatException e) {
+                            text.setText("0");
+                            JOptionPane.showMessageDialog(null, "Erro, valor não numérico!",
+                                    "ERRO",JOptionPane.OK_OPTION);
+                            return;
+                        }
+
+
+                        if (v > qtd_recebida){
+                            text.setText("0");
+                            JOptionPane.showMessageDialog(null, "Erro, valor maior que total de" +
+                                    " exércitos disponiveis!","ERRO",JOptionPane.OK_OPTION);
+                        }
+                    }
+                };
+                SwingUtilities.invokeLater(doCheck);
+            }
+        }
+
+
+        class distribuir implements ActionListener{
+            int soma;
+            List<Integer> valores;
+            List<JTextField> textFields;
+
+            distribuir(List<JTextField> textFields){
+                this.textFields = textFields;
+                valores = new ArrayList<>();
+            }
+
+
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                soma = 0;
+
+                for (JTextField textField: textFields) {
+                    valores.add(Integer.parseInt(textField.getText()));
+                    soma += Integer.parseInt(textField.getText());
+                }
+
+                if (soma > qtd_recebida){
+                    JOptionPane.showMessageDialog(null, "Erro, valor total da distribuição maior que" +
+                            " total de exércitos disponiveis!","ERRO",JOptionPane.OK_OPTION);
+                } else if (soma == qtd_recebida){
+                    JOptionPane.showMessageDialog(null, "Tropas distribuídas!",
+                            "Sucesso",JOptionPane.OK_CANCEL_OPTION);
+
+                    game_.distribuirExercitos(valores);
+                    frame.setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Sobraram algumas tropas sem distribuição," +
+                            " não abandone-as!","Atenção",JOptionPane.OK_OPTION);
+                }
+            }
+        }
+
+
+        GridBagConstraints c1 = new GridBagConstraints();
+        c1.insets = new Insets(5, 5, 5, 5);
+        c1.gridx = 0;
+
+        GridBagConstraints c2 = new GridBagConstraints();
+        c2.insets = new Insets(5, 5, 5, 5);
+        c2.gridx = 1;
+
+        GridBagConstraints c3 = new GridBagConstraints();
+        c3.insets = new Insets(5, 5, 5, 5);
+        c3.gridx = 2;
+
+        JLabel d_nome = new JLabel("Nome território");
+        JLabel d_qtd = new JLabel("Quantidade de tropas");
+        JLabel d_in = new JLabel("Adicionar");
+
+        c1.gridy = 0;
+        c2.gridy = 0;
+        c3.gridy = 0;
+
+        pane.add(d_nome,c1);
+        pane.add(d_qtd,c3);
+        pane.add(d_in,c2);
+        frame.getContentPane().add(pane, c1);
+
+        List<JTextField> textFields = new ArrayList<>();
+
+        //Componentes
+        for (Territorio t : territorios) {
+            JLabel nome = new JLabel(t.getNome());
+            JLabel qtd = new JLabel(Integer.toString(t.getNumExTerrestres()));
+            JTextField in = new JTextField(3);
+            in.setText("0");
+            in.getDocument().addDocumentListener(new InListener(in));
+
+            c1.gridy = i;
+            c2.gridy = i;
+            c3.gridy = i;
+
+            pane.add(nome,c1);
+            pane.add(qtd,c3);
+            pane.add(in,c2);
+            i++;
+
+            textFields.add(in);
+        }
+
+        JLabel ex_restante = new JLabel("Exercitos terrestres restantes: " + Integer.toString(game_.getHumano().getTerrestres_recebidos_()) );
+        JButton distribuir = new JButton("Distribuir exércitos");
+        distribuir.addActionListener(new distribuir(textFields));
+
+        c3.gridy = i + 1;
+        c1.gridy = i + 1;
+
+        pane.add(ex_restante, c1);
+        pane.add(distribuir, c3);
+
+        frame.getContentPane().add(pane, c1);
+        frame.pack();
+
+        frame.setVisible(true);
+
+    }
+
+    /**
+     * Tela de pop-up de ataque
      */
     private void atacar(){
         atacando_ = true;
