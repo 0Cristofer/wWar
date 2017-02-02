@@ -84,8 +84,19 @@ public class Territorio {
 
     }
 
+    /**
+     * @param exercito
+     */
     public void insereTerrestre(Terrestre exercito){
         exercitos_terrestres_.add(exercito);
+    }
+
+    /**
+     *
+     * @param exercito
+     */
+    public void insereAereo(Aereo exercito) {
+        exercitos_aereos_.add(exercito);
     }
 
     /**

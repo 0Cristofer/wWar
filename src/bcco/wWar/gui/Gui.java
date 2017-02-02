@@ -480,8 +480,10 @@ public class Gui {
     /**
      * Tela de distribuição de exército
      */
-    private void distribuirExercito(){
-        int qtd_recebida = game_.getHumano().getTerrestres_recebidos_();
+    public void distribuirExercito(){
+        int terr_recebidos = game_.getHumano().getTerrestres_recebidos_();
+        int aereo_recebidos = game_.getHumano().getAereos_recebidos_();
+
         int i = 1;
         List<Territorio> territorios = game_.getTerritorios(game_.getHumano());
 
@@ -492,10 +494,10 @@ public class Gui {
         frame.getContentPane().setLayout(new GridBagLayout());
         frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 
-        class InListener implements DocumentListener{
+        class InTerrListener implements DocumentListener {
             private JTextField text;
 
-            private InListener(JTextField text) {
+            InTerrListener(JTextField text) {
                 this.text = text;
             }
 
@@ -532,7 +534,59 @@ public class Gui {
                             }
 
 
-                            if (v > qtd_recebida) {
+                            if (v > terr_recebidos) {
+                                text.setText("0");
+                                JOptionPane.showMessageDialog(null, "Erro, valor maior que total de" +
+                                        " exércitos disponiveis!", "ERRO", JOptionPane.OK_OPTION);
+                            }
+                        }
+                    }
+                };
+                SwingUtilities.invokeLater(doCheck);
+            }
+        }
+
+        class InAereoListener implements DocumentListener {
+            private JTextField text;
+
+            InAereoListener(JTextField text) {
+                this.text = text;
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent documentEvent) {
+                check();
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent documentEvent) {
+                check();
+
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent documentEvent) {
+                check();
+
+            }
+
+            private void check() {
+                Runnable doCheck = new Runnable() {
+                    @Override
+                    public void run() {
+                        int v = 0;
+                        if (!Objects.equals(text.getText(), "")) {
+                            try {
+                                v = Integer.parseInt(text.getText());
+                            } catch (NumberFormatException e) {
+                                text.setText("0");
+                                JOptionPane.showMessageDialog(null, "Erro, valor não numérico!",
+                                        "ERRO", JOptionPane.OK_OPTION);
+                                return;
+                            }
+
+
+                            if (v > aereo_recebidos) {
                                 text.setText("0");
                                 JOptionPane.showMessageDialog(null, "Erro, valor maior que total de" +
                                         " exércitos disponiveis!", "ERRO", JOptionPane.OK_OPTION);
@@ -565,10 +619,10 @@ public class Gui {
                     soma += Integer.parseInt(textField.getText());
                 }
 
-                if (soma > qtd_recebida){
+                if (soma > terr_recebidos) {
                     JOptionPane.showMessageDialog(null, "Erro, valor total da distribuição maior que" +
                             " total de exércitos disponiveis!","ERRO",JOptionPane.OK_OPTION);
-                } else if (soma == qtd_recebida){
+                } else if (soma == terr_recebidos) {
                     JOptionPane.showMessageDialog(null, "Tropas distribuídas!",
                             "Sucesso",JOptionPane.OK_CANCEL_OPTION);
 
@@ -595,56 +649,79 @@ public class Gui {
         c3.insets = new Insets(5, 5, 5, 5);
         c3.gridx = 2;
 
+        GridBagConstraints c4 = new GridBagConstraints();
+        c4.insets = new Insets(5, 5, 5, 5);
+        c4.gridx = 3;
+
         JLabel d_nome = new JLabel("Nome território");
         JLabel d_qtd = new JLabel("Quantidade de tropas");
-        JLabel d_in = new JLabel("Adicionar");
+        JLabel d_inTerr = new JLabel("Terrestres");
+        JLabel d_inAereo = new JLabel("Aereos");
 
         c1.gridy = 0;
         c2.gridy = 0;
         c3.gridy = 0;
+        c4.gridy = 0;
 
         pane.add(d_nome,c1);
-        pane.add(d_qtd,c3);
-        pane.add(d_in,c2);
+        pane.add(d_inTerr, c2);
+        pane.add(d_inAereo, c3);
+        pane.add(d_qtd, c4);
         frame.getContentPane().add(pane, c1);
 
-        List<JTextField> textFields = new ArrayList<>();
+        List<JTextField> terrTextFields = new ArrayList<>();
+        List<JTextField> aereoTextFields = new ArrayList<>();
+
 
         //Componentes
         for (Territorio t : territorios) {
             JLabel nome = new JLabel(t.getNome());
-            JLabel qtd = new JLabel(Integer.toString(t.getNumExTerrestres()));
-            JTextField in = new JTextField(3);
-            in.setText("0");
-            in.getDocument().addDocumentListener(new InListener(in));
+            JLabel qtd = new JLabel("(" + Integer.toString(t.getNumExTerrestres()) + "/" + Integer.toString(t.getNumExAereos()) + ")");
+
+            JTextField inTerr = new JTextField(3);
+            inTerr.setText("0");
+            inTerr.getDocument().addDocumentListener(new InTerrListener(inTerr));
+
+            JTextField inAereo = new JTextField(3);
+            inAereo.setText("0");
+            inAereo.getDocument().addDocumentListener(new InAereoListener(inAereo));
 
             c1.gridy = i;
             c2.gridy = i;
             c3.gridy = i;
+            c4.gridy = i;
 
             pane.add(nome,c1);
-            pane.add(qtd,c3);
-            pane.add(in,c2);
+            pane.add(inTerr, c2);
+            pane.add(inAereo, c3);
+            pane.add(qtd, c4);
             i++;
 
-            textFields.add(in);
+            terrTextFields.add(inTerr);
+            aereoTextFields.add(inAereo);
         }
 
-        JLabel ex_restante = new JLabel("Exercitos terrestres restantes: " + Integer.toString(game_.getHumano().getTerrestres_recebidos_()) );
-        JButton distribuir = new JButton("Distribuir exércitos");
-        distribuir.addActionListener(new distribuir(textFields));
+        JLabel terrestre_restante = new JLabel("Exercitos terrestres restantes: " + Integer.toString(game_.getHumano().getTerrestres_recebidos_()));
+        JLabel aereo_restante = new JLabel("Exercitos aereos restantes: " + Integer.toString(game_.getHumano().getAereos_recebidos_()));
 
-        c3.gridy = i + 1;
         c1.gridy = i + 1;
+        pane.add(terrestre_restante, c1);
+        c1.gridy++;
+        c1.anchor = GridBagConstraints.LINE_START;
+        pane.add(aereo_restante, c1);
 
-        pane.add(ex_restante, c1);
-        pane.add(distribuir, c3);
+        JButton distribuir = new JButton("Distribuir exércitos");
+        distribuir.addActionListener(new distribuir(terrTextFields));
+
+        c4.gridy = i + 1;
+        c4.gridheight = 2;
+        c4.fill = GridBagConstraints.VERTICAL;
+        pane.add(distribuir, c4);
 
         frame.getContentPane().add(pane, c1);
         frame.pack();
 
         frame.setVisible(true);
-
     }
 
     private void updateJogadoresInfos(){
