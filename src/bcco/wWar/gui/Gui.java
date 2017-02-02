@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /** Controla a interface com o usuario
  *  @author Cristofer Oswald
@@ -90,8 +91,8 @@ public class Gui {
                     public void actionPerformed(ActionEvent e) {
                         game_.iniciarJogo(nome_input.getText());
                         clear();
-                        distribuirExercito(); //Arrumar
                         telaJogo();
+                        distribuirExercito(); //Arrumar
                     }
                 }
         );
@@ -208,19 +209,21 @@ public class Gui {
                             }
 
                             if(selecionado_.getOcupante() == game_.getHumano()){
-                                updateInfos(jogador_selecao_nome_pais, jogador_num_terr,
-                                        jogador_num_aereo, jogador_selecao_vizinhos, jogador_atacar, jogador_movimentar, row, col);
+                                updateInfos(jogador_selecao_nome_pais, jogador_selecao_num_terr,
+                                        jogador_selecao_num_aereo, jogador_selecao_vizinhos,
+                                        jogador_atacar, jogador_movimentar, row, col);
                                 cpu_selecao_nome_pais.setText("Nome: Nenhum");
-                                cpu_num_terr.setText("Exércitos Terrestres: 0");
-                                cpu_num_aereo.setText("Exércitos Aéreo: 0");
+                                cpu_selecao_num_terr.setText("Exércitos Terrestres: 0");
+                                cpu_selecao_num_aereo.setText("Exércitos Aéreo: 0");
                                 cpu_selecao_vizinhos.setText("Vizinhos: Nenhum");
                             }
                             else {
-                                updateInfos(cpu_selecao_nome_pais, cpu_num_terr,
-                                        cpu_num_aereo, cpu_selecao_vizinhos, jogador_atacar, jogador_movimentar, row, col);
+                                updateInfos(cpu_selecao_nome_pais, cpu_selecao_num_terr,
+                                        cpu_selecao_num_aereo, cpu_selecao_vizinhos,
+                                        jogador_atacar, jogador_movimentar, row, col);
                                 jogador_selecao_nome_pais.setText("Nome: Nenhum");
-                                jogador_num_terr.setText("Exércitos Terrestres: 0");
-                                jogador_num_aereo.setText("Exércitos Aéreo: 0");
+                                jogador_selecao_num_terr.setText("Exércitos Terrestres: 0");
+                                jogador_selecao_num_aereo.setText("Exércitos Aéreo: 0");
                                 jogador_selecao_vizinhos.setText("Vizinhos: Nenhum");
                             }
                         }
@@ -490,20 +493,22 @@ public class Gui {
                     @Override
                     public void run() {
                         int v = 0;
-                        try {
-                            v = Integer.parseInt(text.getText());
-                        } catch (NumberFormatException e) {
-                            text.setText("0");
-                            JOptionPane.showMessageDialog(null, "Erro, valor não numérico!",
-                                    "ERRO",JOptionPane.OK_OPTION);
-                            return;
-                        }
+                        if (!Objects.equals(text.getText(), "")) {
+                            try {
+                                v = Integer.parseInt(text.getText());
+                            } catch (NumberFormatException e) {
+                                text.setText("0");
+                                JOptionPane.showMessageDialog(null, "Erro, valor não numérico!",
+                                        "ERRO", JOptionPane.OK_OPTION);
+                                return;
+                            }
 
 
-                        if (v > qtd_recebida){
-                            text.setText("0");
-                            JOptionPane.showMessageDialog(null, "Erro, valor maior que total de" +
-                                    " exércitos disponiveis!","ERRO",JOptionPane.OK_OPTION);
+                            if (v > qtd_recebida) {
+                                text.setText("0");
+                                JOptionPane.showMessageDialog(null, "Erro, valor maior que total de" +
+                                        " exércitos disponiveis!", "ERRO", JOptionPane.OK_OPTION);
+                            }
                         }
                     }
                 };
@@ -1051,8 +1056,8 @@ public class Gui {
             Territorio[] fronteira = t.getFronteira();
 
             pais.setText("Pais selecionao: " + t.getNome());
-            num_terr.setText("Exércitos Terrestres: " + "3");
-            num_aereo.setText("Exércitos Aéreos: " + "2");
+            num_terr.setText("Exércitos Terrestres: " + selecionado_.getNumExTerrestres());
+            num_aereo.setText("Exércitos Aéreos: " + selecionado_.getNumExAereos());
 
             String f = "Vizinhos: ";
             for (Territorio aFronteira : fronteira) {
