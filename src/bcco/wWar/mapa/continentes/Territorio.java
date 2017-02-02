@@ -35,6 +35,20 @@ public class Territorio {
     }
 
     /**
+     * @return
+     */
+    public List<Terrestre> getExercitos_terrestres_() {
+        return exercitos_terrestres_;
+    }
+
+    /**
+     * @return
+     */
+    public List<Aereo> getExercitos_aereos_() {
+        return exercitos_aereos_;
+    }
+
+    /**
      * Adiciona um exército terrestre a lista de exércitos terrestres
      * @param exercito O exército a ser adicionado
      */

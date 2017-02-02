@@ -6,6 +6,6 @@ package bcco.wWar.game.exercitos;
  */
 public class Aereo extends Exercito {
     public int combater(){
-        return gerador.nextInt(6) + 1;
+        return gerador.nextInt(3);
     }
 }

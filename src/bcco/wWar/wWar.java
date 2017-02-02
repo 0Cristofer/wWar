@@ -3,6 +3,7 @@ package bcco.wWar;
 import bcco.iomanager.IOManager;
 import bcco.wWar.exceptions.wWarException;
 import bcco.wWar.game.Game;
+import bcco.wWar.game.jogadores.CPU;
 import bcco.wWar.gui.Gui;
 import bcco.wWar.mapa.ConstrutorMapa;
 import bcco.wWar.mapa.exceptions.ConstrutorException;
@@ -95,7 +96,7 @@ public class wWar {
 
         //Loop que lê os nomes dos oponentes, estes se encontram no arquivo config após MAPA e TABELA
         for (int i = 2; i < config_.size() ; i++) {
-            game_.insertNomeCPU(config_.get(i));
+            CPU.insertNomeCPU(config_.get(i));
         }
         game_.createCPU();
     }
