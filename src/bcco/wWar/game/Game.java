@@ -227,7 +227,7 @@ public class Game {
         return territorios;
     }
 
-    public int getTotalExercitos(Jogador jogador){
+    public int getNumTerrestres(Jogador jogador){
         int total = 0;
         List<Territorio> territorios = getTerritorios(jogador);
 
@@ -238,6 +238,20 @@ public class Game {
         }
 
         return total;
+    }
+
+    public int getNumAereos(Jogador jogador){
+        int total = 0;
+        List<Territorio> territorios = getTerritorios(jogador);
+
+        for (Territorio t : territorios){
+            if (t.getOcupante()==jogador){
+                total += t.getNumExAereos();
+            }
+        }
+
+        return total;
+
     }
 
     public void distribuirExercitos(List<Integer> valores){

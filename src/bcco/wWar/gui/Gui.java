@@ -1,6 +1,7 @@
 package bcco.wWar.gui;
 
 import bcco.wWar.game.Game;
+import bcco.wWar.game.jogadores.Jogador;
 import bcco.wWar.mapa.continentes.Territorio;
 import bcco.wWar.mapa.exceptions.MapaException;
 
@@ -36,6 +37,32 @@ public class Gui {
     private Territorio selecionado_ = null;
     private String tipo_exerc_;
 
+    //Componentes principais
+    private JLabel jogador_nome;
+    private JLabel jogador_num_territorios;
+    private JLabel jogador_num_continentes;
+    private JLabel jogador_num_terr;
+    private JLabel jogador_num_aereo;
+    private JLabel jogador_selecao_titulo;
+    private JLabel jogador_selecao_nome_pais;
+    private JLabel jogador_selecao_vizinhos;
+    private JLabel jogador_selecao_num_terr;
+    private JLabel jogador_selecao_num_aereo;
+    private JButton jogador_atacar;
+    private JButton jogador_movimentar;
+    private JLabel cpu_nome;
+    private JLabel cpu_num_territorios;
+    private JLabel cpu_num_continentes;
+    private JLabel cpu_num_terr;
+    private JLabel cpu_num_aereo;
+    private JLabel cpu_selecao_titulo;
+    private JLabel cpu_selecao_nome_pais;
+    private JLabel cpu_selecao_vizinhos;
+    private JLabel cpu_selecao_num_terr;
+    private JLabel cpu_selecao_num_aereo;
+    private JTable tabela;
+    private JButton prox_rodada;
+
     /**
      * Cria as estruturas basicas para a janela_
      * @param titulo O titulo da janela_
@@ -69,6 +96,7 @@ public class Gui {
         //Posiciona a tela no centro
         janela_.setLocationRelativeTo(null);
         janela_.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
     }
 
     /**
@@ -163,30 +191,32 @@ public class Gui {
         JPanel cpu_pane = new JPanel(new GridBagLayout());
 
         //Componentes
-        JLabel jogador_nome = new JLabel(game_.getHumano().getNome());
-        JLabel jogador_num_territorios = new JLabel("Número de territórios: ");
-        JLabel jogador_num_continentes = new JLabel("Número de continentes: ");
-        JLabel jogador_num_terr = new JLabel("Exércitos Terrestres: ");
-        JLabel jogador_num_aereo = new JLabel("Exércitos Aéreos: ");
-        JLabel jogador_selecao_titulo = new JLabel("Informções do país");
-        JLabel jogador_selecao_nome_pais = new JLabel("Nome: Nenhum");
-        JLabel jogador_selecao_vizinhos = new JLabel("Vizinhos: Nenhum");
-        JLabel jogador_selecao_num_terr = new JLabel("Exércitos Terrestres: 0");
-        JLabel jogador_selecao_num_aereo = new JLabel("Exércitos Aéreos: 0");
-        JButton jogador_atacar = new JButton("Iniciar ataque");
-        JButton jogador_movimentar = new JButton("Movimentar tropas");
-        JLabel cpu_nome = new JLabel(game_.getPc().getNome());
-        JLabel cpu_num_territorios = new JLabel("Número de territórios: ");
-        JLabel cpu_num_continentes = new JLabel("Número de continentes: ");
-        JLabel cpu_num_terr = new JLabel("Exércitos Terrestres: ");
-        JLabel cpu_num_aereo = new JLabel("Exércitos Aéreos: ");
-        JLabel cpu_selecao_titulo = new JLabel("Informções do país");
-        JLabel cpu_selecao_nome_pais = new JLabel("Nome: Nenhum");
-        JLabel cpu_selecao_vizinhos = new JLabel("Vizinhos: Nenhum");
-        JLabel cpu_selecao_num_terr = new JLabel("Exércitos Terrestres: 0");
-        JLabel cpu_selecao_num_aereo = new JLabel("Exércitos Aéreos: 0");
-        JTable tabela = new JTable(tabela_mapa_);
-        JButton prox_rodada = new JButton("Terminar rodada");
+        jogador_nome = new JLabel(game_.getHumano().getNome());
+        jogador_num_territorios = new JLabel("Número de territórios: ");
+        jogador_num_continentes = new JLabel("Número de continentes: ");
+        jogador_num_terr = new JLabel("Exércitos Terrestres: ");
+        jogador_num_aereo = new JLabel("Exércitos Aéreos: ");
+        jogador_selecao_titulo = new JLabel("Informções do país");
+        jogador_selecao_nome_pais = new JLabel("Nome: Nenhum");
+        jogador_selecao_vizinhos = new JLabel("Vizinhos: Nenhum");
+        jogador_selecao_num_terr = new JLabel("Exércitos Terrestres: 0");
+        jogador_selecao_num_aereo = new JLabel("Exércitos Aéreos: 0");
+        jogador_atacar = new JButton("Iniciar ataque");
+        jogador_movimentar = new JButton("Movimentar tropas");
+        cpu_nome = new JLabel(game_.getPc().getNome());
+        cpu_num_territorios = new JLabel("Número de territórios: ");
+        cpu_num_continentes = new JLabel("Número de continentes: ");
+        cpu_num_terr = new JLabel("Exércitos Terrestres: ");
+        cpu_num_aereo = new JLabel("Exércitos Aéreos: ");
+        cpu_selecao_titulo = new JLabel("Informções do país");
+        cpu_selecao_nome_pais = new JLabel("Nome: Nenhum");
+        cpu_selecao_vizinhos = new JLabel("Vizinhos: Nenhum");
+        cpu_selecao_num_terr = new JLabel("Exércitos Terrestres: 0");
+        cpu_selecao_num_aereo = new JLabel("Exércitos Aéreos: 0");
+        tabela = new JTable(tabela_mapa_);
+        prox_rodada = new JButton("Terminar rodada");
+
+        updateJogadoresInfos();
 
         //Botões desativados
         jogador_atacar.setEnabled(false);
@@ -209,18 +239,14 @@ public class Gui {
                             }
 
                             if(selecionado_.getOcupante() == game_.getHumano()){
-                                updateInfos(jogador_selecao_nome_pais, jogador_selecao_num_terr,
-                                        jogador_selecao_num_aereo, jogador_selecao_vizinhos,
-                                        jogador_atacar, jogador_movimentar, row, col);
+                                updateInfosHumano(row, col, selecionado_.getOcupante());
                                 cpu_selecao_nome_pais.setText("Nome: Nenhum");
                                 cpu_selecao_num_terr.setText("Exércitos Terrestres: 0");
                                 cpu_selecao_num_aereo.setText("Exércitos Aéreo: 0");
                                 cpu_selecao_vizinhos.setText("Vizinhos: Nenhum");
                             }
                             else {
-                                updateInfos(cpu_selecao_nome_pais, cpu_selecao_num_terr,
-                                        cpu_selecao_num_aereo, cpu_selecao_vizinhos,
-                                        jogador_atacar, jogador_movimentar, row, col);
+                                updateInfosHumano(row, col, selecionado_.getOcupante());
                                 jogador_selecao_nome_pais.setText("Nome: Nenhum");
                                 jogador_selecao_num_terr.setText("Exércitos Terrestres: 0");
                                 jogador_selecao_num_aereo.setText("Exércitos Aéreo: 0");
@@ -273,6 +299,7 @@ public class Gui {
                         }
                         else{
                             atacar();
+                            updateJogadoresInfos();
                         }
                     }
                 }
@@ -289,10 +316,12 @@ public class Gui {
                                     JOptionPane.YES_OPTION) {
                                 terminado_ataque_ = true;
                                 movimentar();
+                                updateJogadoresInfos();
                             }
                         }
                         else{
                             movimentar();
+                            updateJogadoresInfos();
                         }
                     }
                 }
@@ -451,9 +480,8 @@ public class Gui {
     /**
      * Tela de distribuição de exército
      */
-    public void distribuirExercito(){
+    private void distribuirExercito(){
         int qtd_recebida = game_.getHumano().getTerrestres_recebidos_();
-        int soma = 0;
         int i = 1;
         List<Territorio> territorios = game_.getTerritorios(game_.getHumano());
 
@@ -467,7 +495,7 @@ public class Gui {
         class InListener implements DocumentListener{
             private JTextField text;
 
-            InListener(JTextField text) {
+            private InListener(JTextField text) {
                 this.text = text;
             }
 
@@ -492,7 +520,7 @@ public class Gui {
                 Runnable doCheck = new Runnable() {
                     @Override
                     public void run() {
-                        int v = 0;
+                        int v;
                         if (!Objects.equals(text.getText(), "")) {
                             try {
                                 v = Integer.parseInt(text.getText());
@@ -518,11 +546,11 @@ public class Gui {
 
 
         class distribuir implements ActionListener{
-            int soma;
-            List<Integer> valores;
-            List<JTextField> textFields;
+            private int soma;
+            private List<Integer> valores;
+            private List<JTextField> textFields;
 
-            distribuir(List<JTextField> textFields){
+            private distribuir(List<JTextField> textFields){
                 this.textFields = textFields;
                 valores = new ArrayList<>();
             }
@@ -546,6 +574,7 @@ public class Gui {
 
                     game_.distribuirExercitos(valores);
                     frame.setVisible(false);
+                    updateJogadoresInfos();
                 } else {
                     JOptionPane.showMessageDialog(null, "Sobraram algumas tropas sem distribuição," +
                             " não abandone-as!","Atenção",JOptionPane.OK_OPTION);
@@ -616,6 +645,21 @@ public class Gui {
 
         frame.setVisible(true);
 
+    }
+
+    private void updateJogadoresInfos(){
+
+        Jogador humano = game_.getHumano();
+        Jogador cpu = game_.getPc();
+
+        jogador_num_territorios.setText("Número de territórios: " + game_.getNumTerritorios(humano));
+        jogador_num_continentes.setText("Número de continentes: ");
+        jogador_num_terr.setText("Exércitos Terrestres: " + game_.getNumTerrestres(humano));
+        jogador_num_aereo.setText("Exércitos Aéreos: " + game_.getNumAereos(humano));
+        cpu_num_territorios.setText("Número de territórios: " + game_.getNumTerritorios(cpu));
+        cpu_num_continentes.setText("Número de continentes: ");
+        cpu_num_terr.setText("Exércitos Terrestres: " + game_.getNumTerrestres(cpu));
+        cpu_num_aereo.setText("Exércitos Aéreos: " + game_.getNumAereos(humano));
     }
 
     /**
@@ -1016,21 +1060,29 @@ public class Gui {
 
     /**
      * Atualiza as informações mostradas na tela de jogo
-     * @param pais O label do país
-     * @param num_terr O label referente ao número de exércitos terrestres
-     * @param num_aereo O label referente ao número de exércitos aéreos
-     * @param vizinhos Label que mostra os países vizinhos
-     * @param atacar Botão referente ao ataque que é ativado ou não dependendo das informações
-     * @param movimentar Botão referente a movimentação
-     * @param row Linha da tabela selecionada
-     * @param col Coluna da tabela selecionada
      */
-    private void updateInfos(JLabel pais, JLabel num_terr, JLabel num_aereo, JLabel vizinhos,
-                             JButton atacar, JButton movimentar, int row, int col){
+    private void updateInfosHumano(int row, int col, Jogador jogador){
+        JLabel nome_pais;
+        JLabel num_terr;
+        JLabel num_aereo;
+        JLabel vizinhos;
+
+        if(jogador == game_.getHumano()){
+            nome_pais = jogador_selecao_nome_pais;
+            num_terr = jogador_selecao_num_terr;
+            num_aereo = jogador_selecao_num_aereo;
+            vizinhos = jogador_selecao_vizinhos;
+        }
+        else{
+            nome_pais = cpu_selecao_nome_pais;
+            num_terr = cpu_selecao_num_terr;
+            num_aereo = cpu_selecao_num_aereo;
+            vizinhos = cpu_selecao_vizinhos;
+        }
         //Se a célula for vazia desativa o botão
         if(game_.getMapa().getTablaMapa()[row][col][0] == -1){
-            atacar.setEnabled(false);
-            movimentar.setEnabled(false);
+            jogador_atacar.setEnabled(false);
+            jogador_movimentar.setEnabled(false);
             return;
         }
 
@@ -1045,17 +1097,17 @@ public class Gui {
         //Atualiza os campos com os respectivos dados
         if(t != null) {
             if(t.getOcupante().getNome().equals(game_.getJogadorDaVez().getNome())){
-                atacar.setEnabled(true);
-                movimentar.setEnabled(true);
+                jogador_atacar.setEnabled(true);
+                jogador_movimentar.setEnabled(true);
             }
             else{
-                atacar.setEnabled(false);
-                movimentar.setEnabled(false);
+                jogador_atacar.setEnabled(false);
+                jogador_movimentar.setEnabled(false);
             }
 
             Territorio[] fronteira = t.getFronteira();
 
-            pais.setText("Pais selecionao: " + t.getNome());
+            nome_pais.setText("Pais selecionao: " + t.getNome());
             num_terr.setText("Exércitos Terrestres: " + selecionado_.getNumExTerrestres());
             num_aereo.setText("Exércitos Aéreos: " + selecionado_.getNumExAereos());
 
