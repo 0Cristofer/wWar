@@ -6,6 +6,7 @@ import bcco.wWar.mapa.exceptions.MapaException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -159,23 +160,34 @@ public class Gui {
         JPanel cpu_pane = new JPanel(new GridBagLayout());
 
         //Componentes
-        JLabel nome_jogador = new JLabel(game_.getHumano().getNome());
+        JLabel jogador_nome = new JLabel(game_.getHumano().getNome());
+        JLabel jogador_num_territorios = new JLabel("Número de territórios: ");
+        JLabel jogador_num_continentes = new JLabel("Número de continentes: ");
         JLabel jogador_num_terr = new JLabel("Exércitos Terrestres: ");
         JLabel jogador_num_aereo = new JLabel("Exércitos Aéreos: ");
-        JLabel nome_cpu = new JLabel(game_.getPc().getNome());
+        JLabel jogador_selecao_titulo = new JLabel("Informções do país");
+        JLabel jogador_selecao_nome_pais = new JLabel("Nome: Nenhum");
+        JLabel jogador_selecao_vizinhos = new JLabel("Vizinhos: Nenhum");
+        JLabel jogador_selecao_num_terr = new JLabel("Exércitos Terrestres: 0");
+        JLabel jogador_selecao_num_aereo = new JLabel("Exércitos Aéreos: 0");
+        JButton jogador_atacar = new JButton("Iniciar ataque");
+        JButton jogador_movimentar = new JButton("Movimentar tropas");
+        JLabel cpu_nome = new JLabel(game_.getPc().getNome());
+        JLabel cpu_num_territorios = new JLabel("Número de territórios: ");
+        JLabel cpu_num_continentes = new JLabel("Número de continentes: ");
         JLabel cpu_num_terr = new JLabel("Exércitos Terrestres: ");
         JLabel cpu_num_aereo = new JLabel("Exércitos Aéreos: ");
+        JLabel cpu_selecao_titulo = new JLabel("Informções do país");
+        JLabel cpu_selecao_nome_pais = new JLabel("Nome: Nenhum");
+        JLabel cpu_selecao_vizinhos = new JLabel("Vizinhos: Nenhum");
+        JLabel cpu_selecao_num_terr = new JLabel("Exércitos Terrestres: 0");
+        JLabel cpu_selecao_num_aereo = new JLabel("Exércitos Aéreos: 0");
         JTable tabela = new JTable(tabela_mapa_);
-        JLabel pais = new JLabel("País selecionado : ");
-        JLabel dono = new JLabel("Dono: ");
-        JLabel vizinhos = new JLabel("Vizinhos: ");
         JButton prox_rodada = new JButton("Terminar rodada");
-        JButton atacar = new JButton("Iniciar ataque");
-        JButton movimentar = new JButton("Movimentar tropas");
 
         //Botões desativados
-        atacar.setEnabled(false);
-        movimentar.setEnabled(false);
+        jogador_atacar.setEnabled(false);
+        jogador_movimentar.setEnabled(false);
 
         //Listeners
         tabela.addMouseListener(
@@ -197,7 +209,23 @@ public class Gui {
                             selecionado_ = null;
                         }
 
-                        updateInfos(pais, dono, jogador_num_terr, jogador_num_aereo, vizinhos, atacar, movimentar, row, col);
+                        if(selecionado_.getOcupante() == game_.getHumano()){
+                            updateInfos(jogador_selecao_nome_pais, jogador_num_terr,
+                                    jogador_num_aereo, jogador_selecao_vizinhos, jogador_atacar, jogador_movimentar, row, col);
+                            cpu_selecao_nome_pais.setText("Nome: Nenhum");
+                            cpu_num_terr.setText("Exércitos Terrestres: 0");
+                            cpu_num_aereo.setText("Exércitos Aéreo: 0");
+                            cpu_selecao_vizinhos.setText("Vizinhos: Nenhum");
+                        }
+                        else {
+                            updateInfos(cpu_selecao_nome_pais, cpu_num_terr,
+                                    cpu_num_aereo, cpu_selecao_vizinhos, jogador_atacar, jogador_movimentar, row, col);
+                            jogador_selecao_nome_pais.setText("Nome: Nenhum");
+                            jogador_num_terr.setText("Exércitos Terrestres: 0");
+                            jogador_num_aereo.setText("Exércitos Aéreo: 0");
+                            jogador_selecao_vizinhos.setText("Vizinhos: Nenhum");
+                        }
+
                     }
                 }
         );
@@ -213,11 +241,11 @@ public class Gui {
                                     JOptionPane.YES_OPTION){
 
                                 game_.mudaRodada();
-                                nome_jogador.setText("Vez de " + game_.getJogadorDaVez().getNome());
+                                jogador_nome.setText("Vez de " + game_.getJogadorDaVez().getNome());
 
                                 if(selecionado_ != null){
-                                    atacar.setEnabled(!atacar.isEnabled());
-                                    movimentar.setEnabled(!movimentar.isEnabled());
+                                    jogador_atacar.setEnabled(!jogador_atacar.isEnabled());
+                                    jogador_movimentar.setEnabled(!jogador_movimentar.isEnabled());
                                 }
                             }
                         }
@@ -230,7 +258,7 @@ public class Gui {
                 }
         );
 
-        atacar.addActionListener(
+        jogador_atacar.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -245,7 +273,7 @@ public class Gui {
                 }
         );
 
-        movimentar.addActionListener(
+        jogador_movimentar.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -275,40 +303,140 @@ public class Gui {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.LINE_START;
 
-        jogador_pane.add(nome_jogador, c);
+        jogador_nome.setFont(new Font(jogador_nome.getFont().getName(), Font.BOLD, 24));
+        jogador_pane.add(jogador_nome, c);
 
         c.gridy = 1;
 
-        jogador_pane.add(jogador_num_terr, c);
+        jogador_pane.add(jogador_num_territorios, c);
 
         c.gridy = 2;
 
+        jogador_pane.add(jogador_num_continentes, c);
+
+        c.gridy = 3;
+
+        jogador_pane.add(jogador_num_terr, c);
+
+        c.gridy = 4;
+        c.insets = new Insets(5, 5, 15, 5);
+
         jogador_pane.add(jogador_num_aereo, c);
 
+        c.gridy = 5;
+        c.anchor = GridBagConstraints.CENTER;
+        c.fill = GridBagConstraints.VERTICAL;
+        c.insets = new Insets(5, 5, 5, 5);
+
+        jogador_pane.add(jogador_selecao_titulo, c);
+
+        c.gridy = 6;
+        c.anchor = GridBagConstraints.LINE_START;
+
+        jogador_pane.add(jogador_selecao_nome_pais, c);
+
+        c.gridy = 7;
+
+        jogador_pane.add(jogador_selecao_num_terr, c);
+
+        c.gridy = 8;
+
+        jogador_pane.add(jogador_selecao_num_aereo, c);
+
+        c.gridy = 9;
+
+        jogador_pane.add(jogador_selecao_vizinhos, c);
+
+        c.gridy = 10;
+        c.anchor = GridBagConstraints.CENTER;
+        c.fill = GridBagConstraints.VERTICAL;
+
+        jogador_pane.add(jogador_atacar, c);
+
+        c.gridy = 11;
+
+        jogador_pane.add(jogador_movimentar, c);
+
+        //Pane tabela
         c.gridx = 0;
         c.gridy = 0;
 
+        tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabela_pane.add(tabela, c);
 
+        //Pane cpu
+        c.gridx = 0;
+        c.gridy = 0;
+        c.gridwidth = 1;
+        c.gridheight = 1;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.anchor = GridBagConstraints.LINE_START;
 
-        c.insets = new Insets(300, -300, 5, 0);
+        cpu_nome.setFont(new Font(cpu_nome.getFont().getName(), Font.BOLD, 24));
+        cpu_pane.add(cpu_nome, c);
+
+        c.gridy = 1;
+
+        cpu_pane.add(cpu_num_territorios, c);
+
+        c.gridy = 2;
+
+        cpu_pane.add(cpu_num_continentes, c);
+
+        c.gridy = 3;
+
+        cpu_pane.add(cpu_num_terr, c);
+
+        c.gridy = 4;
+        c.insets = new Insets(5, 5, 15, 5);
+
+        cpu_pane.add(cpu_num_aereo, c);
+
+        c.gridy = 5;
+        c.anchor = GridBagConstraints.CENTER;
+        c.fill = GridBagConstraints.VERTICAL;
+        c.insets = new Insets(5, 5, 5, 5);
+
+        cpu_pane.add(cpu_selecao_titulo, c);
+
+        c.gridy = 6;
+        c.anchor = GridBagConstraints.LINE_START;
+
+        cpu_pane.add(cpu_selecao_nome_pais, c);
+
+        c.gridy = 7;
+
+        cpu_pane.add(cpu_selecao_num_terr, c);
+
+        c.gridy = 8;
+
+        cpu_pane.add(cpu_selecao_num_aereo, c);
+
+        c.gridy = 9;
+
+        cpu_pane.add(cpu_selecao_vizinhos, c);
+
+        c.insets = new Insets(280, -100, 5, 50);
         c.gridx = 0;
         c.gridy = 0;
         c.anchor = GridBagConstraints.FIRST_LINE_START;
-        c.fill = GridBagConstraints.NONE;
+        c.fill = GridBagConstraints.BOTH;
 
         jogador_pane.setOpaque(false);
         janela_.getContentPane().add(jogador_pane, c);
 
-        c.insets = new Insets(600, 0, 5, 0);
+        c.insets = new Insets(580, 0, 5, 0);
         c.gridx = 1;
+        c.anchor = GridBagConstraints.PAGE_START;
 
         tabela_pane.setOpaque(false);
         janela_.getContentPane().add(tabela_pane, c);
 
-        c.insets = new Insets(300, 0, 5, 0);
+        c.insets = new Insets(280, 50, 5, 0);
         c.gridx = 2;
+        c.anchor = GridBagConstraints.FIRST_LINE_START;
 
+        cpu_pane.setOpaque(false);
         janela_.getContentPane().add(cpu_pane, c);
 
         show();
@@ -713,7 +841,6 @@ public class Gui {
     /**
      * Atualiza as informações mostradas na tela de jogo
      * @param pais O label do país
-     * @param dono O label do dono
      * @param num_terr O label referente ao número de exércitos terrestres
      * @param num_aereo O label referente ao número de exércitos aéreos
      * @param vizinhos Label que mostra os países vizinhos
@@ -722,7 +849,7 @@ public class Gui {
      * @param row Linha da tabela selecionada
      * @param col Coluna da tabela selecionada
      */
-    private void updateInfos(JLabel pais, JLabel dono, JLabel num_terr, JLabel num_aereo, JLabel vizinhos,
+    private void updateInfos(JLabel pais, JLabel num_terr, JLabel num_aereo, JLabel vizinhos,
                              JButton atacar, JButton movimentar, int row, int col){
         //Se a célula for vazia desativa o botão
         if(game_.getMapa().getTablaMapa()[row][col][0] == -1){
@@ -753,7 +880,6 @@ public class Gui {
             Territorio[] fronteira = t.getFronteira();
 
             pais.setText("Pais selecionao: " + t.getNome());
-            dono.setText("Dono: " + t.getOcupante().getNome());
             num_terr.setText("Exércitos Terrestres: " + "3");
             num_aereo.setText("Exércitos Aéreos: " + "2");
 
