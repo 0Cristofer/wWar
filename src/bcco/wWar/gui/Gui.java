@@ -8,12 +8,11 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /** Controla a interface com o usuario
@@ -207,26 +206,26 @@ public class Gui {
                             } catch (MapaException e1) {
                                 e1.printStackTrace();
                             }
+
+                            if(selecionado_.getOcupante() == game_.getHumano()){
+                                updateInfos(jogador_selecao_nome_pais, jogador_num_terr,
+                                        jogador_num_aereo, jogador_selecao_vizinhos, jogador_atacar, jogador_movimentar, row, col);
+                                cpu_selecao_nome_pais.setText("Nome: Nenhum");
+                                cpu_num_terr.setText("Exércitos Terrestres: 0");
+                                cpu_num_aereo.setText("Exércitos Aéreo: 0");
+                                cpu_selecao_vizinhos.setText("Vizinhos: Nenhum");
+                            }
+                            else {
+                                updateInfos(cpu_selecao_nome_pais, cpu_num_terr,
+                                        cpu_num_aereo, cpu_selecao_vizinhos, jogador_atacar, jogador_movimentar, row, col);
+                                jogador_selecao_nome_pais.setText("Nome: Nenhum");
+                                jogador_num_terr.setText("Exércitos Terrestres: 0");
+                                jogador_num_aereo.setText("Exércitos Aéreo: 0");
+                                jogador_selecao_vizinhos.setText("Vizinhos: Nenhum");
+                            }
                         }
                         else{
                             selecionado_ = null;
-                        }
-
-                        if(selecionado_.getOcupante() == game_.getHumano()){
-                            updateInfos(jogador_selecao_nome_pais, jogador_num_terr,
-                                    jogador_num_aereo, jogador_selecao_vizinhos, jogador_atacar, jogador_movimentar, row, col);
-                            cpu_selecao_nome_pais.setText("Nome: Nenhum");
-                            cpu_num_terr.setText("Exércitos Terrestres: 0");
-                            cpu_num_aereo.setText("Exércitos Aéreo: 0");
-                            cpu_selecao_vizinhos.setText("Vizinhos: Nenhum");
-                        }
-                        else {
-                            updateInfos(cpu_selecao_nome_pais, cpu_num_terr,
-                                    cpu_num_aereo, cpu_selecao_vizinhos, jogador_atacar, jogador_movimentar, row, col);
-                            jogador_selecao_nome_pais.setText("Nome: Nenhum");
-                            jogador_num_terr.setText("Exércitos Terrestres: 0");
-                            jogador_num_aereo.setText("Exércitos Aéreo: 0");
-                            jogador_selecao_vizinhos.setText("Vizinhos: Nenhum");
                         }
 
                     }
