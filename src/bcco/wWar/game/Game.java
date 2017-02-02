@@ -121,14 +121,19 @@ public class Game {
 
     /**
      * Recebe uma lista de quantidades de exércitos a serem adicionados aos territórios
-     * @param valores A lista de valores (deve ter a mesmo tamanho da quantidade de territórios)
+     * @param valoresTerr A lista de valores (deve ter a mesmo tamanho da quantidade de territórios)
      */
-    public void distribuirExercitos(List<Integer> valores){
+    public void distribuirExercitos(List<Integer> valoresTerr, List<Integer> valoresAereo) {
         List<Territorio> territorios = getTerritorios(humano_);
 
         for (int i = 0; i < territorios.size(); i++) {
-            for (int j = 0; j < valores.get(i) ; j++) {
+
+            for (int j = 0; j < valoresTerr.get(i); j++) {
                 territorios.get(i).insereExTerrestre(new Terrestre());
+            }
+
+            for (int j = 0; j < valoresAereo.get(i); j++) {
+                territorios.get(i).insereExAereo(new Aereo());
             }
         }
     }
