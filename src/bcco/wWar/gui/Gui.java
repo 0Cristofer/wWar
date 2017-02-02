@@ -46,8 +46,9 @@ public class Gui {
     private JLabel jogador_selecao_vizinhos;
     private JLabel jogador_selecao_num_terr;
     private JLabel jogador_selecao_num_aereo;
-    private JButton jogador_atacar;
+    private JButton jogador_atacar_terr;
     private JButton jogador_movimentar;
+    private JButton jogador_atacar_aereo;
     private JLabel cpu_num_territorios;
     private JLabel cpu_num_continentes;
     private JLabel cpu_num_terr;
@@ -197,8 +198,9 @@ public class Gui {
         jogador_selecao_vizinhos = new JLabel("Vizinhos: Nenhum");
         jogador_selecao_num_terr = new JLabel("Exércitos Terrestres: 0");
         jogador_selecao_num_aereo = new JLabel("Exércitos Aéreos: 0");
-        jogador_atacar = new JButton("Iniciar ataque");
         jogador_movimentar = new JButton("Movimentar tropas");
+        jogador_atacar_terr = new JButton("Iniciar ataque terrestre");
+        jogador_atacar_aereo = new JButton("Iniciar ataque aéreo");
         JLabel cpu_nome = new JLabel(game_.getPc().getNome());
         cpu_num_territorios = new JLabel("Número de territórios: ");
         cpu_num_continentes = new JLabel("Número de continentes: ");
@@ -215,7 +217,8 @@ public class Gui {
         updateJogadoresInfos();
 
         //Botões desativados
-        jogador_atacar.setEnabled(false);
+        jogador_atacar_terr.setEnabled(false);
+        jogador_atacar_aereo.setEnabled(false);
         jogador_movimentar.setEnabled(false);
 
         //Listeners
@@ -271,7 +274,7 @@ public class Gui {
                                 terminado_ataque_ = false;
 
                                 if(selecionado_ != null){
-                                    jogador_atacar.setEnabled(!jogador_atacar.isEnabled());
+                                    jogador_atacar_terr.setEnabled(!jogador_atacar_terr.isEnabled());
                                     jogador_movimentar.setEnabled(!jogador_movimentar.isEnabled());
                                 }
                             }
@@ -285,7 +288,23 @@ public class Gui {
                 }
         );
 
-        jogador_atacar.addActionListener(
+        jogador_atacar_terr.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(terminado_ataque_){
+                            JOptionPane.showMessageDialog(tabela_pane, "Você começou a movimentar tropas," +
+                                    "não pode mais atacar");
+                        }
+                        else{
+                            atacar();
+                            updateJogadoresInfos();
+                        }
+                    }
+                }
+        );
+
+        jogador_atacar_aereo.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -381,9 +400,13 @@ public class Gui {
         c.anchor = GridBagConstraints.CENTER;
         c.fill = GridBagConstraints.VERTICAL;
 
-        jogador_pane.add(jogador_atacar, c);
+        jogador_pane.add(jogador_atacar_terr, c);
 
         c.gridy = 11;
+
+        jogador_pane.add(jogador_atacar_aereo, c);
+
+        c.gridy = 12;
 
         jogador_pane.add(jogador_movimentar, c);
 
@@ -1182,7 +1205,7 @@ public class Gui {
         }
         //Se a célula for vazia desativa o botão
         if(game_.getMapa().getTablaMapa()[row][col][0] == -1){
-            jogador_atacar.setEnabled(false);
+            jogador_atacar_terr.setEnabled(false);
             jogador_movimentar.setEnabled(false);
             return;
         }
@@ -1198,11 +1221,11 @@ public class Gui {
         //Atualiza os campos com os respectivos dados
         if(t != null) {
             if(t.getOcupante().getNome().equals(game_.getJogadorDaVez().getNome())){
-                jogador_atacar.setEnabled(true);
+                jogador_atacar_terr.setEnabled(true);
                 jogador_movimentar.setEnabled(true);
             }
             else{
-                jogador_atacar.setEnabled(false);
+                jogador_atacar_terr.setEnabled(false);
                 jogador_movimentar.setEnabled(false);
             }
 
@@ -1232,6 +1255,16 @@ public class Gui {
         dono.setText("Dono: " + t.getOcupante().getNome());
         num_terr.setText("Exércitos Terrestres: " + t.getNumExTerrestres());
         num_aereo.setText("Exércitos Aéreos: " + t.getNumExAereos());
+    }
+
+    private void checkAereo(){
+        List<Territorio> pode_atacar = new ArrayList<>();
+
+        for(Territorio t : selecionado_.getFronteira()){
+            if((t.getNumExTerrestres() > 3) && (t.getNumExAereos() > 0)){
+
+            }
+        }
     }
 
     /**
