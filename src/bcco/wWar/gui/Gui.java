@@ -268,6 +268,7 @@ public class Gui {
                                     JOptionPane.YES_OPTION){
 
                                 game_.mudaRodada();
+                                terminado_ataque_ = false;
 
                                 if(selecionado_ != null){
                                     jogador_atacar.setEnabled(!jogador_atacar.isEnabled());
@@ -1216,8 +1217,8 @@ public class Gui {
      */
     private void updatePopUpInfo(JLabel dono, JLabel num_terr, JLabel num_aereo, Territorio t){
         dono.setText("Dono: " + t.getOcupante().getNome());
-        num_terr.setText("Exércitos Terrestres: " + "3");
-        num_aereo.setText("Exércitos Aéreos: " + "2");
+        num_terr.setText("Exércitos Terrestres: " + t.getNumExTerrestres());
+        num_aereo.setText("Exércitos Aéreos: " + t.getNumExAereos());
     }
 
     /**
