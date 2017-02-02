@@ -2,6 +2,7 @@ package bcco.wWar.game;
 
 import bcco.wWar.game.exercitos.Aereo;
 import bcco.wWar.game.exercitos.Terrestre;
+import bcco.wWar.game.jogadores.CPU;
 import bcco.wWar.game.jogadores.Jogador;
 import bcco.wWar.mapa.Mapa;
 import bcco.wWar.mapa.continentes.Continente;
@@ -10,6 +11,7 @@ import bcco.wWar.mapa.continentes.exceptions.ContinenteException;
 import bcco.wWar.mapa.exceptions.MapaException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -23,8 +25,7 @@ public class Game {
     private Mapa mapa_;
 
     private Jogador humano_;
-    private Jogador cpu_;
-    private List<String> nomesCPU_;
+    private CPU cpu_;
 
     private boolean running_ = false;
     private GameStates state_;
@@ -36,8 +37,7 @@ public class Game {
      */
     public Game(Mapa mapa){
         mapa_ = mapa;
-        nomesCPU_ = new ArrayList<>();
-        humano_ = new Jogador(false);
+        humano_ = new Jogador("", this);
         state_ = GameStates.INICIO;
     }
 
@@ -45,7 +45,7 @@ public class Game {
      * Cria e configura o jogador CPU
      */
     public void createCPU(){
-        cpu_ = new Jogador(true, getRandomNomeCPU());
+        cpu_ = new CPU(this);
 
         //TODO Implementar uma IA maneira :)
     }
@@ -139,22 +139,6 @@ public class Game {
     }
 
     /**
-     * Insere um nome na lista de nomes possíveis para a cpu
-     * @param nome O nome a ser adicionado
-     */
-    public void insertNomeCPU(String nome){
-        nomesCPU_.add(nome);
-    }
-
-    /**
-     * @return O nome escolhido aleatóriamente
-     */
-    private String getRandomNomeCPU(){
-        Random r = new Random();
-        return nomesCPU_.get(r.nextInt(nomesCPU_.size()));
-    }
-
-    /**
      * Calcula a quantidade de territórios que um jogador possui
      * @param jogador O jogador a ser verificado
      * @return O número de territórios
@@ -184,7 +168,7 @@ public class Game {
         if((rodada_ % 2) == 0){
             return getHumano();
         }
-        return getPc();
+        return getCPU();
     }
 
     /**
@@ -275,10 +259,71 @@ public class Game {
 
     }
 
+    public void atacarTerrestre(Jogador jogador, Territorio territorio, Territorio alvo, int qtd_ataque) {
+        List<Integer> ataques = new ArrayList<>();
+        List<Integer> defesas = new ArrayList<>();
+
+        int n_defesa;
+
+        //Se humano atacando
+        if (jogador == humano_) {
+            //ataque
+            for (int i = 0; i < qtd_ataque; i++) {
+                ataques.add(territorio.getExercitos_terrestres_().get(i).combater());
+            }
+
+            //defesa
+            n_defesa = cpu_.defenderTerr(alvo, qtd_ataque);
+
+            for (int i = 0; i < n_defesa; i++) {
+                defesas.add(alvo.getExercitos_terrestres_().get(i).combater());
+            }
+        }
+        //Se CPU atacando
+        else {
+            //ataque
+            for (int i = 0; i < qtd_ataque; i++) {
+                ataques.add(territorio.getExercitos_terrestres_().get(i).combater());
+            }
+
+            //defesa
+            n_defesa = 1;//Janela pro jogador decidir como defender
+
+            for (int i = 0; i < n_defesa; i++) {
+                defesas.add(alvo.getExercitos_terrestres_().get(i).combater());
+            }
+
+        }
+
+        Collections.sort(ataques);
+        Collections.reverse(ataques);
+
+        Collections.sort(defesas);
+        Collections.reverse(defesas);
+
+        //GUERRA!
+        if (defesas.size() >= ataques.size()) {
+            for (int i = 0; i < defesas.size(); i++) {
+                if (defesas.get(i) >= ataques.get(i)) {
+                    //Defendeu venceu
+
+                } else {
+                    //Defesa falhou
+                }
+            }
+        } else {
+            for (int i = 0; i < ataques.size(); i++) {
+                //preencher
+            }
+        }
+
+
+    }
+
     /**
      * @return O jogador controlado pelo PC
      */
-    public Jogador getPc(){
+    public CPU getCPU() {
         return cpu_;
     }
 

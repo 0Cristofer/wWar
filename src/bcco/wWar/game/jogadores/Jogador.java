@@ -1,31 +1,32 @@
 package bcco.wWar.game.jogadores;
 
+import bcco.wWar.game.Game;
+
 /** Controla os dados refrente a um jogador
  *  @author Cristofer Oswald
  *  @since 12/01/17
  */
 public class Jogador {
-    private String nome_;
-    private boolean is_pc_;
+    protected Game game_;
+    protected String nome_;
     private int terrestres_recebidos_;
     private int aereos_recebidos_;
 
     /**
      * Cria um jogador com um nome e define se ele é controlado pela CPU
-     * @param is_pc Se é controlado pelo PC
      * @param nome O nome do jogador
+     * @param game Objeto do jogo
      */
-    public Jogador(boolean is_pc, String nome){
+    public Jogador(String nome, Game game) {
         nome_ = nome;
-        is_pc_ = is_pc;
+        game_ = game;
     }
 
     /**
-     * Cria um jogador definindo se é controlado pela CPU
-     * @param is_pc Se é controlado pela CPU
+     * Construtor vazio
      */
-    public Jogador(boolean is_pc){
-        is_pc_ = is_pc;
+    public Jogador() {
+
     }
 
     /**

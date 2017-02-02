@@ -199,7 +199,7 @@ public class Gui {
         jogador_selecao_num_aereo = new JLabel("Exércitos Aéreos: 0");
         jogador_atacar = new JButton("Iniciar ataque");
         jogador_movimentar = new JButton("Movimentar tropas");
-        JLabel cpu_nome = new JLabel(game_.getPc().getNome());
+        JLabel cpu_nome = new JLabel(game_.getCPU().getNome());
         cpu_num_territorios = new JLabel("Número de territórios: ");
         cpu_num_continentes = new JLabel("Número de continentes: ");
         cpu_num_terr = new JLabel("Exércitos Terrestres: ");
@@ -751,7 +751,7 @@ public class Gui {
      */
     private void updateJogadoresInfos(){
         Jogador humano = game_.getHumano();
-        Jogador cpu = game_.getPc();
+        Jogador cpu = game_.getCPU();
 
         jogador_num_territorios.setText("Número de territórios: " + game_.getNumTerritorios(humano));
         jogador_num_continentes.setText("Número de continentes: ");
