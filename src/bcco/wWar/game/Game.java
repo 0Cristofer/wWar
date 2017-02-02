@@ -1,5 +1,6 @@
 package bcco.wWar.game;
 
+import bcco.wWar.game.exercitos.Aereo;
 import bcco.wWar.game.exercitos.Terrestre;
 import bcco.wWar.game.jogadores.Jogador;
 import bcco.wWar.mapa.Mapa;
@@ -87,6 +88,7 @@ public class Game {
                     }
                 }
                 territorio.insereTerrestre(new Terrestre());
+                territorio.insereAereo(new Aereo());
             }
         }
     }
