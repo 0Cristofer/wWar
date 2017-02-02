@@ -10,6 +10,7 @@ import java.util.List;
  */
 
 public class Continente{
+
     private String nome_;
     private Territorio[] territorios_;
 
@@ -19,6 +20,31 @@ public class Continente{
      */
     public Continente(String nome_){
         this.nome_ = nome_;
+    }
+
+    /**
+     * Procura um território dado seu nome
+     * @param nome O nome a ser procurad/o
+     * @return O index do território se achado, se não, -1
+     */
+    public int findTerritorio(String nome){
+        for (int i = 0; i < territorios_.length; i++) {
+            if(territorios_[i].getNome().equals(nome)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Escreve o nome do continente na tela
+     */
+    public void printContinente(){
+        System.out.println("+++++++++++++++++++++++");
+        System.out.println("Continente " + nome_ + " tem os seguintes territorios");
+        for (Territorio territorio: territorios_) {
+            territorio.printTerritorio();
+        }
     }
 
     /**
@@ -44,23 +70,9 @@ public class Continente{
     }
 
     /**
-     * Procura um território dado seu nome
-     * @param nome O nome a ser procurad/o
-     * @return O index do território se achado, se não, -1
-     */
-    public int findTerritorio(String nome){
-        for (int i = 0; i < territorios_.length; i++) {
-            if(territorios_[i].getNome().equals(nome)){
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    /**
      * @return A quantidade de territorios nesse continente
      */
-    public int numTerritorios(){
+    public int getNumTerritorios(){
         return territorios_.length;
     }
 
@@ -82,17 +94,6 @@ public class Continente{
         }
         else{
             territorios_ = new_territorios;
-        }
-    }
-
-    /**
-     * Escreve o nome do continente na tela
-     */
-    public void printContinente(){
-        System.out.println("+++++++++++++++++++++++");
-        System.out.println("Continente " + nome_ + " tem os seguintes territorios");
-        for (Territorio territorio: territorios_) {
-            territorio.printTerritorio();
         }
     }
 }

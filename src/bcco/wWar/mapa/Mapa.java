@@ -1,6 +1,7 @@
 package bcco.wWar.mapa;
 
-import bcco.wWar.mapa.continentes.*;
+import bcco.wWar.mapa.continentes.Continente;
+import bcco.wWar.mapa.continentes.Territorio;
 import bcco.wWar.mapa.continentes.exceptions.ContinenteException;
 import bcco.wWar.mapa.exceptions.MapaException;
 
@@ -11,10 +12,64 @@ import java.util.List;
  *  @since 12/01/17
  */
 public class Mapa {
+
     private String map_file_;
     private String table_file_;
     private Continente[] continentes_;
     private int[][][] tabela_mapa_;
+
+    /**
+     * Cria uma instância do mapa com o caminho para a sua leitura
+     * @param map_file O caminho para o arquivo
+     */
+    Mapa(String map_file, String table_file){
+        map_file_ = map_file;
+        table_file_ = table_file;
+
+    }
+
+    /**
+     * Procura um continente dado seu nome
+     * @param nome O nome a ser procurado
+     * @return O index do continente se achado, se não, -1
+     */
+    public int findContinente(String nome){
+        for (int i = 0; i < continentes_.length; i++) {
+            if(continentes_[i].getNome().equals(nome)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Escreve os detalhes do mapa
+     */
+    public void printMapa(){
+        for (Continente continente: continentes_) {
+            continente.printContinente();
+        }
+    }
+
+    /**
+     * Escreve a tabela de países
+     */
+    public void printTabela(){
+        for (int[][] linha : tabela_mapa_) {
+            for (int[] coluna : linha) {
+                if (coluna[0] == -1) {
+                    System.out.print("--------| ");
+                } else {
+                    try {
+                        System.out.print(getTerritorio(coluna[0], coluna[1]).getNome() + "| ");
+                    } catch (MapaException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            System.out.println();
+        }
+    }
 
     /**
      * Retorna a instância de um continente a partir do seu index
@@ -31,19 +86,6 @@ public class Mapa {
         }
     }
 
-    /**
-     * Procura um continente dado seu nome
-     * @param nome O nome a ser procurado
-     * @return O index do continente se achado, se não, -1
-     */
-    public int findContinente(String nome){
-        for (int i = 0; i < continentes_.length; i++) {
-            if(continentes_[i].getNome().equals(nome)){
-                return i;
-            }
-        }
-        return -1;
-    }
 
     /**
      * Retorna um território a partir do index do seu continente e do próprio território
@@ -65,6 +107,9 @@ public class Mapa {
         }
     }
 
+    /**
+     * @return A matrix representante do mpa
+     */
     public int[][][] getTablaMapa(){
         return tabela_mapa_;
     }
@@ -72,49 +117,8 @@ public class Mapa {
     /**
      * @return A quantidade de continentes nesse mapa
      */
-    public int numContinentes(){
+    public int getNumContinentes(){
         return continentes_.length;
-    }
-
-
-    /**
-     * Escreve os detalhes do mapa
-     */
-    public void printMapa(){
-        for (Continente continente: continentes_) {
-            continente.printContinente();
-        }
-    }
-
-    /**
-     * Escreve a tabela de países
-     */
-    public void printTabela(){
-        for(int i = 0; i < tabela_mapa_.length; i++){
-            for(int j = 0; j < tabela_mapa_[i].length; j++){
-                if(tabela_mapa_[i][j][0] == -1){
-                    System.out.print("--------| ");
-                }
-                else {
-                    try {
-                        System.out.print(getTerritorio(tabela_mapa_[i][j][0], tabela_mapa_[i][j][1]).getNome() + "| ");
-                    } catch (MapaException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            System.out.println();
-        }
-    }
-
-    /**
-     * Cria uma instância do mapa com o caminho para a sua leitura
-     * @param map_file O caminho para o arquivo
-     */
-    Mapa(String map_file, String table_file){
-        map_file_ = map_file;
-        table_file_ = table_file;
-
     }
 
     /**

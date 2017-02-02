@@ -14,7 +14,6 @@ public class Main {
      * @param args Argumentos passados na execução
      */
     public static void main(String[] args) {
-        System.out.println("Iniciando jogo");
         try {
             wWar.getInstance().run();
         } catch (wWarException e) {

@@ -11,9 +11,14 @@ import javax.swing.table.AbstractTableModel;
  * @since 30/01/17
  */
 public class MapTable extends AbstractTableModel{
+
     private Mapa mapa_;
 
-    public MapTable(Mapa mapa){
+    /**
+     * Cria uma tabela a partir de um mapa
+     * @param mapa O mapa do jogo
+     */
+    MapTable(Mapa mapa){
         mapa_ = mapa;
     }
 

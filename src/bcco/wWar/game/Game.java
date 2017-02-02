@@ -19,6 +19,7 @@ import java.util.Random;
  */
 
 public class Game {
+
     private Mapa mapa_;
 
     private Jogador humano_;
@@ -35,11 +36,8 @@ public class Game {
      */
     public Game(Mapa mapa){
         mapa_ = mapa;
-
         nomesCPU_ = new ArrayList<>();
-
         humano_ = new Jogador(false);
-
         state_ = GameStates.INICIO;
     }
 
@@ -47,8 +45,7 @@ public class Game {
      * Cria e configura o jogador CPU
      */
     public void createCPU(){
-        cpu_ = new Jogador(true);
-        cpu_.setNome(getRandomNomeCPU());
+        cpu_ = new Jogador(true, getRandomNomeCPU());
 
         //TODO Implementar uma IA maneira :)
     }
@@ -61,7 +58,7 @@ public class Game {
         //randomizando 0 ou 1 (jogador 0 ou 1)
         //NAO TERMINADO
         Random random = new Random();
-        for(int i = 0; i < mapa_.numContinentes(); i++) {
+        for(int i = 0; i < mapa_.getNumContinentes(); i++) {
             Continente continente = null;
             try {
                 continente = mapa_.getContinente(i);
@@ -73,7 +70,7 @@ public class Game {
                 return;
             }
 
-            for (int j = 0; j < continente.numTerritorios(); j++) {
+            for (int j = 0; j < continente.getNumTerritorios(); j++) {
                 Territorio territorio = null;
                 try {
                     territorio = continente.getTerritorio(j);
@@ -82,13 +79,15 @@ public class Game {
                 }
                 if(territorio != null) {
                     if (random.nextInt(2) == 0) {
-                        territorio.setOcupante_(humano_);
+                        territorio.setOcupante(humano_);
                     } else {
-                        territorio.setOcupante_(cpu_);
+                        territorio.setOcupante(cpu_);
                     }
                 }
-                territorio.insereTerrestre(new Terrestre());
-                territorio.insereAereo(new Aereo());
+                if(territorio != null){
+                    territorio.insereExTerrestre(new Terrestre());
+                    territorio.insereExAereo(new Aereo());
+                }
             }
         }
     }
@@ -100,11 +99,11 @@ public class Game {
         int n_humano = getNumTerritorios(humano_);
         int n_cpu = getNumTerritorios(cpu_);
 
-        humano_.setTerrestres_recebidos_(n_humano/2);
-        humano_.setAereos_recebidos_(n_humano/3);
+        humano_.setTerrestresRecebidos(n_humano/2);
+        humano_.setAereosRecebidos(n_humano/3);
 
-        cpu_.setTerrestres_recebidos_(n_cpu/2);
-        cpu_.setAereos_recebidos_(n_cpu/3);
+        cpu_.setTerrestresRecebidos(n_cpu/2);
+        cpu_.setAereosRecebidos(n_cpu/3);
 
         rodada_++;
     }
@@ -118,6 +117,20 @@ public class Game {
         rodada_ = -1;
         distribuiTerritorios();
         mudaRodada();
+    }
+
+    /**
+     * Recebe uma lista de quantidades de exércitos a serem adicionados aos territórios
+     * @param valores A lista de valores (deve ter a mesmo tamanho da quantidade de territórios)
+     */
+    public void distribuirExercitos(List<Integer> valores){
+        List<Territorio> territorios = getTerritorios(humano_);
+
+        for (int i = 0; i < territorios.size(); i++) {
+            for (int j = 0; j < valores.get(i) ; j++) {
+                territorios.get(i).insereExTerrestre(new Terrestre());
+            }
+        }
     }
 
     /**
@@ -137,30 +150,16 @@ public class Game {
     }
 
     /**
-     * @param running O estado atual do jogo
-     */
-    public void setRunning(boolean running){
-        running_ = running;
-    }
-
-    /**
-     * @param state O estado atual do jogo
-     */
-    public void setState(GameStates state){
-        state_ = state;
-    }
-
-    /**
-     * Calcula a quantidade de territórios que um jogador possúi
+     * Calcula a quantidade de territórios que um jogador possui
      * @param jogador O jogador a ser verificado
      * @return O número de territórios
      */
     public int getNumTerritorios(Jogador jogador){
         int num = 0;
 
-        for(int i = 0; i < mapa_.numContinentes(); i++){
+        for(int i = 0; i < mapa_.getNumContinentes(); i++){
             try {
-                for(int j = 0; j < mapa_.getContinente(i).numTerritorios(); j++){
+                for(int j = 0; j < mapa_.getContinente(i).getNumTerritorios(); j++){
                     if(mapa_.getTerritorio(i, j).getOcupante() == jogador){
                         num++;
                     }
@@ -211,12 +210,17 @@ public class Game {
         return humano_;
     }
 
+    /**
+     * Cria uma lista com os territórios de um jogador
+     * @param jogador O jogador a ser verificado
+     * @return A lista de territórios os quais o jogador ocupa
+     */
     public List<Territorio> getTerritorios(Jogador jogador){
         List<Territorio> territorios = new ArrayList<>();
 
-        for(int i = 0; i < mapa_.numContinentes(); i++){
+        for(int i = 0; i < mapa_.getNumContinentes(); i++){
             try {
-                for(int j = 0; j < mapa_.getContinente(i).numTerritorios(); j++){
+                for(int j = 0; j < mapa_.getContinente(i).getNumTerritorios(); j++){
                     if(mapa_.getTerritorio(i, j).getOcupante() == jogador){
                         territorios.add(mapa_.getTerritorio(i,j));
                     }
@@ -229,6 +233,11 @@ public class Game {
         return territorios;
     }
 
+    /**
+     * Calula a quantidade de exércitos terrestres de um jogador
+     * @param jogador O jogador a ser verificado
+     * @return A quantidade de exércitos terrestres
+     */
     public int getNumTerrestres(Jogador jogador){
         int total = 0;
         List<Territorio> territorios = getTerritorios(jogador);
@@ -242,6 +251,11 @@ public class Game {
         return total;
     }
 
+    /**
+     * Calula a quantidade de exércitos aéreos de um jogador
+     * @param jogador O jogador a ser verificado
+     * @return A quantidade de exércitos aéreos
+     */
     public int getNumAereos(Jogador jogador){
         int total = 0;
         List<Territorio> territorios = getTerritorios(jogador);
@@ -256,20 +270,24 @@ public class Game {
 
     }
 
-    public void distribuirExercitos(List<Integer> valores){
-        List<Territorio> territorios = getTerritorios(humano_);
-
-        for (int i = 0; i < territorios.size(); i++) {
-            for (int j = 0; j < valores.get(i) ; j++) {
-                territorios.get(i).insereTerrestre(new Terrestre());
-            }
-        }
-    }
-
     /**
      * @return O jogador controlado pelo PC
      */
     public Jogador getPc(){
         return cpu_;
+    }
+
+    /**
+     * @param running O estado atual do jogo
+     */
+    public void setRunning(boolean running){
+        running_ = running;
+    }
+
+    /**
+     * @param state O estado atual do jogo
+     */
+    public void setState(GameStates state){
+        state_ = state;
     }
 }

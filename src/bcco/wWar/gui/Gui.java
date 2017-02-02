@@ -22,6 +22,7 @@ import java.util.Objects;
  *  @since 12/01/17
  */
 public class Gui {
+
     private JFrame janela_;
 
     private int screen_width_;
@@ -37,31 +38,25 @@ public class Gui {
     private Territorio selecionado_ = null;
     private String tipo_exerc_;
 
-    //Componentes principais
-    private JLabel jogador_nome;
     private JLabel jogador_num_territorios;
     private JLabel jogador_num_continentes;
     private JLabel jogador_num_terr;
     private JLabel jogador_num_aereo;
-    private JLabel jogador_selecao_titulo;
     private JLabel jogador_selecao_nome_pais;
     private JLabel jogador_selecao_vizinhos;
     private JLabel jogador_selecao_num_terr;
     private JLabel jogador_selecao_num_aereo;
     private JButton jogador_atacar;
     private JButton jogador_movimentar;
-    private JLabel cpu_nome;
     private JLabel cpu_num_territorios;
     private JLabel cpu_num_continentes;
     private JLabel cpu_num_terr;
     private JLabel cpu_num_aereo;
-    private JLabel cpu_selecao_titulo;
     private JLabel cpu_selecao_nome_pais;
     private JLabel cpu_selecao_vizinhos;
     private JLabel cpu_selecao_num_terr;
     private JLabel cpu_selecao_num_aereo;
     private JTable tabela;
-    private JButton prox_rodada;
 
     /**
      * Cria as estruturas basicas para a janela_
@@ -79,6 +74,17 @@ public class Gui {
         screen_heigth_ = screen_height;
         janela_ = new JFrame(titulo);
 
+        janela_.setSize(screen_width_, screen_heigth_);
+        //Posiciona a tela no centro
+        janela_.setLocationRelativeTo(null);
+        janela_.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+    }
+
+    /**
+     * Mostra a tela inicial
+     */
+    public void telaInicial(){
         //Define o contentPane como um JPanel com background
         try {
             final Image background_image = ImageIO.read(new File("tela_inicial.png"));
@@ -92,17 +98,6 @@ public class Gui {
             throw new RuntimeException(e);
         }
 
-        janela_.setSize(screen_width_, screen_heigth_);
-        //Posiciona a tela no centro
-        janela_.setLocationRelativeTo(null);
-        janela_.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-    }
-
-    /**
-     * Mostra a tela inicial
-     */
-    public void telaInicial(){
         GridBagConstraints c = new GridBagConstraints();
         JPanel pane = new JPanel(new GridBagLayout());
 
@@ -126,13 +121,12 @@ public class Gui {
         );
 
         //Layout
-        c.insets = new Insets(10, 10, 10, 10);
-
         c.gridx = 0;
         c.gridy = 0;
         c.gridwidth = 3;
         c.gridheight = 2;
         c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(10, 10, 10, 10);
 
         pane.add(inicio, c);
 
@@ -172,6 +166,7 @@ public class Gui {
      * Tela principal de jogo
      */
     private void telaJogo(){
+        //Define o contentPane como um pane com background
         try {
             final Image background_image = ImageIO.read(new File("tela_jogo.png"));
             janela_.setContentPane(new JPanel(new GridBagLayout()) {
@@ -186,35 +181,36 @@ public class Gui {
 
         GridBagConstraints c = new GridBagConstraints();
 
+        //A tela é dividida em 3 panels
         JPanel tabela_pane = new JPanel(new GridBagLayout());
         JPanel jogador_pane = new JPanel(new GridBagLayout());
         JPanel cpu_pane = new JPanel(new GridBagLayout());
 
         //Componentes
-        jogador_nome = new JLabel(game_.getHumano().getNome());
+        JLabel jogador_nome = new JLabel(game_.getHumano().getNome());
         jogador_num_territorios = new JLabel("Número de territórios: ");
         jogador_num_continentes = new JLabel("Número de continentes: ");
         jogador_num_terr = new JLabel("Exércitos Terrestres: ");
         jogador_num_aereo = new JLabel("Exércitos Aéreos: ");
-        jogador_selecao_titulo = new JLabel("Informções do país");
+        JLabel jogador_selecao_titulo = new JLabel("Informções do país");
         jogador_selecao_nome_pais = new JLabel("Nome: Nenhum");
         jogador_selecao_vizinhos = new JLabel("Vizinhos: Nenhum");
         jogador_selecao_num_terr = new JLabel("Exércitos Terrestres: 0");
         jogador_selecao_num_aereo = new JLabel("Exércitos Aéreos: 0");
         jogador_atacar = new JButton("Iniciar ataque");
         jogador_movimentar = new JButton("Movimentar tropas");
-        cpu_nome = new JLabel(game_.getPc().getNome());
+        JLabel cpu_nome = new JLabel(game_.getPc().getNome());
         cpu_num_territorios = new JLabel("Número de territórios: ");
         cpu_num_continentes = new JLabel("Número de continentes: ");
         cpu_num_terr = new JLabel("Exércitos Terrestres: ");
         cpu_num_aereo = new JLabel("Exércitos Aéreos: ");
-        cpu_selecao_titulo = new JLabel("Informções do país");
+        JLabel cpu_selecao_titulo = new JLabel("Informções do país");
         cpu_selecao_nome_pais = new JLabel("Nome: Nenhum");
         cpu_selecao_vizinhos = new JLabel("Vizinhos: Nenhum");
         cpu_selecao_num_terr = new JLabel("Exércitos Terrestres: 0");
         cpu_selecao_num_aereo = new JLabel("Exércitos Aéreos: 0");
         tabela = new JTable(tabela_mapa_);
-        prox_rodada = new JButton("Terminar rodada");
+        JButton prox_rodada = new JButton("Terminar rodada");
 
         updateJogadoresInfos();
 
@@ -239,14 +235,14 @@ public class Gui {
                             }
 
                             if(selecionado_.getOcupante() == game_.getHumano()){
-                                updateInfosHumano(row, col, selecionado_.getOcupante());
+                                updateInfos(row, col, selecionado_.getOcupante());
                                 cpu_selecao_nome_pais.setText("Nome: Nenhum");
                                 cpu_selecao_num_terr.setText("Exércitos Terrestres: 0");
                                 cpu_selecao_num_aereo.setText("Exércitos Aéreo: 0");
                                 cpu_selecao_vizinhos.setText("Vizinhos: Nenhum");
                             }
                             else {
-                                updateInfosHumano(row, col, selecionado_.getOcupante());
+                                updateInfos(row, col, selecionado_.getOcupante());
                                 jogador_selecao_nome_pais.setText("Nome: Nenhum");
                                 jogador_selecao_num_terr.setText("Exércitos Terrestres: 0");
                                 jogador_selecao_num_aereo.setText("Exércitos Aéreo: 0");
@@ -272,7 +268,6 @@ public class Gui {
                                     JOptionPane.YES_OPTION){
 
                                 game_.mudaRodada();
-                                jogador_nome.setText("Vez de " + game_.getJogadorDaVez().getNome());
 
                                 if(selecionado_ != null){
                                     jogador_atacar.setEnabled(!jogador_atacar.isEnabled());
@@ -327,15 +322,15 @@ public class Gui {
                 }
         );
 
-        //Layout
-        c.insets = new Insets(5, 5, 5, 5);
-
+        //Layouts
+        //Pane humano
         c.gridx = 0;
         c.gridy = 0;
         c.gridwidth = 1;
         c.gridheight = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.LINE_START;
+        c.insets = new Insets(5, 5, 5, 5);
 
         jogador_nome.setFont(new Font(jogador_nome.getFont().getName(), Font.BOLD, 24));
         jogador_pane.add(jogador_nome, c);
@@ -395,6 +390,10 @@ public class Gui {
         c.gridx = 0;
         c.gridy = 0;
 
+        tabela_pane.add(prox_rodada, c);
+
+        c.gridy = 1;
+
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabela_pane.add(tabela, c);
 
@@ -450,25 +449,26 @@ public class Gui {
 
         cpu_pane.add(cpu_selecao_vizinhos, c);
 
-        c.insets = new Insets(280, -100, 5, 50);
+        //Adição de panels ao panl principal
         c.gridx = 0;
         c.gridy = 0;
         c.anchor = GridBagConstraints.FIRST_LINE_START;
         c.fill = GridBagConstraints.BOTH;
+        c.insets = new Insets(280, -100, 5, 50);
 
-        jogador_pane.setOpaque(false);
+        jogador_pane.setOpaque(false); //Panel transparente
         janela_.getContentPane().add(jogador_pane, c);
 
-        c.insets = new Insets(580, 0, 5, 0);
         c.gridx = 1;
         c.anchor = GridBagConstraints.PAGE_START;
+        c.insets = new Insets(580, 0, 5, 0);
 
         tabela_pane.setOpaque(false);
         janela_.getContentPane().add(tabela_pane, c);
 
-        c.insets = new Insets(280, 50, 5, 0);
         c.gridx = 2;
         c.anchor = GridBagConstraints.FIRST_LINE_START;
+        c.insets = new Insets(280, 50, 5, 0);
 
         cpu_pane.setOpaque(false);
         janela_.getContentPane().add(cpu_pane, c);
@@ -480,13 +480,13 @@ public class Gui {
     /**
      * Tela de distribuição de exército
      */
-    public void distribuirExercito(){
-        int terr_recebidos = game_.getHumano().getTerrestres_recebidos_();
+    private void distribuirExercito(){
+        int terr_recebidos = game_.getHumano().getTerrestresRecebidos();
         int aereo_recebidos = game_.getHumano().getAereos_recebidos_();
-
         int i = 1;
         List<Territorio> territorios = game_.getTerritorios(game_.getHumano());
 
+        //Configura o frame
         JFrame frame = new JFrame("Distribuir Exércitos");
         JPanel pane = new JPanel(new GridBagLayout());
         frame.getContentPane().setLayout(new GridBagLayout());
@@ -494,10 +494,11 @@ public class Gui {
         frame.getContentPane().setLayout(new GridBagLayout());
         frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 
+        //Classe que define o comportamento dos textFields dos terrestres
         class InTerrListener implements DocumentListener {
             private JTextField text;
 
-            InTerrListener(JTextField text) {
+            private InTerrListener(JTextField text) {
                 this.text = text;
             }
 
@@ -546,10 +547,11 @@ public class Gui {
             }
         }
 
+        //Classe que define o comportamento dos textFields dos aereos
         class InAereoListener implements DocumentListener {
             private JTextField text;
 
-            InAereoListener(JTextField text) {
+            private InAereoListener(JTextField text) {
                 this.text = text;
             }
 
@@ -574,7 +576,7 @@ public class Gui {
                 Runnable doCheck = new Runnable() {
                     @Override
                     public void run() {
-                        int v = 0;
+                        int v;
                         if (!Objects.equals(text.getText(), "")) {
                             try {
                                 v = Integer.parseInt(text.getText());
@@ -598,13 +600,12 @@ public class Gui {
             }
         }
 
-
-        class distribuir implements ActionListener{
-            private int soma;
+        //Classe que configura o comportamento do botão de confirmação
+        class Distribuir implements ActionListener{
             private List<Integer> valores;
             private List<JTextField> textFields;
 
-            private distribuir(List<JTextField> textFields){
+            private Distribuir(List<JTextField> textFields){
                 this.textFields = textFields;
                 valores = new ArrayList<>();
             }
@@ -612,7 +613,7 @@ public class Gui {
 
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                soma = 0;
+                int soma = 0;
 
                 for (JTextField textField: textFields) {
                     valores.add(Integer.parseInt(textField.getText()));
@@ -636,86 +637,93 @@ public class Gui {
             }
         }
 
-
-        GridBagConstraints c1 = new GridBagConstraints();
-        c1.insets = new Insets(5, 5, 5, 5);
-        c1.gridx = 0;
-
-        GridBagConstraints c2 = new GridBagConstraints();
-        c2.insets = new Insets(5, 5, 5, 5);
-        c2.gridx = 1;
-
-        GridBagConstraints c3 = new GridBagConstraints();
-        c3.insets = new Insets(5, 5, 5, 5);
-        c3.gridx = 2;
-
-        GridBagConstraints c4 = new GridBagConstraints();
-        c4.insets = new Insets(5, 5, 5, 5);
-        c4.gridx = 3;
-
+        //Componentes
         JLabel d_nome = new JLabel("Nome território");
         JLabel d_qtd = new JLabel("Quantidade de tropas");
         JLabel d_inTerr = new JLabel("Terrestres");
         JLabel d_inAereo = new JLabel("Aereos");
+        JLabel terrestre_restante = new JLabel("Exercitos terrestres restantes: " +
+                Integer.toString(game_.getHumano().getTerrestresRecebidos()));
+        JLabel aereo_restante = new JLabel("Exercitos aereos restantes: " +
+                Integer.toString(game_.getHumano().getAereos_recebidos_()));
+        JButton distribuir = new JButton("Distribuir exércitos");
+        List<JTextField> terr_text_fields = new ArrayList<>();
+        List<JTextField> aereo_text_fields = new ArrayList<>();
 
+        //Configura os constrains para cada coluna
+        GridBagConstraints c1 = new GridBagConstraints();
+        c1.insets = new Insets(5, 5, 5, 5);
+        c1.gridx = 0;
         c1.gridy = 0;
+
+        GridBagConstraints c2 = new GridBagConstraints();
+        c2.insets = new Insets(5, 5, 5, 5);
+        c2.gridx = 1;
         c2.gridy = 0;
+
+        GridBagConstraints c3 = new GridBagConstraints();
+        c3.insets = new Insets(5, 5, 5, 5);
+        c3.gridx = 2;
         c3.gridy = 0;
+
+        GridBagConstraints c4 = new GridBagConstraints();
+        c4.insets = new Insets(5, 5, 5, 5);
+        c4.gridx = 3;
         c4.gridy = 0;
 
         pane.add(d_nome,c1);
         pane.add(d_inTerr, c2);
         pane.add(d_inAereo, c3);
         pane.add(d_qtd, c4);
-        frame.getContentPane().add(pane, c1);
 
-        List<JTextField> terrTextFields = new ArrayList<>();
-        List<JTextField> aereoTextFields = new ArrayList<>();
-
-
-        //Componentes
+        //Itera sobre a lista de territórios criando um textFiels e um label para cada um e os coloca na tela
         for (Territorio t : territorios) {
+            //Componentes
             JLabel nome = new JLabel(t.getNome());
-            JLabel qtd = new JLabel("(" + Integer.toString(t.getNumExTerrestres()) + "/" + Integer.toString(t.getNumExAereos()) + ")");
+            JLabel qtd = new JLabel("(" + Integer.toString(t.getNumExTerrestres()) + "/" +
+                    Integer.toString(t.getNumExAereos()) + ")");
+            JTextField in_terr = new JTextField(3);
+            JTextField in_aereo = new JTextField(3);
 
-            JTextField inTerr = new JTextField(3);
-            inTerr.setText("0");
-            inTerr.getDocument().addDocumentListener(new InTerrListener(inTerr));
+            //Adiciona os listeners
+            in_terr.setText("0");
+            in_terr.getDocument().addDocumentListener(new InTerrListener(in_terr));
 
-            JTextField inAereo = new JTextField(3);
-            inAereo.setText("0");
-            inAereo.getDocument().addDocumentListener(new InAereoListener(inAereo));
+            in_aereo.setText("0");
+            in_aereo.getDocument().addDocumentListener(new InAereoListener(in_aereo));
 
+            //Layout
             c1.gridy = i;
             c2.gridy = i;
             c3.gridy = i;
             c4.gridy = i;
 
             pane.add(nome,c1);
-            pane.add(inTerr, c2);
-            pane.add(inAereo, c3);
+            pane.add(in_terr, c2);
+            pane.add(in_aereo, c3);
             pane.add(qtd, c4);
             i++;
 
-            terrTextFields.add(inTerr);
-            aereoTextFields.add(inAereo);
+            //Adiciona a lista de textFields
+            terr_text_fields.add(in_terr);
+            aereo_text_fields.add(in_aereo);
         }
 
-        JLabel terrestre_restante = new JLabel("Exercitos terrestres restantes: " + Integer.toString(game_.getHumano().getTerrestres_recebidos_()));
-        JLabel aereo_restante = new JLabel("Exercitos aereos restantes: " + Integer.toString(game_.getHumano().getAereos_recebidos_()));
-
+        //Layout pt.2
         c1.gridy = i + 1;
+
         pane.add(terrestre_restante, c1);
+
         c1.gridy++;
         c1.anchor = GridBagConstraints.LINE_START;
-        pane.add(aereo_restante, c1);
 
-        JButton distribuir = new JButton("Distribuir exércitos");
-        distribuir.addActionListener(new distribuir(terrTextFields));
+        pane.add(aereo_restante, c1);
 
         c4.gridy = i + 1;
         c4.gridheight = 2;
         c4.fill = GridBagConstraints.VERTICAL;
+
+        distribuir.addActionListener(new Distribuir(terr_text_fields));
         pane.add(distribuir, c4);
 
         frame.getContentPane().add(pane, c1);
@@ -724,8 +732,10 @@ public class Gui {
         frame.setVisible(true);
     }
 
+    /**
+     * Atualiza as informações do jogador
+     */
     private void updateJogadoresInfos(){
-
         Jogador humano = game_.getHumano();
         Jogador cpu = game_.getPc();
 
@@ -736,7 +746,7 @@ public class Gui {
         cpu_num_territorios.setText("Número de territórios: " + game_.getNumTerritorios(cpu));
         cpu_num_continentes.setText("Número de continentes: ");
         cpu_num_terr.setText("Exércitos Terrestres: " + game_.getNumTerrestres(cpu));
-        cpu_num_aereo.setText("Exércitos Aéreos: " + game_.getNumAereos(humano));
+        cpu_num_aereo.setText("Exércitos Aéreos: " + game_.getNumAereos(cpu));
     }
 
     /**
@@ -1136,9 +1146,9 @@ public class Gui {
     }
 
     /**
-     * Atualiza as informações mostradas na tela de jogo
+     * Atualiza as informações de seleção de territórios
      */
-    private void updateInfosHumano(int row, int col, Jogador jogador){
+    private void updateInfos(int row, int col, Jogador jogador){
         JLabel nome_pais;
         JLabel num_terr;
         JLabel num_aereo;

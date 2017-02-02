@@ -35,39 +35,19 @@ public class Territorio {
     }
 
     /**
-     * @return O nome do território
+     * Adiciona um exército terrestre a lista de exércitos terrestres
+     * @param exercito O exército a ser adicionado
      */
-    public String getNome(){
-        return nome_;
+    public void insereExTerrestre(Terrestre exercito){
+        exercitos_terrestres_.add(exercito);
     }
 
     /**
-     * Configura a fronteira desse território a partir de uma lista de territórios
-     * @param territorios A lista de territórios que fazem fronteira
-     * @throws TerritorioException caso a lista for vazia
+     * Adiciona um exército aéreos a lista de exércitos aéreos
+     * @param exercito O exército a ser adicionado
      */
-    public void setFronteira(List<Territorio> territorios) throws TerritorioException {
-        //Cria um vetor do tamanho da lista e os popula
-        Territorio[] new_territorios = new Territorio[territorios.size()];
-
-        for(int i = 0; i < territorios.size(); i++){
-            new_territorios[i] = territorios.get(i);
-        }
-
-        if(new_territorios.length == 0){
-            throw new TerritorioException();
-        }
-        else{
-            faz_fronteira_ = new_territorios;
-        }
-    }
-
-    /**
-     * Muda o jogador a qual pertence esse territorio
-     * @param new_ocupante O jogador que ocupara
-     */
-    public void setOcupante_(Jogador new_ocupante){
-        ocupante_ = new_ocupante;
+    public void insereExAereo(Aereo exercito) {
+        exercitos_aereos_.add(exercito);
     }
 
     /**
@@ -77,7 +57,7 @@ public class Territorio {
         System.out.println("--------------------------");
         System.out.println("Terriotorio " + nome_ + " faz fronteira com:");
         for (Territorio territorio : faz_fronteira_) {
-            System.out.println(territorio   .nome_);
+            System.out.println(territorio.nome_);
         }
         System.out.println("Ocupante: " + ocupante_.getNome());
         System.out.println("--------------------------");
@@ -85,18 +65,10 @@ public class Territorio {
     }
 
     /**
-     * @param exercito
+     * @return O nome do território
      */
-    public void insereTerrestre(Terrestre exercito){
-        exercitos_terrestres_.add(exercito);
-    }
-
-    /**
-     *
-     * @param exercito
-     */
-    public void insereAereo(Aereo exercito) {
-        exercitos_aereos_.add(exercito);
+    public String getNome(){
+        return nome_;
     }
 
     /**
@@ -125,6 +97,35 @@ public class Territorio {
      */
     public int getNumExAereos(){
         return exercitos_aereos_.size();
+    }
+
+    /**
+     * Configura a fronteira desse território a partir de uma lista de territórios
+     * @param territorios A lista de territórios que fazem fronteira
+     * @throws TerritorioException caso a lista for vazia
+     */
+    public void setFronteira(List<Territorio> territorios) throws TerritorioException {
+        //Cria um vetor do tamanho da lista e os popula
+        Territorio[] new_territorios = new Territorio[territorios.size()];
+
+        for(int i = 0; i < territorios.size(); i++){
+            new_territorios[i] = territorios.get(i);
+        }
+
+        if(new_territorios.length == 0){
+            throw new TerritorioException();
+        }
+        else{
+            faz_fronteira_ = new_territorios;
+        }
+    }
+
+    /**
+     * Muda o jogador a qual pertence esse territorio
+     * @param new_ocupante O jogador que ocupara
+     */
+    public void setOcupante(Jogador new_ocupante){
+        ocupante_ = new_ocupante;
     }
 
     @Override

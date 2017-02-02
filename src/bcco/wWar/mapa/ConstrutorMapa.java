@@ -1,8 +1,10 @@
 package bcco.wWar.mapa;
 
 import bcco.iomanager.IOManager;
-import bcco.wWar.mapa.continentes.*;
-import bcco.wWar.mapa.continentes.exceptions.*;
+import bcco.wWar.mapa.continentes.Continente;
+import bcco.wWar.mapa.continentes.Territorio;
+import bcco.wWar.mapa.continentes.exceptions.ContinenteException;
+import bcco.wWar.mapa.continentes.exceptions.TerritorioException;
 import bcco.wWar.mapa.exceptions.ConstrutorException;
 import bcco.wWar.mapa.exceptions.MapaException;
 
@@ -15,6 +17,7 @@ import java.util.List;
  *  @since 13/01/17
  */
 public class ConstrutorMapa {
+
     //Flags utilizadas para ler o arquivo
     private static final String MAPA_INICIO_ = "MAPAINICIO";
     private static final String MAPA_FIM_ = "MAPAFIM";

@@ -1,11 +1,11 @@
 package bcco.wWar;
 
 import bcco.iomanager.IOManager;
+import bcco.wWar.exceptions.wWarException;
 import bcco.wWar.game.Game;
 import bcco.wWar.gui.Gui;
 import bcco.wWar.mapa.ConstrutorMapa;
 import bcco.wWar.mapa.exceptions.ConstrutorException;
-import bcco.wWar.exceptions.wWarException;
 
 import java.io.IOException;
 import java.util.List;
@@ -37,8 +37,6 @@ public class wWar {
      * @throws wWarException caso haja algum erro na execução
      */
     public void run() throws wWarException {
-        System.out.println("Estou rodando!");
-
         //Tenta iniciar os sistemas
         try {
             initSystems();
