@@ -1,5 +1,6 @@
 package bcco.wWar.game;
 
+import bcco.wWar.game.exercitos.Terrestre;
 import bcco.wWar.game.jogadores.Jogador;
 import bcco.wWar.mapa.Mapa;
 import bcco.wWar.mapa.continentes.Continente;
@@ -20,7 +21,7 @@ public class Game {
     private Mapa mapa_;
 
     private Jogador humano_;
-    private Jogador pc_;
+    private Jogador cpu_;
     private List<String> nomesCPU_;
 
     private boolean running_ = false;
@@ -45,8 +46,8 @@ public class Game {
      * Cria e configura o jogador CPU
      */
     public void createCPU(){
-        pc_ = new Jogador(true);
-        pc_.setNome(getRandomNomeCPU());
+        cpu_ = new Jogador(true);
+        cpu_.setNome(getRandomNomeCPU());
 
         //TODO Implementar uma IA maneira :)
     }
@@ -82,9 +83,10 @@ public class Game {
                     if (random.nextInt(2) == 0) {
                         territorio.setOcupante_(humano_);
                     } else {
-                        territorio.setOcupante_(pc_);
+                        territorio.setOcupante_(cpu_);
                     }
                 }
+                territorio.insereTerrestre(new Terrestre());
             }
         }
     }
@@ -92,17 +94,28 @@ public class Game {
     /**
      * Muda a rodada atual para a próxima
      */
-    public void mudaRodada(){
+    public void mudaRodada() {
+        int n_humano = getNumTerritorios(humano_);
+        int n_cpu = getNumTerritorios(cpu_);
+
+        humano_.setTerrestres_recebidos_(n_humano/2);
+        humano_.setAereos_recebidos_(n_humano/3);
+
+        cpu_.setTerrestres_recebidos_(n_cpu/2);
+        cpu_.setAereos_recebidos_(n_cpu/3);
+
         rodada_++;
     }
+
 
     /**
      * Configura um novo jogo
      */
     public void iniciarJogo(String nome){
         humano_.setNome(nome);
-        rodada_ = 0;
+        rodada_ = -1;
         distribuiTerritorios();
+        mudaRodada();
     }
 
     /**
@@ -196,10 +209,51 @@ public class Game {
         return humano_;
     }
 
+    public List<Territorio> getTerritorios(Jogador jogador){
+        List<Territorio> territorios = new ArrayList<>();
+
+        for(int i = 0; i < mapa_.numContinentes(); i++){
+            try {
+                for(int j = 0; j < mapa_.getContinente(i).numTerritorios(); j++){
+                    if(mapa_.getTerritorio(i, j).getOcupante() == jogador){
+                        territorios.add(mapa_.getTerritorio(i,j));
+                    }
+                }
+            } catch (MapaException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return territorios;
+    }
+
+    public int getTotalExercitos(Jogador jogador){
+        int total = 0;
+        List<Territorio> territorios = getTerritorios(jogador);
+
+        for (Territorio t : territorios){
+            if (t.getOcupante()==jogador){
+                total += t.getNumExTerrestres();
+            }
+        }
+
+        return total;
+    }
+
+    public void distribuirExercitos(List<Integer> valores){
+        List<Territorio> territorios = getTerritorios(humano_);
+
+        for (int i = 0; i < territorios.size(); i++) {
+            for (int j = 0; j < valores.get(i) ; j++) {
+                territorios.get(i).insereTerrestre(new Terrestre());
+            }
+        }
+    }
+
     /**
      * @return O jogador controlado pelo PC
      */
     public Jogador getPc(){
-        return pc_;
+        return cpu_;
     }
 }
