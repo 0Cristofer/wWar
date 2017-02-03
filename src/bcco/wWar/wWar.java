@@ -79,8 +79,8 @@ public class wWar {
         //Tenta construir o mapa a partir do arquivo lido nas configurações
         //e cria a instancia do jogo
         try {
-            game_ = new Game(
-                    ConstrutorMapa.getInstance().buildMap(config_.get(0), config_.get(1)));
+            game_ = new Game(ConstrutorMapa.getInstance().buildMap(config_.get(0), config_.get(1)),
+                    gui_);
 
             if(game_.getMapa() == null){
                 throw new wWarException("Mapa não foi criado, reinicie o sistema");
