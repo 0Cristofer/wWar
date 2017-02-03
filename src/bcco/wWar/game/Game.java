@@ -9,10 +9,7 @@ import bcco.wWar.mapa.continentes.Territorio;
 import bcco.wWar.mapa.continentes.exceptions.ContinenteException;
 import bcco.wWar.mapa.exceptions.MapaException;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /** Representa um jogo pronto para ser utilizado
  * @author Cristofer Oswald
@@ -63,46 +60,42 @@ public class Game {
     }
 
     /**
-     * Distribui os territorios aleatoria e igualmente
+     * Distribui os territorios aleatoriamente e igualmente
      */
     private void distribuiTerritorios(){
-        //iterar sobre continentes x territorios
-        //randomizando 0 ou 1 (jogador 0 ou 1)
-        //NAO TERMINADO
-        Random random = new Random();
-        for(int i = 0; i < mapa_.getNumContinentes(); i++) {
-            Continente continente = null;
-            try {
-                continente = mapa_.getContinente(i);
-            } catch (MapaException e) {
-                e.printStackTrace();
-            }
+        List<List<Territorio>> territorios_livres = new ArrayList<>();
+        int mod = new Random().nextInt(2); // Se 0 : Jogador tem vantagem Se 1 : CPU tem vantagem
+        int humans = 0;
+        int robots = 0;
 
-            if(continente == null){
-                return;
-            }
+        for (Continente c : mapa_.getContinentes_()) {
+            territorios_livres.add(new ArrayList<Territorio>(Arrays.asList(c.getTerritorios_())));
+        }
 
-            for (int j = 0; j < continente.getNumTerritorios(); j++) {
-                Territorio territorio = null;
-                try {
-                    territorio = continente.getTerritorio(j);
-                } catch (ContinenteException e) {
-                    e.printStackTrace();
+        for (List<Territorio> continente : territorios_livres) {
+
+            Collections.shuffle(continente);
+
+            for (Territorio t : continente) {
+                if (mod % 2 == 0) {
+                    t.setOcupante(humano_);
+                    humans++;
+
+                } else {
+                    t.setOcupante(cpu_);
+                    robots++;
                 }
-                if(territorio != null) {
-                    if (random.nextInt(2) == 0) {
-                        territorio.setOcupante(humano_);
-                    } else {
-                        territorio.setOcupante(cpu_);
-                    }
-                }
-                if(territorio != null){
-                    territorio.insereExTerrestre();
-                    territorio.insereExAereo();
-                }
+
+                t.insereExTerrestre();
+                t.insereExAereo();
+                mod++;
+
             }
         }
+
+        System.out.format("log - Distribuir Territórios:\n Territorios jogador: %d\n Territorios computador: %d", humans, robots);
     }
+
 
     /**
      * Muda a rodada atual para a próxima
