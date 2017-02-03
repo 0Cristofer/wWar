@@ -114,6 +114,13 @@ public class Territorio {
     }
 
     /**
+     * @return O continente a qual este território pertence
+     */
+    public Continente getContinente(){
+        return continente_;
+    }
+
+    /**
      * Configura a fronteira desse território a partir de uma lista de territórios
      * @param territorios A lista de territórios que fazem fronteira
      * @throws TerritorioException caso a lista for vazia

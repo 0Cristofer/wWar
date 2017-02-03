@@ -37,6 +37,14 @@ public class Game {
      */
     public Game(Mapa mapa){
         mapa_ = mapa;
+
+        for(int i = 0; i < mapa_.getNumContinentes(); i++){
+            try {
+                mapa_.getContinente(i).setFronteira();
+            } catch (MapaException e) {
+                e.printStackTrace();
+            }
+        }
         humano_ = new Jogador("", this);
         state_ = GameStates.INICIO;
     }

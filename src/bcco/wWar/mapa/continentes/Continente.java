@@ -2,6 +2,7 @@ package bcco.wWar.mapa.continentes;
 
 import bcco.wWar.mapa.continentes.exceptions.ContinenteException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /** Controla os dados referente a um continente
@@ -13,6 +14,7 @@ public class Continente{
 
     private String nome_;
     private Territorio[] territorios_;
+    private Continente[] faz_fronteira_;
 
     /**
      * Construtor padrão
@@ -94,6 +96,25 @@ public class Continente{
         }
         else{
             territorios_ = new_territorios;
+        }
+    }
+
+    /**
+     * Configura as fronteiras dos continentes
+     */
+    public void setFronteira(){
+        List<Continente> fronteira = new ArrayList<>();
+
+        for(Territorio t : territorios_){
+            if(!fronteira.contains(t.getContinente())){
+                fronteira.add(t.getContinente());
+            }
+        }
+
+        faz_fronteira_ = new Continente[fronteira.size()];
+
+        for(int i = 0; i < faz_fronteira_.length; i++){
+            faz_fronteira_[i] = fronteira.get(i);
         }
     }
 }

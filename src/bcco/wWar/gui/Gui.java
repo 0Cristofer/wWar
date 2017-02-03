@@ -315,8 +315,16 @@ public class Gui {
                                     "não pode mais atacar");
                         }
                         else{
-                            atacar();
-                            updateJogadoresInfos();
+                            List<Territorio> t = checkAereo();
+                            if(t.size() == 0){
+                                JOptionPane.showMessageDialog(janela_, "Este território não faz fronteira com" +
+                                        "nenhum terriório que pode ser atacado por ar");
+                                atacando_ = false;
+                            }
+                            else {
+                                atacarAereo(checkAereo());
+                                updateJogadoresInfos();
+                            }
                         }
                     }
                 }
@@ -1370,6 +1378,56 @@ public class Gui {
         }
     }
 
+    private void atacarAereo(List<Territorio> territorios){
+        atacando_ = true;
+
+        //Cria a nova janela
+        JFrame frame = new JFrame("Ataque aéreo");
+        JPanel pane = new JPanel(new GridBagLayout());
+        frame.getContentPane().setLayout(new GridBagLayout());
+        frame.setLocationRelativeTo(null);
+        frame.getContentPane().setLayout(new GridBagLayout());
+        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        frame.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                atacando_ = false;
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
+
+
+
+    }
+
     /**
      * Atualiza os dados da tela de ataque
      * @param dono Label do dono do território
@@ -1383,14 +1441,16 @@ public class Gui {
         num_aereo.setText("Exércitos Aéreos: " + t.getNumExAereos());
     }
 
-    private void checkAereo(){
+    private List<Territorio> checkAereo(){
         List<Territorio> pode_atacar = new ArrayList<>();
 
         for(Territorio t : selecionado_.getFronteira()){
             if((t.getNumExTerrestres() > 3) && (t.getNumExAereos() > 0)){
-
+                pode_atacar.add(t);
             }
         }
+
+        return pode_atacar;
     }
 
     /**
