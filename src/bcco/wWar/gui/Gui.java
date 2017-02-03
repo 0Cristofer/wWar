@@ -1028,15 +1028,12 @@ public class Gui {
         bg.add(r3);
         r1.doClick();
 
-        if (n_tropas < 3) {
+        if (n_tropas <= 3) {
             r3.setEnabled(false);
-            if (n_tropas != 2) {
+            if (n_tropas == 2) {
                 r2.setEnabled(false);
             }
         }
-
-
-
 
         //Listeners
         combo.addActionListener(
@@ -1081,7 +1078,9 @@ public class Gui {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        System.out.println(n_ataque); //Atacar
+                        game_.atacarTerrestre(game_.getHumano(), selecionado_, selecionado_destino, n_ataque);
+                        //updateInfos();
+                        frame.setVisible(false);
                     }
                 }
         );

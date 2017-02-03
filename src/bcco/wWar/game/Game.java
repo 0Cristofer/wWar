@@ -1,5 +1,6 @@
 package bcco.wWar.game;
 
+import bcco.wWar.game.exercitos.Terrestre;
 import bcco.wWar.game.jogadores.CPU;
 import bcco.wWar.game.jogadores.Jogador;
 import bcco.wWar.gui.Gui;
@@ -93,7 +94,7 @@ public class Game {
             }
         }
 
-        System.out.format("log - Distribuir Territórios:\n Territorios jogador: %d\n Territorios computador: %d", humans, robots);
+        System.out.format("\nlog - Distribuir Territórios:\n Territorios jogador: %d\n Territorios computador: %d\n", humans, robots);
     }
 
 
@@ -297,39 +298,42 @@ public class Game {
         return r;
     }
 
-    public int atacarTerrestre(Jogador jogador, Territorio territorio, Territorio alvo, int qtd_ataque) {
+    public void atacarTerrestre(Jogador jogador, Territorio territorio, Territorio alvo, int qtd_ataque) {
         List<Integer> ataques = new ArrayList<>();
         List<Integer> defesas = new ArrayList<>();
+        List<Terrestre> exercitos_alvos = alvo.getExercitos_terrestres_();
+        List<Terrestre> exercitos_atacantes = territorio.getExercitos_terrestres_();
 
         int n_defesa;
         int n_sucessos = 0;
+        int n_fracassos = 0;
 
         //Se humano atacando
         if (jogador == humano_) {
             //ataque
             for (int i = 0; i < qtd_ataque; i++) {
-                ataques.add(territorio.getExercitos_terrestres_().get(i).combater());
+                ataques.add(exercitos_atacantes.get(i).combater());
             }
 
             //defesa
             n_defesa = cpu_.defenderTerr(alvo, qtd_ataque); //IA
 
             for (int i = 0; i < n_defesa; i++) {
-                defesas.add(alvo.getExercitos_terrestres_().get(i).combater());
+                defesas.add(exercitos_alvos.get(i).combater());
             }
         }
         //Se CPU atacando
         else {
             //ataque
             for (int i = 0; i < qtd_ataque; i++) {
-                ataques.add(territorio.getExercitos_terrestres_().get(i).combater());
+                ataques.add(exercitos_atacantes.get(i).combater());
             }
 
             //defesa
             n_defesa = gui_.defender(territorio, alvo, qtd_ataque); //Chama janela de defesa.
 
             for (int i = 0; i < n_defesa; i++) {
-                defesas.add(alvo.getExercitos_terrestres_().get(i).combater());
+                defesas.add(exercitos_alvos.get(i).combater());
             }
 
         }
@@ -340,24 +344,57 @@ public class Game {
         Collections.sort(defesas);
         Collections.reverse(defesas);
 
+        System.out.println("\nLIST ATAQUES:");
+        System.out.println(ataques.toString());
+
+        System.out.println("\nLIST DEFESAS:");
+        System.out.println(defesas.toString());
+
         //GUERRA!
-        if (defesas.size() >= ataques.size()) {
+        if (defesas.size() <= ataques.size()) {
             for (int i = 0; i < defesas.size(); i++) {
                 if (ataques.get(i) > defesas.get(i)) {
-                    //Ataque com sucesso!
                     n_sucessos++;
+                } else {
+                    n_fracassos++;
                 }
             }
         } else {
             for (int i = 0; i < ataques.size(); i++) {
                 if (ataques.get(i) > defesas.get(i)) {
-                    //Ataque com sucesso!
                     n_sucessos++;
+                } else {
+                    n_fracassos++;
                 }
             }
         }
 
-        return n_sucessos;
+
+        //Mata os ataques fracassados
+        for (int i = 0; i < n_fracassos; i++) {
+            territorio.removeExTerrestre();
+        }
+
+
+        //Mata as defesas fracassadas
+        for (int i = 0; i < n_sucessos; i++) {
+            alvo.removeExTerrestre();
+        }
+
+        System.out.format("\nlog - ataque terrestre:\n %s -> %s\n Exércitos atacantes mortos: %d\n" +
+                        "Exércitos defensores mortos: %d\n", jogador.getNome(), alvo.getNome(),
+                n_fracassos, n_sucessos);
+
+        //Dominou o território
+        if (exercitos_alvos.isEmpty()) {
+            alvo.setOcupante(jogador);
+
+            System.out.format(jogador.getNome() + "Dominou o territorio " + alvo.getNome() + "\n");
+
+            if (jogador == humano_) {
+                //TODO Chama uma função no Gui que exibe um tela de "Parabéns você conquistou o território!"
+            }
+        }
 
     }
 
