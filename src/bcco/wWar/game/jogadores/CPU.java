@@ -26,6 +26,41 @@ public class CPU extends Jogador {
         game_ = game;
     }
 
+    public void distribuirExercitos() {
+        List<Territorio> territorios = game_.getTerritorios(this);
+        Random rng = new Random();
+        int i;
+
+        while (terrestres_recebidos_ > 0) {
+            i = rng.nextInt(territorios.size());
+            territorios.get(i).insereExTerrestre();
+            terrestres_recebidos_--;
+        }
+
+        while (aereos_recebidos_ > 0) {
+            i = rng.nextInt(territorios.size());
+            territorios.get(i).insereExAereo();
+            aereos_recebidos_--;
+        }
+
+        /* TODO IMPLEMENTAR MÉTODO NÃO ALEATÓRIO
+        boolean r = new Random().nextBoolean();
+
+        if (r){
+            //Distribuição por quantidade de fronteiras
+
+        } else {
+            //Distribuição buscando equilibrio
+
+            for (Territorio t: territorios) {
+                valoresTerr.add(t.getNumExTerrestres());
+                valoresAereo.add(t.getNumExAereos());
+            }
+
+        }*/
+
+    }
+
     public int defenderTerr(Territorio territorio, int qtd_ataque) {
         int n_defesa = territorio.getNumExTerrestres();
 

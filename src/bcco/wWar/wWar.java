@@ -66,6 +66,7 @@ public class wWar {
 
         //Inicializa a GUI
         gui_ = new Gui("wWar", 1280, 720, game_);
+        game_.setGui_(gui_);
     }
 
     /**
@@ -79,8 +80,7 @@ public class wWar {
         //Tenta construir o mapa a partir do arquivo lido nas configurações
         //e cria a instancia do jogo
         try {
-            game_ = new Game(ConstrutorMapa.getInstance().buildMap(config_.get(0), config_.get(1)),
-                    gui_);
+            game_ = new Game(ConstrutorMapa.getInstance().buildMap(config_.get(0), config_.get(1)));
 
             if(game_.getMapa() == null){
                 throw new wWarException("Mapa não foi criado, reinicie o sistema");

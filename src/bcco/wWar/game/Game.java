@@ -1,7 +1,5 @@
 package bcco.wWar.game;
 
-import bcco.wWar.game.exercitos.Aereo;
-import bcco.wWar.game.exercitos.Terrestre;
 import bcco.wWar.game.jogadores.CPU;
 import bcco.wWar.game.jogadores.Jogador;
 import bcco.wWar.gui.Gui;
@@ -37,7 +35,7 @@ public class Game {
      * Constrói a instância do jogo com o mapa construído e os nomes dos jogadores
      * @param mapa O mapa construído a partir do arquivo
      */
-    public Game(Mapa mapa, Gui gui) {
+    public Game(Mapa mapa) {
         mapa_ = mapa;
 
         for(int i = 0; i < mapa_.getNumContinentes(); i++){
@@ -49,6 +47,9 @@ public class Game {
         }
         humano_ = new Jogador("", this);
         state_ = GameStates.INICIO;
+    }
+
+    public void setGui_(Gui gui) {
         gui_ = gui;
     }
 
@@ -96,8 +97,8 @@ public class Game {
                     }
                 }
                 if(territorio != null){
-                    territorio.insereExTerrestre(new Terrestre());
-                    territorio.insereExAereo(new Aereo());
+                    territorio.insereExTerrestre();
+                    territorio.insereExAereo();
                 }
             }
         }
@@ -116,7 +117,12 @@ public class Game {
         cpu_.setTerrestresRecebidos(n_cpu/2);
         cpu_.setAereosRecebidos(n_cpu/3);
 
+        cpu_.distribuirExercitos();
+        gui_.distribuirExercito();
+
         rodada_++;
+
+        //TODO função que exibe um janela com a mensagem "Fim do turno, você rebeceu x terrestres e y aereos
     }
 
 
@@ -134,17 +140,16 @@ public class Game {
      * Recebe uma lista de quantidades de exércitos a serem adicionados aos territórios
      * @param valoresTerr A lista de valores (deve ter a mesmo tamanho da quantidade de territórios)
      */
-    public void distribuirExercitos(List<Integer> valoresTerr, List<Integer> valoresAereo) {
-        List<Territorio> territorios = getTerritorios(humano_);
+    public void distribuirExercitos(Jogador jogador, List<Integer> valoresTerr, List<Integer> valoresAereo) {
+        List<Territorio> territorios = getTerritorios(jogador);
 
         for (int i = 0; i < territorios.size(); i++) {
-
             for (int j = 0; j < valoresTerr.get(i); j++) {
-                territorios.get(i).insereExTerrestre(new Terrestre());
+                territorios.get(i).insereExTerrestre();
             }
 
             for (int j = 0; j < valoresAereo.get(i); j++) {
-                territorios.get(i).insereExAereo(new Aereo());
+                territorios.get(i).insereExAereo();
             }
         }
     }
