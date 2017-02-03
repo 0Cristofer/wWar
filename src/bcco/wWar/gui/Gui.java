@@ -40,7 +40,6 @@ public class Gui {
     private Territorio selecionado_ = null;
     private Territorio selecionado_destino = null;
     private String tipo_exerc_;
-    private Integer[] selecionados_;
 
     private JLabel jogador_num_territorios;
     private JLabel jogador_num_continentes;
@@ -185,8 +184,8 @@ public class Gui {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         clear();
-                        game_.iniciarJogo(nome_input.getText());
                         telaJogo();
+                        game_.iniciarJogo(nome_input.getText());
                         popUpInfo(game_.getHumano().getNome(), game_.getTerritorios(game_.getHumano()),
                                 game_.getCPU().getNome());
                     }
@@ -310,14 +309,14 @@ public class Gui {
                             }
 
                             if(selecionado_.getOcupante() == game_.getHumano()){
-                                updateInfos(row, col, selecionado_.getOcupante());
+                                updateInfos();
                                 cpu_selecao_nome_pais.setText("Nome: Nenhum");
                                 cpu_selecao_num_terr.setText("Exércitos Terrestres: 0");
                                 cpu_selecao_num_aereo.setText("Exércitos Aéreo: 0");
                                 cpu_selecao_vizinhos.setText("Vizinhos: Nenhum");
                             }
                             else {
-                                updateInfos(row, col, selecionado_.getOcupante());
+                                updateInfos();
                                 jogador_selecao_nome_pais.setText("Nome: Nenhum");
                                 jogador_selecao_num_terr.setText("Exércitos Terrestres: 0");
                                 jogador_selecao_num_aereo.setText("Exércitos Aéreo: 0");
@@ -1353,13 +1352,13 @@ public class Gui {
     /**
      * Atualiza as informações de seleção de territórios
      */
-    private void updateInfos(int row, int col, Jogador jogador){
+    private void updateInfos(){
         JLabel nome_pais;
         JLabel num_terr;
         JLabel num_aereo;
         JLabel vizinhos;
 
-        if(jogador == game_.getHumano()){
+        if(selecionado_.getOcupante() == game_.getHumano()){
             nome_pais = jogador_selecao_nome_pais;
             num_terr = jogador_selecao_num_terr;
             num_aereo = jogador_selecao_num_aereo;
@@ -1372,24 +1371,18 @@ public class Gui {
             vizinhos = cpu_selecao_vizinhos;
         }
         //Se a célula for vazia desativa o botão
-        if(game_.getMapa().getTablaMapa()[row][col][0] == -1){
+        if(selecionado_ == null){
             jogador_atacar_terr.setEnabled(false);
             jogador_movimentar.setEnabled(false);
             return;
         }
 
-        //Lê o território na respectiva célula
-        Territorio t = null;
-        try {
-            t = game_.getMapa().getTerritorio(game_.getMapa().getTablaMapa()[row][col][0], game_.getMapa().getTablaMapa()[row][col][1]);
-        } catch (MapaException e) {
-            e.printStackTrace();
-        }
-
         //Atualiza os campos com os respectivos dados
-        if(t != null) {
-            if(t.getOcupante().equals(jogador)){
-                jogador_atacar_terr.setEnabled(true);
+        if(selecionado_ != null) {
+            if(selecionado_.getOcupante().equals(game_.getHumano())){
+                if(selecionado_.getNumExTerrestres() > 1) {
+                    jogador_atacar_terr.setEnabled(true);
+                }
                 if(selecionado_.getNumExAereos() != 0) {
                     jogador_atacar_aereo.setEnabled(true);
                 }
@@ -1401,9 +1394,9 @@ public class Gui {
                 jogador_movimentar.setEnabled(false);
             }
 
-            Territorio[] fronteira = t.getFronteira();
+            Territorio[] fronteira = selecionado_.getFronteira();
 
-            nome_pais.setText("Pais selecionao: " + t.getNome());
+            nome_pais.setText("Pais selecionao: " + selecionado_.getNome());
             num_terr.setText("Exércitos Terrestres: " + selecionado_.getNumExTerrestres());
             num_aereo.setText("Exércitos Aéreos: " + selecionado_.getNumExAereos());
 
@@ -1516,38 +1509,20 @@ public class Gui {
                 }
         );
 
-        r1.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        n_ataque = 1;
-                    }
-                }
-        );
-
-        r2.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        n_ataque = 2;
-                    }
-                }
-        );
-
-        r3.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        n_ataque = 3;
-                    }
-                }
-        );
 
         ok.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        System.out.println(n_ataque); //Atacar
+                        if(r1.isSelected()){
+                            System.out.println("1");
+                        }
+                        if(r2.isSelected()){
+                            System.out.println("2");
+                        }
+                        if(r3.isSelected()){
+                            System.out.println("3");
+                        }
                     }
                 }
         );
@@ -1634,7 +1609,6 @@ public class Gui {
     }
 
     private void reforcoAereo(Territorio[] territorios, JRadioButton r1, JRadioButton r2, JRadioButton r3){
-        selecionados_ = new Integer[territorios.length];
 
         //Cria a nova janela
         JFrame frame = new JFrame("Ataque aéreo");
@@ -1658,13 +1632,58 @@ public class Gui {
         JLabel quantidade = new JLabel("Reforçar com");
         JButton ok = new JButton("Reforçar");
 
+        List<Territorio> selecionados = new ArrayList<>();
+        List<Integer> num_selecionados = new ArrayList<>();
+
         class AereoListener implements ActionListener{
+            private Territorio t_;
+            private List<Territorio> sel_;
+            private List<Integer> num_sel_;
+            private AereoListener(Territorio t, List<Territorio> l, List<Integer> n){
+                t_ = t;
+                sel_ = l;
+                num_sel_ = n;
+            }
             @Override
             public void actionPerformed(ActionEvent e) {
-//                (JComboBox<Integer>)e.getSource()
+                sel_.add(t_);
+                num_sel_.add((Integer)((JComboBox)e.getSource()).getSelectedItem());
             }
         }
 
+        class ConfirmarListener implements ActionListener{
+            private List<Territorio> t_;
+            private List<Integer> n_;
+            private JFrame f;
+
+            private ConfirmarListener(List<Territorio> t, List<Integer> n, JFrame frame){
+                t_ = t;
+                n_ = n;
+                f = frame;
+            }
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for(int i = 0; i < t_.size(); i++){
+                    for(int j = 0; j < n_.get(i); j++){
+                        selecionado_.insereExAereo(t_.get(i).removeExAereo());
+                        if(selecionado_.getNumExAereos() > 2){
+                            r3.setEnabled(true);
+                            if(selecionado_.getNumExAereos() > 1){
+                                r2.setEnabled(true);
+                                if(selecionado_.getNumExAereos() > 0){
+                                    r1.setEnabled(true);
+                                }
+                            }
+                        }
+                        frame.setVisible(false);
+                    }
+                }
+            }
+        }
+
+        ok.addActionListener(new ConfirmarListener(selecionados, num_selecionados, frame));
+
+        c.insets = new Insets(10, 10, 10, 10);
         c.gridx = 0;
         c.gridy = 0;
         c.anchor = GridBagConstraints.CENTER;
@@ -1688,7 +1707,7 @@ public class Gui {
                 for (int j = 0; j < territorios[i].getNumExAereos(); j++) {
                     terrs_combos.get(i).addItem(j);
                 }
-                terrs_combos.get(i).addActionListener(new AereoListener());
+                terrs_combos.get(i).addActionListener(new AereoListener(territorios[i], selecionados, num_selecionados));
 
                 c.gridx = 0;
                 c.gridy = i + 2;
@@ -1705,6 +1724,7 @@ public class Gui {
         c.gridx = 0;
         c.gridy = i + 3;
         c.anchor = GridBagConstraints.CENTER;
+        c.fill = GridBagConstraints.NONE;
         pane.add(ok, c);
 
         frame.getContentPane().add(pane);

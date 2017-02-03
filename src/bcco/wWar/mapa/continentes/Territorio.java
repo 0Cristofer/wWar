@@ -65,6 +65,35 @@ public class Territorio {
     }
 
     /**
+     * Adiciona um exército terrestre a lista de exércitos terrestres
+     */
+    public void insereExTerrestre(Terrestre tropa) {
+        exercitos_terrestres_.add(tropa);
+    }
+
+    /**
+     * Adiciona um exército aéreos a lista de exércitos aéreos
+     */
+    public void insereExAereo(Aereo tropa) {
+        exercitos_aereos_.add(tropa);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Terrestre removeExTerrestre(){
+        return exercitos_terrestres_.remove(exercitos_terrestres_.size()-1);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Aereo removeExAereo(){
+        return exercitos_aereos_.remove(exercitos_aereos_.size()-1);
+    }
+    /**
      * Escreve o nome e as fronteiras do território na tela
      */
     void printTerritorio(){

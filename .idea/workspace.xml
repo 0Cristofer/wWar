@@ -6,13 +6,24 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b516ea51-8b46-48f7-bf50-72962dbab64a" name="Default" comment="  Contruindo sistema de reforço aéreo">
+    <list default="true" id="b516ea51-8b46-48f7-bf50-72962dbab64a" name="Default" comment="  Contruindo sistema de reforço aéreo pt.2">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$10.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$3.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$4.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$5.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$6.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$7.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$8.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$9.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui.class" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/game/Game.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/game/Game.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/mapa/Mapa.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/mapa/Mapa.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/mapa/continentes/Continente.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/mapa/continentes/Continente.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bcco/wWar/game/Game.java" afterPath="$PROJECT_DIR$/src/bcco/wWar/game/Game.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java" afterPath="$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bcco/wWar/mapa/continentes/Continente.java" afterPath="$PROJECT_DIR$/src/bcco/wWar/mapa/continentes/Continente.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bcco/wWar/mapa/continentes/Territorio.java" afterPath="$PROJECT_DIR$/src/bcco/wWar/mapa/continentes/Territorio.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,23 +47,48 @@
         <entry file="file://$PROJECT_DIR$/src/bcco/wWar/game/Game.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="315">
-              <caret line="288" column="55" lean-forward="false" selection-start-line="288" selection-start-column="55" selection-end-line="288" selection-end-column="55" />
+              <caret line="280" column="21" lean-forward="true" selection-start-line="280" selection-start-column="21" selection-end-line="280" selection-end-column="21" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1346#1347#0" expanded="true" />
-                <element signature="e#1372#1373#0" expanded="true" />
-                <element signature="e#5384#5385#0" expanded="true" />
-                <element signature="e#5415#5416#0" expanded="true" />
-                <element signature="e#5505#5506#0" expanded="true" />
-                <element signature="e#5533#5534#0" expanded="true" />
-                <element signature="e#5622#5623#0" expanded="true" />
-                <element signature="e#5651#5652#0" expanded="true" />
-                <element signature="e#5732#5733#0" expanded="true" />
-                <element signature="e#5762#5763#0" expanded="true" />
-                <element signature="e#10713#10714#0" expanded="true" />
-                <element signature="e#10747#10748#0" expanded="true" />
-                <marker date="1486154863402" expanded="false" signature="10578:10589" ph=" { " />
-                <marker date="1486154863402" expanded="false" signature="10601:10607" ph=" }" />
+                <marker date="1486155987817" expanded="true" signature="32:381" ph="..." />
+                <marker date="1486155987817" expanded="true" signature="2605:2658" ph="/**...*/" />
+                <marker date="1486155987817" expanded="true" signature="2688:3183" ph="{...}" />
+                <marker date="1486155987817" expanded="true" signature="3190:3231" ph="/**...*/" />
+                <marker date="1486155987817" expanded="true" signature="3272:3386" ph="{...}" />
+                <marker date="1486155987817" expanded="true" signature="3392:3592" ph="/**...*/" />
+                <marker date="1486155987817" expanded="true" signature="3701:4094" ph="{...}" />
+                <marker date="1486155987817" expanded="true" signature="4100:4264" ph="/**...*/" />
+                <marker date="1486155987817" expanded="true" signature="4314:4775" ph="{...}" />
+                <marker date="1486155987817" expanded="true" signature="4781:4839" ph="/**...*/" />
+                <marker date="1486155987817" expanded="true" signature="4876:4982" ph="{...}" />
+                <marker date="1486155987817" expanded="true" signature="4988:5031" ph="/**...*/" />
+                <marker date="1486155987817" expanded="true" signature="5063:5073" ph=" { " />
+                <marker date="1486155987817" expanded="true" signature="5089:5095" ph=" }" />
+                <marker date="1486155987817" expanded="true" signature="5101:5158" ph="/**...*/" />
+                <marker date="1486155987817" expanded="true" signature="5184:5194" ph=" { " />
+                <marker date="1486155987817" expanded="true" signature="5207:5213" ph=" }" />
+                <marker date="1486155987817" expanded="true" signature="5219:5268" ph="/**...*/" />
+                <marker date="1486155987817" expanded="true" signature="5301:5311" ph=" { " />
+                <marker date="1486155987817" expanded="true" signature="5325:5331" ph=" }" />
+                <marker date="1486155987817" expanded="true" signature="5337:5380" ph="/**...*/" />
+                <marker date="1486155987817" expanded="true" signature="5411:5421" ph=" { " />
+                <marker date="1486155987817" expanded="true" signature="5436:5442" ph=" }" />
+                <marker date="1486155987817" expanded="true" signature="5448:5626" ph="/**...*/" />
+                <marker date="1486155987817" expanded="true" signature="5686:6228" ph="{...}" />
+                <marker date="1486155987817" expanded="true" signature="6234:6411" ph="/**...*/" />
+                <marker date="1486155987817" expanded="true" signature="6460:6736" ph="{...}" />
+                <marker date="1486155987817" expanded="true" signature="6742:6911" ph="/**...*/" />
+                <marker date="1486155987817" expanded="true" signature="6956:7229" ph="{...}" />
+                <marker date="1486155987817" expanded="true" signature="7307:8238" ph="{...}" />
+                <marker date="1486155987817" expanded="true" signature="8344:10172" ph="{...}" />
+                <marker date="1486155987817" expanded="true" signature="10178:10233" ph="/**...*/" />
+                <marker date="1486155987817" expanded="false" signature="10257:10268" ph=" { " />
+                <marker date="1486155987817" expanded="false" signature="10280:10286" ph=" }" />
+                <marker date="1486155987817" expanded="true" signature="10292:10348" ph="/**...*/" />
+                <marker date="1486155987817" expanded="true" signature="10392:10402" ph=" { " />
+                <marker date="1486155987817" expanded="true" signature="10421:10427" ph=" }" />
+                <marker date="1486155987817" expanded="true" signature="10433:10487" ph="/**...*/" />
+                <marker date="1486155987817" expanded="false" signature="10530:10540" ph=" { " />
+                <marker date="1486155987817" expanded="false" signature="10555:10561" ph=" }" />
               </folding>
             </state>
           </provider>
@@ -78,6 +114,10 @@
                 <element signature="e#1394#1395#0" expanded="true" />
                 <element signature="e#1516#1517#0" expanded="true" />
                 <element signature="e#1553#1554#0" expanded="true" />
+                <element signature="e#2129#2130#0" expanded="true" />
+                <element signature="e#2164#2165#0" expanded="true" />
+                <marker date="1486155987817" expanded="false" signature="2277:2287" ph=" { " />
+                <marker date="1486155987817" expanded="false" signature="2314:2320" ph=" }" />
               </folding>
             </state>
           </provider>
@@ -86,10 +126,32 @@
       <file leaf-file-name="Territorio.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/bcco/wWar/mapa/continentes/Territorio.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="585">
-              <caret line="118" column="9" lean-forward="false" selection-start-line="118" selection-start-column="9" selection-end-line="118" selection-end-column="9" />
+            <state relative-caret-position="450">
+              <caret line="77" column="0" lean-forward="false" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
               <folding>
-                <marker date="1486149196402" expanded="true" signature="1350:1430" ph="/**...*/" />
+                <element signature="e#1892#1893#0" expanded="true" />
+                <element signature="e#1940#1941#0" expanded="true" />
+                <element signature="e#2109#2110#0" expanded="true" />
+                <element signature="e#2190#2191#0" expanded="true" />
+                <element signature="e#2273#2274#0" expanded="true" />
+                <element signature="e#2346#2347#0" expanded="true" />
+                <element signature="e#2421#2422#0" expanded="true" />
+                <element signature="e#2985#2986#0" expanded="true" />
+                <element signature="e#3013#3014#0" expanded="true" />
+                <element signature="e#3128#3129#0" expanded="true" />
+                <element signature="e#3165#3166#0" expanded="true" />
+                <element signature="e#3267#3268#0" expanded="true" />
+                <element signature="e#3299#3300#0" expanded="true" />
+                <element signature="e#3401#3402#0" expanded="true" />
+                <element signature="e#3452#3453#0" expanded="true" />
+                <element signature="e#3546#3547#0" expanded="true" />
+                <element signature="e#3593#3594#0" expanded="true" />
+                <element signature="e#3709#3710#0" expanded="true" />
+                <element signature="e#3743#3744#0" expanded="true" />
+                <element signature="e#4650#4651#0" expanded="true" />
+                <element signature="e#4690#4691#0" expanded="true" />
+                <element signature="e#4766#4767#0" expanded="true" />
+                <element signature="e#4798#4799#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -98,56 +160,48 @@
       <file leaf-file-name="Gui.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="693">
-              <caret line="1706" column="45" lean-forward="false" selection-start-line="1706" selection-start-column="45" selection-end-line="1706" selection-end-column="45" />
+            <state relative-caret-position="308">
+              <caret line="1369" column="46" lean-forward="true" selection-start-line="1369" selection-start-column="46" selection-end-line="1369" selection-end-column="46" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4128#4129#0" expanded="true" />
-                <element signature="e#4199#4200#0" expanded="true" />
-                <element signature="e#5278#5279#0" expanded="true" />
-                <element signature="e#5359#5360#0" expanded="true" />
-                <element signature="e#7622#7623#0" expanded="true" />
-                <element signature="e#7703#7704#0" expanded="true" />
-                <element signature="e#10040#11953#0" expanded="true" />
-                <element signature="e#11952#11953#0" expanded="true" />
-                <element signature="e#20874#20875#0" expanded="true" />
-                <element signature="e#20922#20923#0" expanded="true" />
-                <element signature="e#21014#21015#0" expanded="true" />
-                <element signature="e#21053#21054#0" expanded="true" />
-                <element signature="e#30390#30391#0" expanded="true" />
-                <element signature="e#30452#30453#0" expanded="true" />
-                <element signature="e#30646#30647#0" expanded="true" />
-                <element signature="e#30708#30709#0" expanded="true" />
-                <element signature="e#30902#30903#0" expanded="true" />
-                <element signature="e#30964#30965#0" expanded="true" />
-                <element signature="e#33825#33826#0" expanded="true" />
-                <element signature="e#33874#33875#0" expanded="true" />
-                <element signature="e#36129#36130#0" expanded="true" />
-                <element signature="e#36189#36190#0" expanded="true" />
-                <element signature="e#36383#36384#0" expanded="true" />
-                <element signature="e#36443#36444#0" expanded="true" />
-                <element signature="e#36637#36638#0" expanded="true" />
-                <element signature="e#36697#36698#0" expanded="true" />
-                <element signature="e#36891#36892#0" expanded="true" />
-                <element signature="e#36976#36977#0" expanded="true" />
-                <element signature="e#39656#39657#0" expanded="true" />
-                <element signature="e#39709#39710#0" expanded="true" />
-                <element signature="e#41942#41943#0" expanded="true" />
-                <element signature="e#42024#42025#0" expanded="true" />
-                <element signature="e#42221#42222#0" expanded="true" />
-                <element signature="e#42303#42304#0" expanded="true" />
-                <element signature="e#42497#42498#0" expanded="true" />
-                <element signature="e#42582#42583#0" expanded="true" />
-                <element signature="e#47083#47084#0" expanded="true" />
-                <element signature="e#47132#47133#0" expanded="true" />
-                <element signature="e#49494#49495#0" expanded="true" />
-                <element signature="e#49554#49555#0" expanded="true" />
-                <element signature="e#49748#49749#0" expanded="true" />
-                <element signature="e#49808#49809#0" expanded="true" />
-                <element signature="e#50002#50003#0" expanded="true" />
-                <element signature="e#50062#50063#0" expanded="true" />
-                <element signature="e#50256#50257#0" expanded="true" />
-                <element signature="e#50341#50342#0" expanded="true" />
+                <element signature="e#4091#4092#0" expanded="true" />
+                <element signature="e#4162#4163#0" expanded="true" />
+                <element signature="e#5241#5242#0" expanded="true" />
+                <element signature="e#5322#5323#0" expanded="true" />
+                <element signature="e#7585#7586#0" expanded="true" />
+                <element signature="e#7666#7667#0" expanded="true" />
+                <element signature="e#10003#11844#0" expanded="true" />
+                <element signature="e#11843#11844#0" expanded="true" />
+                <element signature="e#20765#20766#0" expanded="true" />
+                <element signature="e#20813#20814#0" expanded="true" />
+                <element signature="e#20905#20906#0" expanded="true" />
+                <element signature="e#20944#20945#0" expanded="true" />
+                <element signature="e#30281#30282#0" expanded="true" />
+                <element signature="e#30343#30344#0" expanded="true" />
+                <element signature="e#30537#30538#0" expanded="true" />
+                <element signature="e#30599#30600#0" expanded="true" />
+                <element signature="e#30793#30794#0" expanded="true" />
+                <element signature="e#30855#30856#0" expanded="true" />
+                <element signature="e#33716#33717#0" expanded="true" />
+                <element signature="e#33765#33766#0" expanded="true" />
+                <element signature="e#36020#36021#0" expanded="true" />
+                <element signature="e#36080#36081#0" expanded="true" />
+                <element signature="e#36274#36275#0" expanded="true" />
+                <element signature="e#36334#36335#0" expanded="true" />
+                <element signature="e#36528#36529#0" expanded="true" />
+                <element signature="e#36588#36589#0" expanded="true" />
+                <element signature="e#36782#36783#0" expanded="true" />
+                <element signature="e#36867#36868#0" expanded="true" />
+                <element signature="e#39547#39548#0" expanded="true" />
+                <element signature="e#39600#39601#0" expanded="true" />
+                <element signature="e#41833#41834#0" expanded="true" />
+                <element signature="e#41915#41916#0" expanded="true" />
+                <element signature="e#42112#42113#0" expanded="true" />
+                <element signature="e#42194#42195#0" expanded="true" />
+                <element signature="e#42388#42389#0" expanded="true" />
+                <element signature="e#42473#42474#0" expanded="true" />
+                <element signature="e#46760#46761#0" expanded="true" />
+                <element signature="e#46809#46810#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -245,9 +299,9 @@
         <option value="$PROJECT_DIR$/src/bcco/Main.java" />
         <option value="$PROJECT_DIR$/src/bcco/wWar/wWar.java" />
         <option value="$PROJECT_DIR$/src/bcco/wWar/mapa/Mapa.java" />
-        <option value="$PROJECT_DIR$/src/bcco/wWar/mapa/continentes/Territorio.java" />
         <option value="$PROJECT_DIR$/src/bcco/wWar/mapa/continentes/Continente.java" />
         <option value="$PROJECT_DIR$/src/bcco/wWar/game/Game.java" />
+        <option value="$PROJECT_DIR$/src/bcco/wWar/mapa/continentes/Territorio.java" />
         <option value="$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java" />
       </list>
     </option>
@@ -906,7 +960,7 @@
       <workItem from="1486137103348" duration="1515000" />
       <workItem from="1486139327491" duration="27000" />
       <workItem from="1486139482904" duration="72000" />
-      <workItem from="1486139570499" duration="16389000" />
+      <workItem from="1486139570499" duration="21148000" />
     </task>
     <task id="LOCAL-00001" summary="Organizado código da gui">
       <created>1485918006387</created>
@@ -1083,11 +1137,25 @@
       <option name="project" value="LOCAL" />
       <updated>1486152792287</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="  Contruindo sistema de reforço aéreo pt.2">
+      <created>1486155978205</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1486155978205</updated>
+    </task>
+    <task id="LOCAL-00027" summary="  Contruindo sistema de reforço aéreo pt.2">
+      <created>1486155999794</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1486155999795</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="177939000" />
+    <option name="totallyTimeSpent" value="182698000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="24" width="1920" height="1056" extended-state="6" />
@@ -1150,7 +1218,8 @@
     <MESSAGE value="   Começado sistema de ataque aéreo pt.2" />
     <MESSAGE value="   Começado sistema de ataque aéreo pt.3" />
     <MESSAGE value="  Contruindo sistema de reforço aéreo" />
-    <option name="LAST_COMMIT_MESSAGE" value="  Contruindo sistema de reforço aéreo" />
+    <MESSAGE value="  Contruindo sistema de reforço aéreo pt.2" />
+    <option name="LAST_COMMIT_MESSAGE" value="  Contruindo sistema de reforço aéreo pt.2" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1461,14 +1530,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/bcco/wWar/wWar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-324">
-          <caret line="39" column="44" lean-forward="false" selection-start-line="39" selection-start-column="44" selection-end-line="39" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/bcco/wWar/mapa/ConstrutorMapa.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-5175">
@@ -1485,21 +1546,60 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/bcco/wWar/mapa/continentes/Territorio.java">
+    <entry file="jar:///usr/local/java/jdk1.8.0_112/src.zip!/javax/swing/plaf/basic/BasicButtonListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="118" column="9" lean-forward="false" selection-start-line="118" selection-start-column="9" selection-end-line="118" selection-end-column="9" />
-          <folding>
-            <marker date="1486149196402" expanded="true" signature="1350:1430" ph="/**...*/" />
-          </folding>
+        <state relative-caret-position="270">
+          <caret line="251" column="0" lean-forward="false" selection-start-line="251" selection-start-column="0" selection-end-line="251" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/bcco/wWar/game/jogadores/CPU.java">
+    <entry file="file://$PROJECT_DIR$/src/bcco/wWar/game/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="648">
-          <caret line="70" column="40" lean-forward="true" selection-start-line="70" selection-start-column="40" selection-end-line="70" selection-end-column="40" />
-          <folding />
+        <state relative-caret-position="315">
+          <caret line="280" column="21" lean-forward="true" selection-start-line="280" selection-start-column="21" selection-end-line="280" selection-end-column="21" />
+          <folding>
+            <marker date="1486155987817" expanded="true" signature="32:381" ph="..." />
+            <marker date="1486155987817" expanded="true" signature="2605:2658" ph="/**...*/" />
+            <marker date="1486155987817" expanded="true" signature="2688:3183" ph="{...}" />
+            <marker date="1486155987817" expanded="true" signature="3190:3231" ph="/**...*/" />
+            <marker date="1486155987817" expanded="true" signature="3272:3386" ph="{...}" />
+            <marker date="1486155987817" expanded="true" signature="3392:3592" ph="/**...*/" />
+            <marker date="1486155987817" expanded="true" signature="3701:4094" ph="{...}" />
+            <marker date="1486155987817" expanded="true" signature="4100:4264" ph="/**...*/" />
+            <marker date="1486155987817" expanded="true" signature="4314:4775" ph="{...}" />
+            <marker date="1486155987817" expanded="true" signature="4781:4839" ph="/**...*/" />
+            <marker date="1486155987817" expanded="true" signature="4876:4982" ph="{...}" />
+            <marker date="1486155987817" expanded="true" signature="4988:5031" ph="/**...*/" />
+            <marker date="1486155987817" expanded="true" signature="5063:5073" ph=" { " />
+            <marker date="1486155987817" expanded="true" signature="5089:5095" ph=" }" />
+            <marker date="1486155987817" expanded="true" signature="5101:5158" ph="/**...*/" />
+            <marker date="1486155987817" expanded="true" signature="5184:5194" ph=" { " />
+            <marker date="1486155987817" expanded="true" signature="5207:5213" ph=" }" />
+            <marker date="1486155987817" expanded="true" signature="5219:5268" ph="/**...*/" />
+            <marker date="1486155987817" expanded="true" signature="5301:5311" ph=" { " />
+            <marker date="1486155987817" expanded="true" signature="5325:5331" ph=" }" />
+            <marker date="1486155987817" expanded="true" signature="5337:5380" ph="/**...*/" />
+            <marker date="1486155987817" expanded="true" signature="5411:5421" ph=" { " />
+            <marker date="1486155987817" expanded="true" signature="5436:5442" ph=" }" />
+            <marker date="1486155987817" expanded="true" signature="5448:5626" ph="/**...*/" />
+            <marker date="1486155987817" expanded="true" signature="5686:6228" ph="{...}" />
+            <marker date="1486155987817" expanded="true" signature="6234:6411" ph="/**...*/" />
+            <marker date="1486155987817" expanded="true" signature="6460:6736" ph="{...}" />
+            <marker date="1486155987817" expanded="true" signature="6742:6911" ph="/**...*/" />
+            <marker date="1486155987817" expanded="true" signature="6956:7229" ph="{...}" />
+            <marker date="1486155987817" expanded="true" signature="7307:8238" ph="{...}" />
+            <marker date="1486155987817" expanded="true" signature="8344:10172" ph="{...}" />
+            <marker date="1486155987817" expanded="true" signature="10178:10233" ph="/**...*/" />
+            <marker date="1486155987817" expanded="false" signature="10257:10268" ph=" { " />
+            <marker date="1486155987817" expanded="false" signature="10280:10286" ph=" }" />
+            <marker date="1486155987817" expanded="true" signature="10292:10348" ph="/**...*/" />
+            <marker date="1486155987817" expanded="true" signature="10392:10402" ph=" { " />
+            <marker date="1486155987817" expanded="true" signature="10421:10427" ph=" }" />
+            <marker date="1486155987817" expanded="true" signature="10433:10487" ph="/**...*/" />
+            <marker date="1486155987817" expanded="false" signature="10530:10540" ph=" { " />
+            <marker date="1486155987817" expanded="false" signature="10555:10561" ph=" }" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1512,94 +1612,106 @@
             <element signature="e#1394#1395#0" expanded="true" />
             <element signature="e#1516#1517#0" expanded="true" />
             <element signature="e#1553#1554#0" expanded="true" />
+            <element signature="e#2129#2130#0" expanded="true" />
+            <element signature="e#2164#2165#0" expanded="true" />
+            <marker date="1486155987817" expanded="false" signature="2277:2287" ph=" { " />
+            <marker date="1486155987817" expanded="false" signature="2314:2320" ph=" }" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar:///usr/local/java/jdk1.8.0_112/src.zip!/javax/swing/plaf/basic/BasicButtonListener.java">
+    <entry file="file://$PROJECT_DIR$/src/bcco/wWar/mapa/continentes/Territorio.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="251" column="0" lean-forward="false" selection-start-line="251" selection-start-column="0" selection-end-line="251" selection-end-column="0" />
+        <state relative-caret-position="450">
+          <caret line="77" column="0" lean-forward="false" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+          <folding>
+            <element signature="e#1892#1893#0" expanded="true" />
+            <element signature="e#1940#1941#0" expanded="true" />
+            <element signature="e#2109#2110#0" expanded="true" />
+            <element signature="e#2190#2191#0" expanded="true" />
+            <element signature="e#2273#2274#0" expanded="true" />
+            <element signature="e#2346#2347#0" expanded="true" />
+            <element signature="e#2421#2422#0" expanded="true" />
+            <element signature="e#2985#2986#0" expanded="true" />
+            <element signature="e#3013#3014#0" expanded="true" />
+            <element signature="e#3128#3129#0" expanded="true" />
+            <element signature="e#3165#3166#0" expanded="true" />
+            <element signature="e#3267#3268#0" expanded="true" />
+            <element signature="e#3299#3300#0" expanded="true" />
+            <element signature="e#3401#3402#0" expanded="true" />
+            <element signature="e#3452#3453#0" expanded="true" />
+            <element signature="e#3546#3547#0" expanded="true" />
+            <element signature="e#3593#3594#0" expanded="true" />
+            <element signature="e#3709#3710#0" expanded="true" />
+            <element signature="e#3743#3744#0" expanded="true" />
+            <element signature="e#4650#4651#0" expanded="true" />
+            <element signature="e#4690#4691#0" expanded="true" />
+            <element signature="e#4766#4767#0" expanded="true" />
+            <element signature="e#4798#4799#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/bcco/wWar/game/jogadores/CPU.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="648">
+          <caret line="70" column="40" lean-forward="true" selection-start-line="70" selection-start-column="40" selection-end-line="70" selection-end-column="40" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/bcco/wWar/game/Game.java">
+    <entry file="file://$PROJECT_DIR$/src/bcco/wWar/wWar.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="288" column="55" lean-forward="false" selection-start-line="288" selection-start-column="55" selection-end-line="288" selection-end-column="55" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1346#1347#0" expanded="true" />
-            <element signature="e#1372#1373#0" expanded="true" />
-            <element signature="e#5384#5385#0" expanded="true" />
-            <element signature="e#5415#5416#0" expanded="true" />
-            <element signature="e#5505#5506#0" expanded="true" />
-            <element signature="e#5533#5534#0" expanded="true" />
-            <element signature="e#5622#5623#0" expanded="true" />
-            <element signature="e#5651#5652#0" expanded="true" />
-            <element signature="e#5732#5733#0" expanded="true" />
-            <element signature="e#5762#5763#0" expanded="true" />
-            <element signature="e#10713#10714#0" expanded="true" />
-            <element signature="e#10747#10748#0" expanded="true" />
-            <marker date="1486154863402" expanded="false" signature="10578:10589" ph=" { " />
-            <marker date="1486154863402" expanded="false" signature="10601:10607" ph=" }" />
-          </folding>
+        <state relative-caret-position="-324">
+          <caret line="39" column="44" lean-forward="false" selection-start-line="39" selection-start-column="44" selection-end-line="39" selection-end-column="44" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="693">
-          <caret line="1706" column="45" lean-forward="false" selection-start-line="1706" selection-start-column="45" selection-end-line="1706" selection-end-column="45" />
+        <state relative-caret-position="308">
+          <caret line="1369" column="46" lean-forward="true" selection-start-line="1369" selection-start-column="46" selection-end-line="1369" selection-end-column="46" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4128#4129#0" expanded="true" />
-            <element signature="e#4199#4200#0" expanded="true" />
-            <element signature="e#5278#5279#0" expanded="true" />
-            <element signature="e#5359#5360#0" expanded="true" />
-            <element signature="e#7622#7623#0" expanded="true" />
-            <element signature="e#7703#7704#0" expanded="true" />
-            <element signature="e#10040#11953#0" expanded="true" />
-            <element signature="e#11952#11953#0" expanded="true" />
-            <element signature="e#20874#20875#0" expanded="true" />
-            <element signature="e#20922#20923#0" expanded="true" />
-            <element signature="e#21014#21015#0" expanded="true" />
-            <element signature="e#21053#21054#0" expanded="true" />
-            <element signature="e#30390#30391#0" expanded="true" />
-            <element signature="e#30452#30453#0" expanded="true" />
-            <element signature="e#30646#30647#0" expanded="true" />
-            <element signature="e#30708#30709#0" expanded="true" />
-            <element signature="e#30902#30903#0" expanded="true" />
-            <element signature="e#30964#30965#0" expanded="true" />
-            <element signature="e#33825#33826#0" expanded="true" />
-            <element signature="e#33874#33875#0" expanded="true" />
-            <element signature="e#36129#36130#0" expanded="true" />
-            <element signature="e#36189#36190#0" expanded="true" />
-            <element signature="e#36383#36384#0" expanded="true" />
-            <element signature="e#36443#36444#0" expanded="true" />
-            <element signature="e#36637#36638#0" expanded="true" />
-            <element signature="e#36697#36698#0" expanded="true" />
-            <element signature="e#36891#36892#0" expanded="true" />
-            <element signature="e#36976#36977#0" expanded="true" />
-            <element signature="e#39656#39657#0" expanded="true" />
-            <element signature="e#39709#39710#0" expanded="true" />
-            <element signature="e#41942#41943#0" expanded="true" />
-            <element signature="e#42024#42025#0" expanded="true" />
-            <element signature="e#42221#42222#0" expanded="true" />
-            <element signature="e#42303#42304#0" expanded="true" />
-            <element signature="e#42497#42498#0" expanded="true" />
-            <element signature="e#42582#42583#0" expanded="true" />
-            <element signature="e#47083#47084#0" expanded="true" />
-            <element signature="e#47132#47133#0" expanded="true" />
-            <element signature="e#49494#49495#0" expanded="true" />
-            <element signature="e#49554#49555#0" expanded="true" />
-            <element signature="e#49748#49749#0" expanded="true" />
-            <element signature="e#49808#49809#0" expanded="true" />
-            <element signature="e#50002#50003#0" expanded="true" />
-            <element signature="e#50062#50063#0" expanded="true" />
-            <element signature="e#50256#50257#0" expanded="true" />
-            <element signature="e#50341#50342#0" expanded="true" />
+            <element signature="e#4091#4092#0" expanded="true" />
+            <element signature="e#4162#4163#0" expanded="true" />
+            <element signature="e#5241#5242#0" expanded="true" />
+            <element signature="e#5322#5323#0" expanded="true" />
+            <element signature="e#7585#7586#0" expanded="true" />
+            <element signature="e#7666#7667#0" expanded="true" />
+            <element signature="e#10003#11844#0" expanded="true" />
+            <element signature="e#11843#11844#0" expanded="true" />
+            <element signature="e#20765#20766#0" expanded="true" />
+            <element signature="e#20813#20814#0" expanded="true" />
+            <element signature="e#20905#20906#0" expanded="true" />
+            <element signature="e#20944#20945#0" expanded="true" />
+            <element signature="e#30281#30282#0" expanded="true" />
+            <element signature="e#30343#30344#0" expanded="true" />
+            <element signature="e#30537#30538#0" expanded="true" />
+            <element signature="e#30599#30600#0" expanded="true" />
+            <element signature="e#30793#30794#0" expanded="true" />
+            <element signature="e#30855#30856#0" expanded="true" />
+            <element signature="e#33716#33717#0" expanded="true" />
+            <element signature="e#33765#33766#0" expanded="true" />
+            <element signature="e#36020#36021#0" expanded="true" />
+            <element signature="e#36080#36081#0" expanded="true" />
+            <element signature="e#36274#36275#0" expanded="true" />
+            <element signature="e#36334#36335#0" expanded="true" />
+            <element signature="e#36528#36529#0" expanded="true" />
+            <element signature="e#36588#36589#0" expanded="true" />
+            <element signature="e#36782#36783#0" expanded="true" />
+            <element signature="e#36867#36868#0" expanded="true" />
+            <element signature="e#39547#39548#0" expanded="true" />
+            <element signature="e#39600#39601#0" expanded="true" />
+            <element signature="e#41833#41834#0" expanded="true" />
+            <element signature="e#41915#41916#0" expanded="true" />
+            <element signature="e#42112#42113#0" expanded="true" />
+            <element signature="e#42194#42195#0" expanded="true" />
+            <element signature="e#42388#42389#0" expanded="true" />
+            <element signature="e#42473#42474#0" expanded="true" />
+            <element signature="e#46760#46761#0" expanded="true" />
+            <element signature="e#46809#46810#0" expanded="true" />
           </folding>
         </state>
       </provider>
