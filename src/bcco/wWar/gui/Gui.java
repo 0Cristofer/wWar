@@ -123,6 +123,7 @@ public class Gui {
                 }
         );
 
+        c.insets = new Insets(5, 5, 5, 5);
         c.gridy = 0;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.CENTER;
@@ -137,6 +138,66 @@ public class Gui {
 
         c.gridy = 3;
         pane.add(l_oponente, c);
+
+        c.gridy = 4;
+        pane.add(l_fim, c);
+
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.CENTER;
+        c.gridy = 5;
+        pane.add(ok, c);
+
+        frame.getContentPane().add(pane, c);
+        frame.pack();
+
+        frame.setVisible(true);
+    }
+
+    public void resultadoAtaque(String nome, String territorio, String n_fracassos,
+                                String n_sucessos, boolean resultado) {
+        //Configura o frame
+        JFrame frame = new JFrame("Resultados do combate");
+        JPanel pane = new JPanel(new GridBagLayout());
+        frame.getContentPane().setLayout(new GridBagLayout());
+        frame.setLocationRelativeTo(null);
+        frame.getContentPane().setLayout(new GridBagLayout());
+        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        GridBagConstraints c = new GridBagConstraints();
+
+        //componentes
+        JLabel l_intro = new JLabel("Os exércitos de " + nome + " atacaram o(a) " + territorio);
+        JLabel l_fracassos = new JLabel("Numero de exércitos perdidos em combate: " + n_fracassos);
+        JLabel l_sucessos = new JLabel("Número de exércitos defensores mortos: " + n_sucessos);
+        JLabel l_conquista = new JLabel("Parabéns " + nome + " você conquistou o território " + territorio + "!");
+        JLabel l_fim = new JLabel("Fim do relatório de combate");
+        JButton ok = new JButton("OK");
+
+        ok.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        frame.setVisible(false);
+                    }
+                }
+        );
+
+        c.insets = new Insets(5, 5, 5, 5);
+        c.gridy = 0;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.anchor = GridBagConstraints.CENTER;
+        pane.add(l_intro, c);
+
+        c.anchor = GridBagConstraints.LINE_START;
+        c.gridy = 1;
+        pane.add(l_fracassos, c);
+
+        c.gridy = 2;
+        pane.add(l_sucessos, c);
+
+        c.gridy = 3;
+        if (resultado) {
+            pane.add(l_conquista, c);
+        }
 
         c.gridy = 4;
         pane.add(l_fim, c);
@@ -1078,7 +1139,7 @@ public class Gui {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         game_.atacarTerrestre(game_.getHumano(), selecionado_, selecionado_destino, n_ataque);
-                        //updateInfos();
+                        updateInfos();
                         frame.setVisible(false);
                     }
                 }
