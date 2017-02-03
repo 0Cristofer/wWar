@@ -100,6 +100,13 @@ public class Territorio {
         return nome_;
     }
 
+    public Terrestre removeExTerrestre(){
+        return exercitos_terrestres_.remove(exercitos_terrestres_.size()-1);
+    }
+
+    public Aereo removeExAereo(){
+        return exercitos_aereos_.remove(exercitos_aereos_.size()-1);
+    }
     /**
      * @return O vetor de territórios que fazem fronteira
      */
