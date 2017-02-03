@@ -86,6 +86,73 @@ public class Gui {
     }
 
     /**
+     * Tela de informações iniciais do jogo
+     */
+    public void popUpInfo(String nome, List<Territorio> territorios, String oponente) {
+        String t_territorios = "";
+
+        //Configura o frame
+        JFrame frame = new JFrame("Bem-vindo!");
+        JPanel pane = new JPanel(new GridBagLayout());
+        frame.getContentPane().setLayout(new GridBagLayout());
+        frame.setLocationRelativeTo(null);
+        frame.getContentPane().setLayout(new GridBagLayout());
+        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        GridBagConstraints c = new GridBagConstraints();
+
+
+        for (Territorio t : territorios) {
+            t_territorios += t.getNome() + ", ";
+        }
+
+        //componentes
+        JLabel l_bemvindo = new JLabel(nome + "Bem-vindo ao WAR The Game ");
+        JLabel l_oponente = new JLabel("Neste jogo seu oponente será o maligno " + oponente + "!!!");
+        JLabel l_territorios = new JLabel("Você recebeu os territórios: " + t_territorios + ".");
+        JLabel l_info = new JLabel("Um exército terrestre e um aereo já se encontram nestes territórios.");
+        JLabel l_fim = new JLabel("Pense estratégicamente, planeje e ataque! Vença a guerra!");
+        JButton ok = new JButton("OK");
+
+
+        ok.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        frame.setVisible(false);
+                    }
+                }
+        );
+
+        c.gridy = 0;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.anchor = GridBagConstraints.CENTER;
+        pane.add(l_bemvindo, c);
+
+        c.anchor = GridBagConstraints.LINE_START;
+        c.gridy = 1;
+        pane.add(l_oponente, c);
+
+        c.gridy = 2;
+        pane.add(l_territorios, c);
+
+        c.gridy = 3;
+        pane.add(l_oponente, c);
+
+        c.gridy = 4;
+        pane.add(l_fim, c);
+
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.CENTER;
+        c.gridy = 5;
+        pane.add(ok, c);
+
+        frame.getContentPane().add(pane, c);
+        frame.pack();
+
+        frame.setVisible(true);
+    }
+
+    /**
      * Mostra a tela inicial
      */
     public void telaInicial(){
@@ -118,9 +185,11 @@ public class Gui {
                     public void actionPerformed(ActionEvent e) {
                         game_.iniciarJogo(nome_input.getText());
                         clear();
+
+                        popUpInfo(game_.getHumano().getNome(), game_.getTerritorios(game_.getHumano()),
+                                game_.getCPU().getNome());
+
                         telaJogo();
-                        //Adicionar tela de informar o jogador os territórios que ele ganhou e qual seu oponente.
-                        distribuirExercito();
                     }
                 }
         );
@@ -517,7 +586,7 @@ public class Gui {
     /**
      * Tela de distribuição de exército
      */
-    private void distribuirExercito(){
+    public void distribuirExercito() {
         int terr_recebidos = game_.getHumano().getTerrestresRecebidos();
         int aereo_recebidos = game_.getHumano().getAereos_recebidos_();
         int i = 1;
@@ -677,7 +746,7 @@ public class Gui {
                     JOptionPane.showMessageDialog(null, "Tropas distribuídas!",
                             "Sucesso",JOptionPane.OK_CANCEL_OPTION);
 
-                    game_.distribuirExercitos(valoresTerr, valoresAereo);
+                    game_.distribuirExercitos(game_.getHumano(), valoresTerr, valoresAereo);
                     frame.setVisible(false);
                     updateJogadoresInfos();
                 } else {

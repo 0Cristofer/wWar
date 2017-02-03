@@ -50,18 +50,18 @@ public class Territorio {
 
     /**
      * Adiciona um exército terrestre a lista de exércitos terrestres
-     * @param exercito O exército a ser adicionado
      */
-    public void insereExTerrestre(Terrestre exercito){
-        exercitos_terrestres_.add(exercito);
+    public void insereExTerrestre() {
+        Terrestre tropa = new Terrestre();
+        exercitos_terrestres_.add(tropa);
     }
 
     /**
      * Adiciona um exército aéreos a lista de exércitos aéreos
-     * @param exercito O exército a ser adicionado
      */
-    public void insereExAereo(Aereo exercito) {
-        exercitos_aereos_.add(exercito);
+    public void insereExAereo() {
+        Aereo tropa = new Aereo();
+        exercitos_aereos_.add(tropa);
     }
 
     /**
@@ -149,9 +149,14 @@ public class Territorio {
         ocupante_ = new_ocupante;
     }
 
+    /**
+     * @return
+     */
     @Override
     public String toString(){
         return getNome();
     }
+
+
 
 }

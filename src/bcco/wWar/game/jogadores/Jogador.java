@@ -9,8 +9,8 @@ import bcco.wWar.game.Game;
 public class Jogador {
     protected Game game_;
     protected String nome_;
-    private int terrestres_recebidos_;
-    private int aereos_recebidos_;
+    protected int terrestres_recebidos_;
+    protected int aereos_recebidos_;
 
     /**
      * Cria um jogador com um nome e define se ele é controlado pela CPU
