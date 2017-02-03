@@ -42,6 +42,10 @@ public class Mapa {
         return -1;
     }
 
+    public Continente[] getContinentes_() {
+        return continentes_;
+    }
+
     /**
      * Escreve os detalhes do mapa
      */

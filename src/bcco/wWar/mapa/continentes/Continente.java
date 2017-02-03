@@ -79,6 +79,13 @@ public class Continente{
     }
 
     /**
+     * @return
+     */
+    public Territorio[] getTerritorios_() {
+        return territorios_;
+    }
+
+    /**
      * @return A quantidade de territorios nesse continente
      */
     public int getNumTerritorios(){
