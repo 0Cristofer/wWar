@@ -317,6 +317,7 @@ public class Game {
         int n_defesa;
         int n_sucessos = 0;
         int n_fracassos = 0;
+        boolean resultado;
 
         //Se humano atacando
         if (jogador == humano_) {
@@ -397,15 +398,24 @@ public class Game {
 
         //Dominou o território
         if (exercitos_alvos.isEmpty()) {
+            resultado = true;
             alvo.setOcupante(jogador);
 
-            System.out.format(jogador.getNome() + "Dominou o territorio " + alvo.getNome() + "\n");
+            System.out.format(jogador.getNome() + " dominou o territorio " + alvo.getNome() + "\n");
 
-            if (jogador == humano_) {
-                //TODO Chama uma função no Gui que exibe um tela de "Parabéns você conquistou o território!"
+
+            for (int i = 0; i < n_sucessos - n_fracassos; i++) {
+                alvo.insereExTerrestre();
             }
+
+        } else {
+            resultado = false;
         }
 
+        if (jogador == humano_) {
+            gui_.resultadoAtaque(jogador.getNome(), territorio.getNome(),
+                    Integer.toString(n_fracassos), Integer.toString(n_sucessos), resultado);
+        }
     }
 
     /**
