@@ -113,8 +113,11 @@ public class Continente{
         List<Continente> fronteira = new ArrayList<>();
 
         for(Territorio t : territorios_){
-            if(!fronteira.contains(t.getContinente())){
-                fronteira.add(t.getContinente());
+            Territorio[] f = t.getFronteira();
+            for(Territorio t1 : f){
+                if(!fronteira.contains(t1.getContinente())){
+                    fronteira.add(t1.getContinente());
+                }
             }
         }
 

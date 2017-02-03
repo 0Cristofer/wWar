@@ -184,13 +184,11 @@ public class Gui {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        game_.iniciarJogo(nome_input.getText());
                         clear();
-
+                        game_.iniciarJogo(nome_input.getText());
+                        telaJogo();
                         popUpInfo(game_.getHumano().getNome(), game_.getTerritorios(game_.getHumano()),
                                 game_.getCPU().getNome());
-
-                        telaJogo();
                     }
                 }
         );
@@ -1675,6 +1673,7 @@ public class Gui {
         pane.add(titulo, c);
 
         c.gridy = 1;
+        c.gridwidth = 1;
         c.anchor = GridBagConstraints.LINE_START;
 
         pane.add(local, c);
@@ -1683,23 +1682,32 @@ public class Gui {
 
         pane.add(quantidade, c);
 
-        for(int i = 0; i < territorios.length; i++){
-            for(int j = 0; j < territorios[i].getNumExAereos(); j++){
-                terrs_combos.get(i).addItem(j);
+        int i;
+        for(i = 0; i < territorios.length; i++){
+            if(territorios[i].getNumExAereos() != 0) {
+                for (int j = 0; j < territorios[i].getNumExAereos(); j++) {
+                    terrs_combos.get(i).addItem(j);
+                }
+                terrs_combos.get(i).addActionListener(new AereoListener());
+
+                c.gridx = 0;
+                c.gridy = i + 2;
+
+                terrs_labels[i] = new JLabel(territorios[i].getNome());
+                pane.add(terrs_labels[i], c);
+
+                c.gridx = 1;
+
+                pane.add(terrs_combos.get(i), c);
             }
-            terrs_combos.   get(i).addActionListener(new AereoListener());
-
-            c.gridx = 0;
-            c.gridy = i + 2;
-
-            terrs_labels[i].setText(territorios[i].getNome());
-            pane.add(terrs_labels[i], c);
-
-            c.gridx = 1;
-
         }
 
-        frame.getContentPane().add(pane, c);
+        c.gridx = 0;
+        c.gridy = i + 3;
+        c.anchor = GridBagConstraints.CENTER;
+        pane.add(ok, c);
+
+        frame.getContentPane().add(pane);
 
         frame.pack();
         frame.setVisible(true);

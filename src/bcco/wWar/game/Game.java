@@ -278,12 +278,15 @@ public class Game {
     public Territorio[] getTerrPossiveisAereo(Territorio t, Jogador jogador){
         List<Territorio> territorios = new ArrayList<>();
         Continente[] fronteira = t.getContinente().getFazFronteira();
+        for(Continente c : fronteira){
+            System.out.println(c.getNome());
+        }
 
         for(int i = 0; i < fronteira.length; i++){
             for(int j = 0; j < fronteira[i].getNumTerritorios(); j++){
                 Territorio terr = null;
                 try {
-                    terr = fronteira[i].getTerritorio(i);
+                    terr = fronteira[i].getTerritorio(j);
                 } catch (ContinenteException e) {
                     e.printStackTrace();
                 }
