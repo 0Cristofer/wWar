@@ -279,6 +279,7 @@ public class Gui {
 
                                 if(selecionado_ != null){
                                     jogador_atacar_terr.setEnabled(!jogador_atacar_terr.isEnabled());
+                                    jogador_atacar_aereo.setEnabled(!jogador_atacar_terr.isEnabled());
                                     jogador_movimentar.setEnabled(!jogador_movimentar.isEnabled());
                                 }
                             }
@@ -830,12 +831,9 @@ public class Gui {
         bg.add(r3);
 
         if (n_tropas < 3) {
-            if (n_tropas == 2) {
-                r3.setEnabled(false);
-            } else {
-                r3.setEnabled(false);
+            r3.setEnabled(false);
+            if (n_tropas != 2) {
                 r2.setEnabled(false);
-
             }
         }
 
@@ -1003,6 +1001,7 @@ public class Gui {
         JLabel quantidade = new JLabel("Atacar com:");
         JLabel num_terr = new JLabel("Exércitos Terrestres: ");
         JLabel num_aereo = new JLabel("Exércitos Aereos: " + selecionado_destino.getNumExAereos());
+        JButton ok = new JButton("Atacar");
 
         ButtonGroup bg = new ButtonGroup();
         JRadioButton r1 = new JRadioButton("1");
@@ -1014,16 +1013,13 @@ public class Gui {
         r1.doClick();
 
         if (n_tropas < 3) {
-            if (n_tropas == 2) {
-                r3.setEnabled(false);
-            } else {
-                r3.setEnabled(false);
+            r3.setEnabled(false);
+            if (n_tropas != 2) {
                 r2.setEnabled(false);
             }
         }
 
 
-        JButton ok = new JButton("Atacar");
 
 
         //Listeners
@@ -1378,10 +1374,14 @@ public class Gui {
         if(t != null) {
             if(t.getOcupante().getNome().equals(game_.getJogadorDaVez().getNome())){
                 jogador_atacar_terr.setEnabled(true);
+                if(selecionado_.getNumExAereos() != 0) {
+                    jogador_atacar_aereo.setEnabled(true);
+                }
                 jogador_movimentar.setEnabled(true);
             }
             else{
                 jogador_atacar_terr.setEnabled(false);
+                jogador_atacar_aereo.setEnabled(false);
                 jogador_movimentar.setEnabled(false);
             }
 
@@ -1402,6 +1402,14 @@ public class Gui {
 
     private void atacarAereo(List<Territorio> territorios){
         atacando_ = true;
+        n_ataque = 0;
+        int n_tropas = selecionado_.getNumExAereos();
+
+        Territorio[] terrs = new Territorio[territorios.size()];
+
+        for(int i = 0; i < terrs.length; i++){
+            terrs[i] = territorios.get(i);
+        }
 
         //Cria a nova janela
         JFrame frame = new JFrame("Ataque aéreo");
@@ -1446,7 +1454,191 @@ public class Gui {
             }
         });
 
+        GridBagConstraints c = new GridBagConstraints();
 
+        //Componentes
+        JComboBox<Territorio> combo = new JComboBox<>(terrs);
+        selecionado_destino = (Territorio) (combo.getSelectedItem());
+
+        JLabel titulo = new JLabel("Atacando de: " + selecionado_.getNome());
+        JLabel atacar = new JLabel("Atacar: ");
+        JLabel quantidade = new JLabel("Atacar com:");
+        JLabel num_terr = new JLabel("Exércitos Terrestres: ");
+        JLabel num_aereo = new JLabel("Exércitos Aereos: " + selecionado_destino.getNumExAereos());
+        JButton reforco = new JButton("Chamar reforço");
+        JButton ok = new JButton("Atacar");
+
+        ButtonGroup bg = new ButtonGroup();
+        JRadioButton r1 = new JRadioButton("1");
+        JRadioButton r2 = new JRadioButton("2");
+        JRadioButton r3 = new JRadioButton("3");
+        bg.add(r1);
+        bg.add(r2);
+        bg.add(r3);
+        r1.doClick();
+
+        if (n_tropas < 3) {
+            r3.setEnabled(false);
+        }
+        if (n_tropas < 2) {
+            r2.setEnabled(false);
+        }
+        if(n_tropas < 1){
+            r1.setEnabled(false);
+        }
+
+
+        //Listeners
+        combo.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        selecionado_destino = (Territorio) ((JComboBox) e.getSource()).getSelectedItem();
+                        num_terr.setText("Exércitos Terrestres: " + selecionado_destino.getNumExTerrestres());
+                        num_aereo.setText("Exércitos Aereos: " + selecionado_destino.getNumExAereos());
+                    }
+                }
+        );
+
+        r1.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        n_ataque = 1;
+                    }
+                }
+        );
+
+        r2.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        n_ataque = 2;
+                    }
+                }
+        );
+
+        r3.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        n_ataque = 3;
+                    }
+                }
+        );
+
+        ok.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        System.out.println(n_ataque); //Atacar
+                    }
+                }
+        );
+
+        reforco.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e){
+                        Territorio[] t = game_.getTerrPossiveisAereo(selecionado_destino, game_.getHumano());
+                        if(t.length == 0){
+                            JOptionPane.showMessageDialog(null, "Não há aviões disponíveis para reforço",
+                                    "Atenção",JOptionPane.OK_OPTION);
+                        }
+                        else{
+                            reforcoAereo(t, r1, r2, r3);
+                        }
+                    }
+                }
+        );
+
+        num_terr.setText("Exércitos Terrestres: " + selecionado_destino.getNumExTerrestres());
+        num_aereo.setText("Exércitos Aereos: " + selecionado_destino.getNumExAereos());
+
+
+        //Layout
+        c.insets = new Insets(5, 5, 5, 5);
+
+        c.gridx = 0;
+        c.gridy = 0;
+        c.gridwidth = 1;
+        c.gridheight = 1;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.anchor = GridBagConstraints.CENTER;
+
+        pane.add(titulo, c);
+
+        c.gridy = 1;
+
+        pane.add(atacar, c);
+
+        c.gridx = 1;
+
+        pane.add(combo, c);
+
+        c.gridx = 0;
+        c.gridy = 2;
+
+        pane.add(num_terr, c);
+
+        c.gridx = 1;
+
+        pane.add(num_aereo, c);
+
+        c.gridx = 0;
+        c.gridy = 3;
+
+        pane.add(quantidade, c);
+
+        c.gridy = 4;
+        c.anchor = GridBagConstraints.LINE_START;
+        pane.add(r1, c);
+
+        c.gridx = 1;
+        pane.add(r2, c);
+
+        c.gridx = 2;
+        pane.add(r3, c);
+
+        c.gridx = 0;
+        c.gridy = 5;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.anchor = GridBagConstraints.LINE_START;
+        c.gridwidth = 3;
+        pane.add(reforco, c);
+
+        c.gridy = 6;
+        pane.add(ok, c);
+
+        frame.getContentPane().add(pane, c);
+
+        frame.pack();
+        frame.setVisible(true);
+
+    }
+
+    private void reforcoAereo(Territorio[] territorios, JRadioButton r1, JRadioButton r2, JRadioButton r3){
+
+        //Cria a nova janela
+        JFrame frame = new JFrame("Ataque aéreo");
+        JPanel pane = new JPanel(new GridBagLayout());
+        frame.getContentPane().setLayout(new GridBagLayout());
+        frame.setLocationRelativeTo(null);
+        frame.getContentPane().setLayout(new GridBagLayout());
+        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+
+        GridBagConstraints c = new GridBagConstraints();
+
+        //Componentes
+        JComboBox<Territorio> combo = new JComboBox<>(territorios);
+        selecionado_destino = (Territorio) (combo.getSelectedItem());
+
+        JLabel titulo = new JLabel("Reforçar: " + selecionado_.getNome());
+        JLabel local = new JLabel("De: ");
+        JLabel quantidade = new JLabel("Reforçar com:");
+        JLabel num_terr = new JLabel("Exércitos Terrestres: ");
+        JLabel num_aereo = new JLabel("Exércitos Aereos: " + selecionado_destino.getNumExAereos());
+        JButton ok = new JButton("Reforçar");
 
     }
 

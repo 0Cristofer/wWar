@@ -57,6 +57,13 @@ public class Continente{
     }
 
     /**
+     * @return O vetor com os continentes que fazem fronteira
+     */
+    public Continente[] getFazFronteira(){
+        return faz_fronteira_;
+    }
+
+    /**
      * Retorna um território a partir de seu index
      * @param index O index do terrotório
      * @return A instância do território

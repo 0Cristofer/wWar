@@ -270,6 +270,32 @@ public class Game {
 
     }
 
+    public Territorio[] getTerrPossiveisAereo(Territorio t, Jogador jogador){
+        List<Territorio> territorios = new ArrayList<>();
+        Continente[] fronteira = t.getContinente().getFazFronteira();
+
+        for(int i = 0; i < fronteira.length; i++){
+            for(int j = 0; j < fronteira[i].getNumTerritorios(); j++){
+                Territorio terr = null;
+                try {
+                    terr = fronteira[i].getTerritorio(i);
+                } catch (ContinenteException e) {
+                    e.printStackTrace();
+                }
+
+                if(terr != null){
+                    if((terr.getOcupante() == jogador) && (terr.getNumExAereos() > 0)){
+                        territorios.add(terr);
+                    }
+                }
+            }
+        }
+        Territorio[] r = new Territorio[territorios.size()];
+        r = territorios.toArray(r);
+
+        return r;
+    }
+
     public int atacarTerrestre(Jogador jogador, Territorio territorio, Territorio alvo, int qtd_ataque) {
         List<Integer> ataques = new ArrayList<>();
         List<Integer> defesas = new ArrayList<>();
