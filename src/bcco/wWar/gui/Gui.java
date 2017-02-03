@@ -27,6 +27,7 @@ public class Gui {
 
     private int screen_width_;
     private int screen_heigth_;
+    private int n_defender = 0;
     private String titulo_;
 
     private Game game_;
@@ -116,7 +117,8 @@ public class Gui {
                         game_.iniciarJogo(nome_input.getText());
                         clear();
                         telaJogo();
-                        distribuirExercito(); //Arrumar
+                        //distribuirExercito(); //Arrumar
+                        defender(game_.getTerritorios(game_.getCPU()).get(0), game_.getTerritorios(game_.getHumano()).get(0), 3); //TESTE APENAS, TIRAR
                     }
                 }
         );
@@ -787,6 +789,129 @@ public class Gui {
     }
 
     /**
+     *
+     */
+    private void defender(Territorio territorio, Territorio alvo, int qtd_ataque) {
+        //Configura o frame
+        JFrame frame = new JFrame("Defender território");
+        JPanel pane = new JPanel(new GridBagLayout());
+        frame.getContentPane().setLayout(new GridBagLayout());
+        frame.setLocationRelativeTo(null);
+        frame.getContentPane().setLayout(new GridBagLayout());
+        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+
+        int n_tropas = alvo.getNumExTerrestres();
+
+
+        //Componentes
+
+        JLabel descricao = new JLabel("Os exércitos de " + game_.getCPU().getNome() + " estão atacando!");
+
+        JLabel territorio_alvo = new JLabel(alvo.getNome() + " está em perigo!");
+        JLabel alvo_info = new JLabel("Tropas neste território: " + n_tropas);
+        JLabel defender_text = new JLabel("Defender território com: ");
+
+        ButtonGroup bg = new ButtonGroup();
+        JRadioButton r1 = new JRadioButton("1");
+        JRadioButton r2 = new JRadioButton("2");
+        JRadioButton r3 = new JRadioButton("3");
+        bg.add(r1);
+        bg.add(r2);
+        bg.add(r3);
+
+        if (n_tropas < 3) {
+            if (n_tropas == 2) {
+                r3.setEnabled(false);
+            } else {
+                r3.setEnabled(false);
+                r2.setEnabled(false);
+
+            }
+        }
+
+        r1.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        n_defender = 1;
+                    }
+                }
+        );
+
+        r2.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        n_defender = 2;
+                    }
+                }
+        );
+
+        r3.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        n_defender = 3;
+                    }
+                }
+        );
+
+        r1.doClick();
+
+        JLabel territorio_atacando = new JLabel(territorio.getNumExTerrestres() + " exércitos marcham de " + territorio.getNome());
+
+        JButton defender = new JButton("Defender");
+
+        //Configura os constrains para cada coluna
+        GridBagConstraints c = new GridBagConstraints();
+        c.insets = new Insets(5, 5, 5, 5);
+        c.gridx = 0;
+        c.gridy = 0;
+
+        c.gridwidth = 5;
+        c.anchor = GridBagConstraints.CENTER;
+        pane.add(descricao, c);
+
+        c.anchor = GridBagConstraints.LINE_START;
+        c.gridy = 1;
+        c.gridwidth = 1;
+        pane.add(territorio_alvo, c);
+
+        c.gridy = 2;
+        pane.add(alvo_info, c);
+
+        c.gridy = 3;
+        pane.add(defender_text, c);
+
+        c.gridx = 1;
+        pane.add(r1, c);
+
+        c.gridx = 2;
+        pane.add(r2, c);
+
+        c.gridx = 3;
+        pane.add(r3, c);
+
+        c.gridx = 4;
+        c.gridy = 0;
+        c.anchor = GridBagConstraints.CENTER;
+        c.gridheight = 3;
+        pane.add(territorio_atacando, c);
+
+        c.gridx = 0;
+        c.gridy = 4;
+        c.gridwidth = 5;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.anchor = GridBagConstraints.LINE_START;
+        pane.add(defender, c);
+
+        frame.getContentPane().add(pane, c);
+        frame.pack();
+
+        frame.setVisible(true);
+    }
+
+    /**
      * Tela de pop-up de ataque
      */
     private void atacar(){
@@ -983,6 +1108,7 @@ public class Gui {
         frame.setVisible(true);
 
     }
+
 
     /**
      * Mostra a janela de movimentação de tropas
