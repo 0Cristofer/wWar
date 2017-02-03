@@ -28,6 +28,7 @@ public class Gui {
     private int screen_width_;
     private int screen_heigth_;
     private int n_defender = 0;
+    int n_ataque = 0;
     private String titulo_;
 
     private Game game_;
@@ -37,6 +38,7 @@ public class Gui {
     private boolean terminado_ataque_ = false;
     private boolean movimentando_ = false;
     private Territorio selecionado_ = null;
+    private Territorio selecionado_destino = null;
     private String tipo_exerc_;
 
     private JLabel jogador_num_territorios;
@@ -117,8 +119,8 @@ public class Gui {
                         game_.iniciarJogo(nome_input.getText());
                         clear();
                         telaJogo();
-                        //distribuirExercito(); //Arrumar
-                        defender(game_.getTerritorios(game_.getCPU()).get(0), game_.getTerritorios(game_.getHumano()).get(0), 3); //TESTE APENAS, TIRAR
+                        //Adicionar tela de informar o jogador os territórios que ele ganhou e qual seu oponente.
+                        distribuirExercito();
                     }
                 }
         );
@@ -296,10 +298,10 @@ public class Gui {
                     public void actionPerformed(ActionEvent e) {
                         if(terminado_ataque_){
                             JOptionPane.showMessageDialog(tabela_pane, "Você começou a movimentar tropas," +
-                                    "não pode mais atacar");
+                                    "não pode mais atacarTerrestre");
                         }
                         else{
-                            atacar();
+                            atacarTerrestre();
                             updateJogadoresInfos();
                         }
                     }
@@ -312,7 +314,7 @@ public class Gui {
                     public void actionPerformed(ActionEvent e) {
                         if(terminado_ataque_){
                             JOptionPane.showMessageDialog(tabela_pane, "Você começou a movimentar tropas," +
-                                    "não pode mais atacar");
+                                    "não pode mais atacarTerrestre");
                         }
                         else{
                             List<Territorio> t = checkAereo();
@@ -336,7 +338,7 @@ public class Gui {
                     public void actionPerformed(ActionEvent e) {
                         if(!terminado_ataque_) {
                             if (JOptionPane.showConfirmDialog(tabela_pane,
-                                    "Tem certeza que deseja movimentar? Você não poderá mais atacar",
+                                    "Tem certeza que deseja movimentar? Você não poderá mais atacarTerrestre",
                                     "Tem certeza?", JOptionPane.YES_NO_OPTION) ==
                                     JOptionPane.YES_OPTION) {
                                 terminado_ataque_ = true;
@@ -799,7 +801,7 @@ public class Gui {
     /**
      *
      */
-    private void defender(Territorio territorio, Territorio alvo, int qtd_ataque) {
+    public int defender(Territorio territorio, Territorio alvo, int qtd_ataque) {
         //Configura o frame
         JFrame frame = new JFrame("Defender território");
         JPanel pane = new JPanel(new GridBagLayout());
@@ -917,15 +919,18 @@ public class Gui {
         frame.pack();
 
         frame.setVisible(true);
+        return n_defender;
     }
 
     /**
      * Tela de pop-up de ataque
      */
-    private void atacar(){
+    private void atacarTerrestre() {
         atacando_ = true;
+        n_ataque = 1;
+        int n_tropas = selecionado_.getNumExTerrestres();
 
-        //Verifica quantos e quais territórios estão disponíveis para atacar (são inimigos)
+        //Verifica quantos e quais territórios estão disponíveis para atacarTerrestre (são inimigos)
         List<Territorio> f = new ArrayList<>();
         for(Territorio t : selecionado_.getFronteira()){
           if(t.getOcupante() != game_.getJogadorDaVez()){
@@ -990,52 +995,72 @@ public class Gui {
         GridBagConstraints c = new GridBagConstraints();
 
         //Componentes
+        JComboBox<Territorio> combo = new JComboBox<>(fronteiras);
+        selecionado_destino = (Territorio) (combo.getSelectedItem());
+
         JLabel titulo = new JLabel("Atacando de: " + selecionado_.getNome());
         JLabel atacar = new JLabel("Atacar: ");
-        JLabel dono = new JLabel("Dono: ");
+        JLabel quantidade = new JLabel("Atacar com:");
         JLabel num_terr = new JLabel("Exércitos Terrestres: ");
-        JLabel num_aereo = new JLabel("Exércitos Aéreos: ");
-        JLabel num = new JLabel("Quantidade: ");
-        JComboBox<Territorio> combo = new JComboBox<>(fronteiras);
+        JLabel num_aereo = new JLabel("Exércitos Aereos: " + selecionado_destino.getNumExAereos());
 
         ButtonGroup bg = new ButtonGroup();
-        JRadioButton terr = new JRadioButton("Terrestre");
-        JRadioButton aereo = new JRadioButton("Aereo");
+        JRadioButton r1 = new JRadioButton("1");
+        JRadioButton r2 = new JRadioButton("2");
+        JRadioButton r3 = new JRadioButton("3");
+        bg.add(r1);
+        bg.add(r2);
+        bg.add(r3);
+        r1.doClick();
 
-        JTextField num_exe = new JTextField(5);
-        JButton ok = new JButton("Cofirmar");
+        if (n_tropas < 3) {
+            if (n_tropas == 2) {
+                r3.setEnabled(false);
+            } else {
+                r3.setEnabled(false);
+                r2.setEnabled(false);
+            }
+        }
 
-        //Configur os radio buttons
-        terr.setActionCommand("Terrestre");
-        aereo.setActionCommand("Aereo");
-        terr.doClick(); //Simula um clique
-        bg.add(terr);
-        bg.add(aereo);
+
+        JButton ok = new JButton("Atacar");
+
 
         //Listeners
         combo.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        updatePopUpInfo(dono, num_terr, num_aereo, (Territorio)((JComboBox)e.getSource()).getSelectedItem());
+                        selecionado_destino = (Territorio) ((JComboBox) e.getSource()).getSelectedItem();
+                        num_terr.setText("Exércitos Terrestres: " + selecionado_destino.getNumExTerrestres());
+                        num_aereo.setText("Exércitos Aereos: " + selecionado_destino.getNumExAereos());
                     }
                 }
         );
 
-        terr.addActionListener(
+        r1.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        tipo_exerc_ = e.getActionCommand();
+                        n_ataque = 1;
                     }
                 }
         );
 
-        aereo.addActionListener(
+        r2.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        tipo_exerc_ = e.getActionCommand();
+                        n_ataque = 2;
+                    }
+                }
+        );
+
+        r3.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        n_ataque = 3;
                     }
                 }
         );
@@ -1044,12 +1069,14 @@ public class Gui {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        System.out.println(num_exe.getText());
+                        System.out.println(n_ataque); //Atacar
                     }
                 }
         );
 
-        updatePopUpInfo(dono, num_terr, num_aereo, (Territorio)(combo.getSelectedItem()));
+        num_terr.setText("Exércitos Terrestres: " + selecionado_destino.getNumExTerrestres());
+        num_aereo.setText("Exércitos Aereos: " + selecionado_destino.getNumExAereos());
+
 
         //Layout
         c.insets = new Insets(5, 5, 5, 5);
@@ -1083,38 +1110,29 @@ public class Gui {
         c.gridx = 0;
         c.gridy = 3;
 
-        pane.add(dono, c);
+        pane.add(quantidade, c);
 
         c.gridy = 4;
-
-        pane.add(terr, c);
-
-        c.gridy = 5;
-
-        pane.add(aereo, c);
+        c.anchor = GridBagConstraints.LINE_START;
+        pane.add(r1, c);
 
         c.gridx = 1;
-        c.gridy = 4;
-
-        pane.add(num, c);
+        pane.add(r2, c);
 
         c.gridx = 2;
-
-        pane.add(num_exe, c);
+        pane.add(r3, c);
 
         c.gridx = 0;
-        c.gridy = 6;
-
+        c.gridy = 5;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.anchor = GridBagConstraints.LINE_START;
+        c.gridwidth = 3;
         pane.add(ok, c);
-
-        c.gridx = 0;
-        c.gridy = 0;
 
         frame.getContentPane().add(pane, c);
 
         frame.pack();
         frame.setVisible(true);
-
     }
 
 
@@ -1196,6 +1214,7 @@ public class Gui {
         JLabel num_aereo = new JLabel("Exércitos Aéreos: ");
         JLabel num = new JLabel("Quantidade: ");
         JComboBox<Territorio> combo = new JComboBox<>(fronteiras);
+        selecionado_destino = (Territorio) (combo.getSelectedItem());
 
         ButtonGroup bg = new ButtonGroup();
         JRadioButton terr = new JRadioButton("Terrestre");
@@ -1216,7 +1235,9 @@ public class Gui {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        updatePopUpInfo(dono, num_terr, num_aereo, (Territorio)((JComboBox)e.getSource()).getSelectedItem());
+                        selecionado_destino = (Territorio) ((JComboBox) e.getSource()).getSelectedItem();
+                        dono.setText("Dono: " + selecionado_destino.getOcupante().getNome());
+                        num_terr.setText("Exércitos Terrestres: " + selecionado_destino.getNumExTerrestres());
                     }
                 }
         );
@@ -1248,7 +1269,8 @@ public class Gui {
                 }
         );
 
-        updatePopUpInfo(dono, num_terr, num_aereo, (Territorio)(combo.getSelectedItem()));
+        dono.setText("Dono: " + selecionado_destino.getOcupante().getNome());
+        num_terr.setText("Exércitos Terrestres: " + selecionado_destino.getNumExTerrestres());
 
         //Layout
         c.insets = new Insets(5, 5, 5, 5);

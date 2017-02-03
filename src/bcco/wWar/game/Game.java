@@ -4,6 +4,7 @@ import bcco.wWar.game.exercitos.Aereo;
 import bcco.wWar.game.exercitos.Terrestre;
 import bcco.wWar.game.jogadores.CPU;
 import bcco.wWar.game.jogadores.Jogador;
+import bcco.wWar.gui.Gui;
 import bcco.wWar.mapa.Mapa;
 import bcco.wWar.mapa.continentes.Continente;
 import bcco.wWar.mapa.continentes.Territorio;
@@ -23,6 +24,7 @@ import java.util.Random;
 public class Game {
 
     private Mapa mapa_;
+    private Gui gui_;
 
     private Jogador humano_;
     private CPU cpu_;
@@ -35,7 +37,7 @@ public class Game {
      * Constrói a instância do jogo com o mapa construído e os nomes dos jogadores
      * @param mapa O mapa construído a partir do arquivo
      */
-    public Game(Mapa mapa){
+    public Game(Mapa mapa, Gui gui) {
         mapa_ = mapa;
 
         for(int i = 0; i < mapa_.getNumContinentes(); i++){
@@ -47,6 +49,7 @@ public class Game {
         }
         humano_ = new Jogador("", this);
         state_ = GameStates.INICIO;
+        gui_ = gui;
     }
 
     /**
@@ -267,11 +270,12 @@ public class Game {
 
     }
 
-    public void atacarTerrestre(Jogador jogador, Territorio territorio, Territorio alvo, int qtd_ataque) {
+    public int atacarTerrestre(Jogador jogador, Territorio territorio, Territorio alvo, int qtd_ataque) {
         List<Integer> ataques = new ArrayList<>();
         List<Integer> defesas = new ArrayList<>();
 
         int n_defesa;
+        int n_sucessos = 0;
 
         //Se humano atacando
         if (jogador == humano_) {
@@ -281,7 +285,7 @@ public class Game {
             }
 
             //defesa
-            n_defesa = cpu_.defenderTerr(alvo, qtd_ataque);
+            n_defesa = cpu_.defenderTerr(alvo, qtd_ataque); //IA
 
             for (int i = 0; i < n_defesa; i++) {
                 defesas.add(alvo.getExercitos_terrestres_().get(i).combater());
@@ -295,7 +299,7 @@ public class Game {
             }
 
             //defesa
-            n_defesa = 1;//Janela pro jogador decidir como defender
+            n_defesa = gui_.defender(territorio, alvo, qtd_ataque); //Chama janela de defesa.
 
             for (int i = 0; i < n_defesa; i++) {
                 defesas.add(alvo.getExercitos_terrestres_().get(i).combater());
@@ -312,19 +316,21 @@ public class Game {
         //GUERRA!
         if (defesas.size() >= ataques.size()) {
             for (int i = 0; i < defesas.size(); i++) {
-                if (defesas.get(i) >= ataques.get(i)) {
-                    //Defendeu venceu
-
-                } else {
-                    //Defesa falhou
+                if (ataques.get(i) > defesas.get(i)) {
+                    //Ataque com sucesso!
+                    n_sucessos++;
                 }
             }
         } else {
             for (int i = 0; i < ataques.size(); i++) {
-                //preencher
+                if (ataques.get(i) > defesas.get(i)) {
+                    //Ataque com sucesso!
+                    n_sucessos++;
+                }
             }
         }
 
+        return n_sucessos;
 
     }
 
