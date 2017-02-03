@@ -92,21 +92,7 @@ public class Territorio {
         exercitos_aereos_.add(tropa);
     }
 
-    /**
-     *
-     * @return
-     */
-    public Terrestre removeExTerrestre(){
-        return exercitos_terrestres_.remove(exercitos_terrestres_.size()-1);
-    }
 
-    /**
-     *
-     * @return
-     */
-    public Aereo removeExAereo(){
-        return exercitos_aereos_.remove(exercitos_aereos_.size()-1);
-    }
     /**
      * Escreve o nome e as fronteiras do território na tela
      */

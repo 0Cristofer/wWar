@@ -123,8 +123,7 @@ public class Game {
     /**
      * Configura um novo jogo
      */
-    public void iniciarJogo(String nome){
-        humano_.setNome(nome);
+    public void iniciarJogo(){
         rodada_ = -1;
         distribuiTerritorios();
         mudaRodada();
@@ -145,6 +144,17 @@ public class Game {
             for (int j = 0; j < valoresAereo.get(i); j++) {
                 territorios.get(i).insereExAereo();
             }
+        }
+    }
+
+    public void movimentar(Territorio origem, Territorio destino, String tipo, int qtd){
+        if(tipo.equals("Terrestre")){
+            for(int i = 0; i < qtd; i++){
+                destino.insereExTerrestre(origem.removeExTerrestre());
+            }
+        }
+        else{
+            destino.insereExAereo(origem.removeExAereo());
         }
     }
 

@@ -183,9 +183,10 @@ public class Gui {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        game_.getHumano().setNome(nome_input.getText());
                         clear();
                         telaJogo();
-                        game_.iniciarJogo(nome_input.getText());
+                        game_.iniciarJogo();
                         popUpInfo(game_.getHumano().getNome(), game_.getTerritorios(game_.getHumano()),
                                 game_.getCPU().getNome());
                     }
@@ -580,7 +581,6 @@ public class Gui {
         show();
     }
 
-
     /**
      * Tela de distribuição de exército
      */
@@ -598,58 +598,6 @@ public class Gui {
         frame.getContentPane().setLayout(new GridBagLayout());
         frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 
-        //Classe que define o comportamento dos terrTextFields dos terrestres
-        class TropasListener implements DocumentListener {
-            private JTextField text;
-
-            private TropasListener(JTextField text) {
-                this.text = text;
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent documentEvent) {
-                check();
-            }
-
-            @Override
-            public void insertUpdate(DocumentEvent documentEvent) {
-                check();
-
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent documentEvent) {
-                check();
-
-            }
-
-            private void check(){
-                Runnable doCheck = new Runnable() {
-                    @Override
-                    public void run() {
-                        int v;
-                        if (!Objects.equals(text.getText(), "")) {
-                            try {
-                                v = Integer.parseInt(text.getText());
-                            } catch (NumberFormatException e) {
-                                text.setText("0");
-                                JOptionPane.showMessageDialog(null, "Erro, valor não numérico!",
-                                        "ERRO", JOptionPane.OK_OPTION);
-                                return;
-                            }
-
-
-                            if (v > terr_recebidos) {
-                                text.setText("0");
-                                JOptionPane.showMessageDialog(null, "Erro, valor maior que total de" +
-                                        " exércitos disponiveis!", "ERRO", JOptionPane.OK_OPTION);
-                            }
-                        }
-                    }
-                };
-                SwingUtilities.invokeLater(doCheck);
-            }
-        }
 
 
         //Classe que configura o comportamento do botão de confirmação
@@ -752,10 +700,10 @@ public class Gui {
 
             //Adiciona os listeners
             in_terr.setText("0");
-            in_terr.getDocument().addDocumentListener(new TropasListener(in_terr));
+            in_terr.getDocument().addDocumentListener(new TropasListener(in_terr, terr_recebidos));
 
             in_aereo.setText("0");
-            in_aereo.getDocument().addDocumentListener(new TropasListener(in_aereo));
+            in_aereo.getDocument().addDocumentListener(new TropasListener(in_aereo, aereo_recebidos));
 
             //Layout
             c1.gridy = i;
@@ -1230,15 +1178,17 @@ public class Gui {
         JRadioButton terr = new JRadioButton("Terrestre");
         JRadioButton aereo = new JRadioButton("Aereo");
 
-        JTextField num_exe = new JTextField(5);
+        JTextField num_exe = new JTextField(3);
         JButton ok = new JButton("Cofirmar");
 
         //Configur os radio buttons
         terr.setActionCommand("Terrestre");
         aereo.setActionCommand("Aereo");
-        terr.doClick(); //Simula um clique
         bg.add(terr);
         bg.add(aereo);
+
+        TropasListener terr_listener = new TropasListener(num_exe, (selecionado_.getNumExTerrestres() - 1));
+        TropasListener aereo_listener = new TropasListener(num_exe, selecionado_.getNumExAereos());
 
         //Listeners
         combo.addActionListener(
@@ -1248,6 +1198,7 @@ public class Gui {
                         selecionado_destino = (Territorio) ((JComboBox) e.getSource()).getSelectedItem();
                         dono.setText("Dono: " + selecionado_destino.getOcupante().getNome());
                         num_terr.setText("Exércitos Terrestres: " + selecionado_destino.getNumExTerrestres());
+                        num_aereo.setText("Exércitos Aéreos " + selecionado_destino.getNumExAereos());
                     }
                 }
         );
@@ -1256,7 +1207,10 @@ public class Gui {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        num_exe.getDocument().addDocumentListener(terr_listener);
+                        num_exe.getDocument().removeDocumentListener(aereo_listener);
                         tipo_exerc_ = e.getActionCommand();
+                        System.out.println("clicou");
                     }
                 }
         );
@@ -1265,22 +1219,30 @@ public class Gui {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        num_exe.getDocument().addDocumentListener(aereo_listener);
+                        num_exe.getDocument().removeDocumentListener(terr_listener);
                         tipo_exerc_ = e.getActionCommand();
                     }
                 }
         );
 
+
         ok.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        System.out.println(num_exe.getText());
+                        game_.movimentar(selecionado_, selecionado_destino, tipo_exerc_, Integer.parseInt(num_exe.getText()));
+                        frame.setVisible(false);
+                        updateInfos();
                     }
                 }
         );
 
+        terr.doClick(); //Simula um clique
+
         dono.setText("Dono: " + selecionado_destino.getOcupante().getNome());
         num_terr.setText("Exércitos Terrestres: " + selecionado_destino.getNumExTerrestres());
+        num_aereo.setText("Exércitos Aéreos " + selecionado_destino.getNumExAereos());
 
         //Layout
         c.insets = new Insets(5, 5, 5, 5);
@@ -1780,6 +1742,62 @@ public class Gui {
 
         for(Component c : componentes){
             janela_.getContentPane().remove(c);
+        }
+    }
+
+    class TropasListener implements DocumentListener {
+        private JTextField text;
+        private int num;
+
+        private TropasListener(JTextField text, int num) {
+            this.text = text;
+            this.num = num;
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent documentEvent) {
+            check();
+        }
+
+        @Override
+        public void insertUpdate(DocumentEvent documentEvent) {
+            check();
+
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent documentEvent) {
+            check();
+
+        }
+
+        private void check(){
+            Runnable doCheck = new Runnable() {
+                @Override
+                public void run() {
+                    int v;
+                    if (!Objects.equals(text.getText(), "")) {
+                        try {
+                            v = Integer.parseInt(text.getText());
+                        } catch (NumberFormatException e) {
+                            text.setText("0");
+                            text.setColumns(3);
+                            JOptionPane.showMessageDialog(null, "Erro, valor não numérico!",
+                                    "ERRO", JOptionPane.OK_OPTION);
+                            return;
+                        }
+
+
+                        if (v > num) {
+                            text.setText("0");
+                            text.setColumns(3);
+                            JOptionPane.showMessageDialog(null, "Erro, valor maior que total de" +
+                                    " exércitos disponiveis!", "ERRO", JOptionPane.OK_OPTION);
+                        }
+                    }
+                }
+            };
+            SwingUtilities.invokeLater(doCheck);
         }
     }
 }
