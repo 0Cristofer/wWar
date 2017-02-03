@@ -40,6 +40,7 @@ public class Gui {
     private Territorio selecionado_ = null;
     private Territorio selecionado_destino = null;
     private String tipo_exerc_;
+    private Integer[] selecionados_;
 
     private JLabel jogador_num_territorios;
     private JLabel jogador_num_continentes;
@@ -601,10 +602,10 @@ public class Gui {
         frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 
         //Classe que define o comportamento dos terrTextFields dos terrestres
-        class InTerrListener implements DocumentListener {
+        class TropasListener implements DocumentListener {
             private JTextField text;
 
-            private InTerrListener(JTextField text) {
+            private TropasListener(JTextField text) {
                 this.text = text;
             }
 
@@ -653,58 +654,6 @@ public class Gui {
             }
         }
 
-        //Classe que define o comportamento dos terrTextFields dos aereos
-        class InAereoListener implements DocumentListener {
-            private JTextField text;
-
-            private InAereoListener(JTextField text) {
-                this.text = text;
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent documentEvent) {
-                check();
-            }
-
-            @Override
-            public void insertUpdate(DocumentEvent documentEvent) {
-                check();
-
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent documentEvent) {
-                check();
-
-            }
-
-            private void check() {
-                Runnable doCheck = new Runnable() {
-                    @Override
-                    public void run() {
-                        int v;
-                        if (!Objects.equals(text.getText(), "")) {
-                            try {
-                                v = Integer.parseInt(text.getText());
-                            } catch (NumberFormatException e) {
-                                text.setText("0");
-                                JOptionPane.showMessageDialog(null, "Erro, valor não numérico!",
-                                        "ERRO", JOptionPane.OK_OPTION);
-                                return;
-                            }
-
-
-                            if (v > aereo_recebidos) {
-                                text.setText("0");
-                                JOptionPane.showMessageDialog(null, "Erro, valor maior que total de" +
-                                        " exércitos disponiveis!", "ERRO", JOptionPane.OK_OPTION);
-                            }
-                        }
-                    }
-                };
-                SwingUtilities.invokeLater(doCheck);
-            }
-        }
 
         //Classe que configura o comportamento do botão de confirmação
         class Distribuir implements ActionListener{
@@ -806,10 +755,10 @@ public class Gui {
 
             //Adiciona os listeners
             in_terr.setText("0");
-            in_terr.getDocument().addDocumentListener(new InTerrListener(in_terr));
+            in_terr.getDocument().addDocumentListener(new TropasListener(in_terr));
 
             in_aereo.setText("0");
-            in_aereo.getDocument().addDocumentListener(new InAereoListener(in_aereo));
+            in_aereo.getDocument().addDocumentListener(new TropasListener(in_aereo));
 
             //Layout
             c1.gridy = i;
@@ -1441,7 +1390,7 @@ public class Gui {
 
         //Atualiza os campos com os respectivos dados
         if(t != null) {
-            if(t.getOcupante().getNome().equals(game_.getJogadorDaVez().getNome())){
+            if(t.getOcupante().equals(jogador)){
                 jogador_atacar_terr.setEnabled(true);
                 if(selecionado_.getNumExAereos() != 0) {
                     jogador_atacar_aereo.setEnabled(true);
@@ -1687,6 +1636,7 @@ public class Gui {
     }
 
     private void reforcoAereo(Territorio[] territorios, JRadioButton r1, JRadioButton r2, JRadioButton r3){
+        selecionados_ = new Integer[territorios.length];
 
         //Cria a nova janela
         JFrame frame = new JFrame("Ataque aéreo");
@@ -1699,16 +1649,60 @@ public class Gui {
         GridBagConstraints c = new GridBagConstraints();
 
         //Componentes
-        JComboBox<Territorio> combo = new JComboBox<>(territorios);
-        selecionado_destino = (Territorio) (combo.getSelectedItem());
+        List<JComboBox<Integer>> terrs_combos = new ArrayList<>();
+        for(Territorio t : territorios){
+            terrs_combos.add(new JComboBox<>());
+        }
+        JLabel[] terrs_labels = new JLabel[territorios.length];
 
         JLabel titulo = new JLabel("Reforçar: " + selecionado_.getNome());
-        JLabel local = new JLabel("De: ");
-        JLabel quantidade = new JLabel("Reforçar com:");
-        JLabel num_terr = new JLabel("Exércitos Terrestres: ");
-        JLabel num_aereo = new JLabel("Exércitos Aereos: " + selecionado_destino.getNumExAereos());
+        JLabel local = new JLabel("De");
+        JLabel quantidade = new JLabel("Reforçar com");
         JButton ok = new JButton("Reforçar");
 
+        class AereoListener implements ActionListener{
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                (JComboBox<Integer>)e.getSource()
+            }
+        }
+
+        c.gridx = 0;
+        c.gridy = 0;
+        c.anchor = GridBagConstraints.CENTER;
+        c.gridwidth = 2;
+
+        pane.add(titulo, c);
+
+        c.gridy = 1;
+        c.anchor = GridBagConstraints.LINE_START;
+
+        pane.add(local, c);
+
+        c.gridx = 1;
+
+        pane.add(quantidade, c);
+
+        for(int i = 0; i < territorios.length; i++){
+            for(int j = 0; j < territorios[i].getNumExAereos(); j++){
+                terrs_combos.get(i).addItem(j);
+            }
+            terrs_combos.   get(i).addActionListener(new AereoListener());
+
+            c.gridx = 0;
+            c.gridy = i + 2;
+
+            terrs_labels[i].setText(territorios[i].getNome());
+            pane.add(terrs_labels[i], c);
+
+            c.gridx = 1;
+
+        }
+
+        frame.getContentPane().add(pane, c);
+
+        frame.pack();
+        frame.setVisible(true);
     }
 
     /**
