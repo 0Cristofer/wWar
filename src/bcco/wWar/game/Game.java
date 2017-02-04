@@ -479,6 +479,7 @@ public class Game {
                         break;
                 }
             }
+
         }
 
         for(int i = 0; i < Integer.min(defesa, qtd_ataque); i++){
