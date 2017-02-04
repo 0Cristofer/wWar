@@ -172,7 +172,7 @@ public class Territorio {
     }
 
     /**
-     * @param jogador
+     * @param jogador dono
      * @return
      */
     public List<Territorio> getFronteirasInimigas(Jogador jogador) {
@@ -187,6 +187,17 @@ public class Territorio {
         return fronteirasInimigas;
     }
 
+    public List<Territorio> getFronteirasAliadas(Jogador jogador) {
+        List<Territorio> fronteirasInimigas = new ArrayList<>();
+
+        for (Territorio t : fronteiras_) {
+            if (t.getOcupante().equals(jogador)) {
+                fronteirasInimigas.add(t);
+            }
+        }
+
+        return fronteirasInimigas;
+    }
     /**
      * @return
      */

@@ -529,7 +529,7 @@ public class Gui {
                                     "não pode mais atacarTerrestre");
                         }
                         else{
-                            List<Territorio> t = checkAereo();
+                            List<Territorio> t = checkAereo(game_.getHumano());
                             if(t.size() == 0){
                                 JOptionPane.showMessageDialog(janela_, "Este território não faz fronteira com" +
                                         "nenhum terriório que pode ser atacado por ar");
@@ -1247,7 +1247,7 @@ public class Gui {
         janela_.setEnabled(false);
 
         //Verifica quantos e quais territórios estão disponíveis para movimentar (aliados)
-        List<Territorio> f = selecionado_.getFronteirasInimigas(game_.getHumano());
+        List<Territorio> f = selecionado_.getFronteirasAliadas(game_.getHumano());
 
         if(f.size() == 0){
             JOptionPane.showMessageDialog(janela_, "Este território não faz fronteira com aliados");
@@ -1989,10 +1989,10 @@ public class Gui {
         frame.pack();
     }
 
-    private List<Territorio> checkAereo(){
+    private List<Territorio> checkAereo(Jogador jogador){
         List<Territorio> pode_atacar = new ArrayList<>();
 
-        for(Territorio t : selecionado_.getFronteira()){
+        for(Territorio t : selecionado_.getFronteirasInimigas(jogador)){
             if((t.getNumExTerrestres() > 3) && (t.getNumExAereos() > 0)){
                 pode_atacar.add(t);
             }
