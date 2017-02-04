@@ -71,10 +71,6 @@ public class Gui {
         game_ = game;
         tabela_mapa_ = new MapTable(game_.getMapa());
 
-        for(int i = 0; i < tabela_mapa_.getColumnCount(); i++){
-
-        }
-
         //Configura a janela
         screen_width_ = screen_width;
         screen_heigth_ = screen_height;
@@ -435,6 +431,10 @@ public class Gui {
         cpu_selecao_num_aereo = new JLabel("Exércitos Aéreos: 0");
         tabela = new JTable(tabela_mapa_);
         JButton prox_rodada = new JButton("Terminar rodada");
+
+        for(int i = 0; i <tabela.getColumnCount(); i++){
+            tabela.getColumnModel().getColumn(i).setCellRenderer(new MapColumnCellRenderer(game_));
+        }
 
         updateJogadoresInfos();
 

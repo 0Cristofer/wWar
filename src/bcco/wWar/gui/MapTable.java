@@ -49,10 +49,13 @@ public class MapTable extends AbstractTableModel{
 
     Jogador getOcupante(int row, int col){
         Jogador jogador = null;
-        try {
-            jogador = mapa_.getContinente(mapa_.getTablaMapa()[row][col][0]).getTerritorio(mapa_.getTablaMapa()[row][col][1]).getOcupante();
-        } catch (ContinenteException | MapaException e) {
-            e.printStackTrace();
+        if(mapa_.getTablaMapa()[row][col][0] != -1) {
+
+            try {
+                jogador = mapa_.getContinente(mapa_.getTablaMapa()[row][col][0]).getTerritorio(mapa_.getTablaMapa()[row][col][1]).getOcupante();
+            } catch (ContinenteException | MapaException e) {
+                e.printStackTrace();
+            }
         }
         return jogador;
     }
