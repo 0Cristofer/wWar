@@ -16,7 +16,7 @@ public class Territorio {
 
     private String nome_;
     private Continente continente_;
-    private Territorio[] faz_fronteira_;
+    private Territorio[] fronteiras_;
     private Jogador ocupante_;
     private List<Terrestre> exercitos_terrestres_;
     private List<Aereo> exercitos_aereos_;
@@ -85,7 +85,7 @@ public class Territorio {
     void printTerritorio(){
         System.out.println("--------------------------");
         System.out.println("Terriotorio " + nome_ + " faz fronteira com:");
-        for (Territorio territorio : faz_fronteira_) {
+        for (Territorio territorio : fronteiras_) {
             System.out.println(territorio.nome_);
         }
         System.out.println("Ocupante: " + ocupante_.getNome());
@@ -111,7 +111,7 @@ public class Territorio {
      * @return O vetor de territórios que fazem fronteira
      */
     public Territorio[] getFronteira(){
-        return faz_fronteira_;
+        return fronteiras_;
     }
 
     /**
@@ -159,7 +159,7 @@ public class Territorio {
             throw new TerritorioException();
         }
         else{
-            faz_fronteira_ = new_territorios;
+            fronteiras_ = new_territorios;
         }
     }
 
@@ -169,6 +169,22 @@ public class Territorio {
      */
     public void setOcupante(Jogador new_ocupante){
         ocupante_ = new_ocupante;
+    }
+
+    /**
+     * @param jogador
+     * @return
+     */
+    public List<Territorio> getFronteirasInimigas(Jogador jogador) {
+        List<Territorio> fronteirasInimigas = new ArrayList<>();
+
+        for (Territorio t : fronteiras_) {
+            if (t.getOcupante() != jogador) {
+                fronteirasInimigas.add(t);
+            }
+        }
+
+        return fronteirasInimigas;
     }
 
     /**

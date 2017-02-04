@@ -73,6 +73,11 @@ public class CPU extends Jogador {
 
     }
 
+    /**
+     * @param territorio
+     * @param qtd_ataque
+     * @return
+     */
     public int defenderTerr(Territorio territorio, int qtd_ataque) {
         int n_defesa = territorio.getNumExTerrestres();
 
@@ -96,7 +101,16 @@ public class CPU extends Jogador {
         }
     }
 
+    public void resetarVontade() {
+        vontade_ = 0.5;
+    }
 
+    /**
+     *
+     * @param resultado
+     * @param n_sucessos
+     * @param n_fracassos
+     */
     public void alterarVontade(boolean resultado, int n_sucessos, int n_fracassos) {
         if (resultado) {
             vontade_ += 0.05 + n_sucessos * 0.05;
@@ -106,6 +120,12 @@ public class CPU extends Jogador {
     }
 
 
+
+    /**
+     *
+     * @param i
+     * @param j
+     */
     public void atacar(int i, int j) {
         int n_terrestres;
         int qtd_ataque = 0;
@@ -113,13 +133,19 @@ public class CPU extends Jogador {
         List<Territorio> territorios = game_.getTerritorios(this);
         List<Territorio> fronteiras;
 
+        if (i >= territorios.size()) {
+            return;
+        }
 
         Collections.sort(territorios, exTerrestreComparator);
         Collections.reverse(territorios);
 
-
         if (vontade_ > agressividade_) {
-            fronteiras = new ArrayList<Territorio>(Arrays.asList(territorios.get(i).getFronteira()));
+            fronteiras = territorios.get(i).getFronteirasInimigas(this);
+            if (fronteiras == null) {
+                return;
+            }
+
             Collections.sort(fronteiras, exTerrestreComparator);
 
             n_terrestres = territorios.get(i).getNumExTerrestres();
@@ -138,15 +164,23 @@ public class CPU extends Jogador {
                 game_.getGui_().defender(territorios.get(i), fronteiras.get(j), qtd_ataque);
 
             } else {
-                vontade_ -= 0.2;
+                vontade_ -= 0.1;
+                atacar(i + 1, j);
             }
         }
 
     }
 
+    /**
+     *
+     */
     public void jogar() {
         //TODO implementar um sistema melhor, incluir o movimentar.
-        atacar(0, 0);
+        if (vontade_ > agressividade_) {
+            atacar(0, 0);
+        } else {
+            game_.mudaRodada();
+        }
     }
 
     /**
