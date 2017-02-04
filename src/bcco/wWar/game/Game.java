@@ -216,11 +216,34 @@ public class Game {
         return state_;
     }
 
+    private boolean verificaVitória(Jogador jogador){
+        return (getNumContinentesJogador(jogador) > 1);
+    }
+
     /**
      * @return O jogador humano
      */
     public Jogador getHumano(){
         return humano_;
+    }
+
+    public int getNumContinentesJogador(Jogador jogador){
+        int num_terrs;
+        int num_cont = 0;
+
+        for(Continente c : mapa_.getContinentes_()) {
+            num_terrs = 0;
+            for(Territorio t : c.getTerritorios_()){
+                if(t.getOcupante().equals(jogador)){
+                    num_terrs = num_terrs + 1;
+                }
+            }
+            if(num_terrs == c.getNumTerritorios()){
+                num_cont = num_cont + 1;
+            }
+        }
+
+        return num_cont;
     }
 
     /**
@@ -405,6 +428,10 @@ public class Game {
         if (jogador == cpu_) {
             cpu_.alterarVontade(resultado, n_sucessos, n_fracassos);
             cpu_.jogar();
+        }
+
+        if(verificaVitória(jogador)){
+            gui_.vitoria(jogador);
         }
     }
 
