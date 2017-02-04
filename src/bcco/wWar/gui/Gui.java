@@ -28,7 +28,7 @@ public class Gui {
     private int screen_width_;
     private int screen_heigth_;
     private int n_defender = 0;
-    int n_ataque = 0;
+    private int n_ataque = 0;
     private String titulo_;
 
     private Game game_;
@@ -72,7 +72,7 @@ public class Gui {
         tabela_mapa_ = new MapTable(game_.getMapa());
 
         for(int i = 0; i < tabela_mapa_.getColumnCount(); i++){
-            tabela_mapa_.
+
         }
 
         //Configura a janela
@@ -284,9 +284,10 @@ public class Gui {
         c.gridy = 3;
         if (resultado) {
             if (jogador == game_.getHumano()) {
-
+                pane.add(l_conquista, c);
+            } else {
+                pane.add(l_derrota, c);
             }
-            pane.add(l_conquista, c);
         }
 
         c.gridy = 4;
