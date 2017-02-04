@@ -126,7 +126,7 @@ public class CPU extends Jogador {
      * @param i
      * @param j
      */
-    public void atacar(int i, int j) {
+    public boolean atacar(int i, int j) {
         int n_terrestres;
         int qtd_ataque = 0;
 
@@ -134,7 +134,7 @@ public class CPU extends Jogador {
         List<Territorio> fronteiras;
 
         if (i >= territorios.size()) {
-            return;
+            return false;
         }
 
         Collections.sort(territorios, exTerrestreComparator);
@@ -142,8 +142,9 @@ public class CPU extends Jogador {
 
         if (vontade_ > agressividade_) {
             fronteiras = territorios.get(i).getFronteirasInimigas(this);
+
             if (fronteiras == null) {
-                return;
+                return false;
             }
 
             Collections.sort(fronteiras, exTerrestreComparator);
@@ -168,7 +169,7 @@ public class CPU extends Jogador {
                 atacar(i + 1, j);
             }
         }
-
+        return true;
     }
 
     /**
@@ -177,7 +178,9 @@ public class CPU extends Jogador {
     public void jogar() {
         //TODO implementar um sistema melhor, incluir o movimentar.
         if (vontade_ > agressividade_) {
-            atacar(0, 0);
+            if (!atacar(0, 0)) {
+                game_.mudaRodada();
+            }
         } else {
             game_.mudaRodada();
         }

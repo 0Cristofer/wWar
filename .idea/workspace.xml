@@ -6,12 +6,13 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b516ea51-8b46-48f7-bf50-72962dbab64a" name="Default" comment="Em progresso: Método de ataque do cpu (IA) pt2">
+    <list default="true" id="b516ea51-8b46-48f7-bf50-72962dbab64a" name="Default" comment="Finalizado: Método de ataque do cpu (IA)">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/game/Game.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/game/Game.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$10.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$10.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$9.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$9.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bcco/wWar/game/Game.java" afterPath="$PROJECT_DIR$/src/bcco/wWar/game/Game.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bcco/wWar/game/jogadores/CPU.java" afterPath="$PROJECT_DIR$/src/bcco/wWar/game/jogadores/CPU.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java" afterPath="$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bcco/wWar/mapa/continentes/Territorio.java" afterPath="$PROJECT_DIR$/src/bcco/wWar/mapa/continentes/Territorio.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,26 +38,26 @@
       <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/bcco/wWar/game/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="776">
-              <caret line="404" column="25" lean-forward="false" selection-start-line="404" selection-start-column="25" selection-end-line="404" selection-end-column="25" />
+            <state relative-caret-position="531">
+              <caret line="387" column="38" lean-forward="true" selection-start-line="387" selection-start-column="38" selection-end-line="387" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#12161#12162#0" expanded="true" />
-                <element signature="e#12188#12189#0" expanded="true" />
-                <marker date="1486235974843" expanded="false" signature="5485:5495" ph=" { " />
-                <marker date="1486235974843" expanded="false" signature="5511:5517" ph=" }" />
-                <marker date="1486235974843" expanded="false" signature="5606:5616" ph=" { " />
-                <marker date="1486235974843" expanded="false" signature="5629:5635" ph=" }" />
-                <marker date="1486235974843" expanded="false" signature="5723:5733" ph=" { " />
-                <marker date="1486235974843" expanded="false" signature="5747:5753" ph=" }" />
-                <marker date="1486235974843" expanded="false" signature="5833:5843" ph=" { " />
-                <marker date="1486235974843" expanded="false" signature="5858:5864" ph=" }" />
-                <marker date="1486235974843" expanded="false" signature="11799:11810" ph=" { " />
-                <marker date="1486235974843" expanded="false" signature="11822:11828" ph=" }" />
-                <marker date="1486235974843" expanded="false" signature="11934:11944" ph=" { " />
-                <marker date="1486235974843" expanded="false" signature="11963:11969" ph=" }" />
-                <marker date="1486235974843" expanded="false" signature="12072:12082" ph=" { " />
-                <marker date="1486235974843" expanded="false" signature="12097:12103" ph=" }" />
+                <element signature="e#12164#12165#0" expanded="true" />
+                <element signature="e#12191#12192#0" expanded="true" />
+                <marker date="1486237260836" expanded="false" signature="5485:5495" ph=" { " />
+                <marker date="1486237260836" expanded="false" signature="5511:5517" ph=" }" />
+                <marker date="1486237260836" expanded="false" signature="5606:5616" ph=" { " />
+                <marker date="1486237260836" expanded="false" signature="5629:5635" ph=" }" />
+                <marker date="1486237260836" expanded="false" signature="5723:5733" ph=" { " />
+                <marker date="1486237260836" expanded="false" signature="5747:5753" ph=" }" />
+                <marker date="1486237260836" expanded="false" signature="5833:5843" ph=" { " />
+                <marker date="1486237260836" expanded="false" signature="5858:5864" ph=" }" />
+                <marker date="1486237260836" expanded="false" signature="11802:11813" ph=" { " />
+                <marker date="1486237260836" expanded="false" signature="11825:11831" ph=" }" />
+                <marker date="1486237260836" expanded="false" signature="11937:11947" ph=" { " />
+                <marker date="1486237260836" expanded="false" signature="11966:11972" ph=" }" />
+                <marker date="1486237260836" expanded="false" signature="12075:12085" ph=" { " />
+                <marker date="1486237260836" expanded="false" signature="12100:12106" ph=" }" />
               </folding>
             </state>
           </provider>
@@ -65,8 +66,21 @@
       <file leaf-file-name="CPU.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/bcco/wWar/game/jogadores/CPU.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="81">
-              <caret line="125" column="15" lean-forward="true" selection-start-line="125" selection-start-column="15" selection-end-line="125" selection-end-column="15" />
+            <state relative-caret-position="567">
+              <caret line="181" column="35" lean-forward="false" selection-start-line="181" selection-start-column="35" selection-end-line="181" selection-end-column="35" />
+              <folding>
+                <element signature="e#2790#2791#0" expanded="true" />
+                <element signature="e#2820#2821#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/bcco/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="396">
+              <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -76,7 +90,7 @@
         <entry file="file://$PROJECT_DIR$/src/bcco/wWar/mapa/continentes/Territorio.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="441">
-              <caret line="179" column="64" lean-forward="false" selection-start-line="179" selection-start-column="64" selection-end-line="179" selection-end-column="64" />
+              <caret line="178" column="64" lean-forward="false" selection-start-line="178" selection-start-column="64" selection-end-line="178" selection-end-column="64" />
               <folding />
             </state>
           </provider>
@@ -1113,7 +1127,7 @@
       <workItem from="1486049542077" duration="13139000" />
       <workItem from="1486135451166" duration="2883000" />
       <workItem from="1486139793217" duration="21677000" />
-      <workItem from="1486228415376" duration="8820000" />
+      <workItem from="1486228415376" duration="9646000" />
     </task>
     <task id="LOCAL-00001" summary="Organizado código da gui">
       <created>1485918006387</created>
@@ -1290,11 +1304,18 @@
       <option name="project" value="LOCAL" />
       <updated>1486235030209</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Finalizado: Método de ataque do cpu (IA)">
+      <created>1486237266447</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1486237266447</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="195769000" />
+    <option name="totallyTimeSpent" value="196595000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="24" width="1920" height="1056" extended-state="6" />
@@ -1394,7 +1415,8 @@
     <MESSAGE value="Implementada janela resultado do combate + bug fixes" />
     <MESSAGE value="Em progresso: Método de ataque do cpu (IA)" />
     <MESSAGE value="Em progresso: Método de ataque do cpu (IA) pt2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Em progresso: Método de ataque do cpu (IA) pt2" />
+    <MESSAGE value="Finalizado: Método de ataque do cpu (IA)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finalizado: Método de ataque do cpu (IA)" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -1736,14 +1758,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/bcco/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="513">
@@ -1791,42 +1805,53 @@
     <entry file="file://$PROJECT_DIR$/src/bcco/wWar/mapa/continentes/Territorio.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="441">
-          <caret line="179" column="64" lean-forward="false" selection-start-line="179" selection-start-column="64" selection-end-line="179" selection-end-column="64" />
+          <caret line="178" column="64" lean-forward="false" selection-start-line="178" selection-start-column="64" selection-end-line="178" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/bcco/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/bcco/wWar/game/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="776">
-          <caret line="404" column="25" lean-forward="false" selection-start-line="404" selection-start-column="25" selection-end-line="404" selection-end-column="25" />
+        <state relative-caret-position="531">
+          <caret line="387" column="38" lean-forward="true" selection-start-line="387" selection-start-column="38" selection-end-line="387" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#12161#12162#0" expanded="true" />
-            <element signature="e#12188#12189#0" expanded="true" />
-            <marker date="1486235974843" expanded="false" signature="5485:5495" ph=" { " />
-            <marker date="1486235974843" expanded="false" signature="5511:5517" ph=" }" />
-            <marker date="1486235974843" expanded="false" signature="5606:5616" ph=" { " />
-            <marker date="1486235974843" expanded="false" signature="5629:5635" ph=" }" />
-            <marker date="1486235974843" expanded="false" signature="5723:5733" ph=" { " />
-            <marker date="1486235974843" expanded="false" signature="5747:5753" ph=" }" />
-            <marker date="1486235974843" expanded="false" signature="5833:5843" ph=" { " />
-            <marker date="1486235974843" expanded="false" signature="5858:5864" ph=" }" />
-            <marker date="1486235974843" expanded="false" signature="11799:11810" ph=" { " />
-            <marker date="1486235974843" expanded="false" signature="11822:11828" ph=" }" />
-            <marker date="1486235974843" expanded="false" signature="11934:11944" ph=" { " />
-            <marker date="1486235974843" expanded="false" signature="11963:11969" ph=" }" />
-            <marker date="1486235974843" expanded="false" signature="12072:12082" ph=" { " />
-            <marker date="1486235974843" expanded="false" signature="12097:12103" ph=" }" />
+            <element signature="e#12164#12165#0" expanded="true" />
+            <element signature="e#12191#12192#0" expanded="true" />
+            <marker date="1486237260836" expanded="false" signature="5485:5495" ph=" { " />
+            <marker date="1486237260836" expanded="false" signature="5511:5517" ph=" }" />
+            <marker date="1486237260836" expanded="false" signature="5606:5616" ph=" { " />
+            <marker date="1486237260836" expanded="false" signature="5629:5635" ph=" }" />
+            <marker date="1486237260836" expanded="false" signature="5723:5733" ph=" { " />
+            <marker date="1486237260836" expanded="false" signature="5747:5753" ph=" }" />
+            <marker date="1486237260836" expanded="false" signature="5833:5843" ph=" { " />
+            <marker date="1486237260836" expanded="false" signature="5858:5864" ph=" }" />
+            <marker date="1486237260836" expanded="false" signature="11802:11813" ph=" { " />
+            <marker date="1486237260836" expanded="false" signature="11825:11831" ph=" }" />
+            <marker date="1486237260836" expanded="false" signature="11937:11947" ph=" { " />
+            <marker date="1486237260836" expanded="false" signature="11966:11972" ph=" }" />
+            <marker date="1486237260836" expanded="false" signature="12075:12085" ph=" { " />
+            <marker date="1486237260836" expanded="false" signature="12100:12106" ph=" }" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/bcco/wWar/game/jogadores/CPU.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="125" column="15" lean-forward="true" selection-start-line="125" selection-start-column="15" selection-end-line="125" selection-end-column="15" />
-          <folding />
+        <state relative-caret-position="567">
+          <caret line="181" column="35" lean-forward="false" selection-start-line="181" selection-start-column="35" selection-end-line="181" selection-end-column="35" />
+          <folding>
+            <element signature="e#2790#2791#0" expanded="true" />
+            <element signature="e#2820#2821#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
