@@ -34,9 +34,7 @@ public class Gui {
     private Game game_;
     private MapTable tabela_mapa_;
 
-    private boolean atacando_ = false;
     private boolean terminado_ataque_ = false;
-    private boolean movimentando_ = false;
     private Territorio selecionado_ = null;
     private Territorio selecionado_destino = null;
     private String tipo_exerc_;
@@ -89,6 +87,7 @@ public class Gui {
      * Tela de informações iniciais do jogo
      */
     public void popUpInfo(String nome, List<Territorio> territorios, String oponente) {
+        janela_.setEnabled(false);
         String t_territorios = "";
 
         //Configura o frame
@@ -98,6 +97,41 @@ public class Gui {
         frame.setLocationRelativeTo(null);
         frame.getContentPane().setLayout(new GridBagLayout());
         frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        frame.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                janela_.setEnabled(true);
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
         GridBagConstraints c = new GridBagConstraints();
 
 
@@ -119,6 +153,10 @@ public class Gui {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         frame.setVisible(false);
+                        janela_.setEnabled(true);
+                        clear();
+                        telaJogo();
+                        game_.iniciarJogo();
                     }
                 }
         );
@@ -137,14 +175,17 @@ public class Gui {
         pane.add(l_territorios, c);
 
         c.gridy = 3;
-        pane.add(l_oponente, c);
+        pane.add(l_info, c);
 
         c.gridy = 4;
+        pane.add(l_oponente, c);
+
+        c.gridy = 5;
         pane.add(l_fim, c);
 
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.CENTER;
-        c.gridy = 5;
+        c.gridy = 6;
         pane.add(ok, c);
 
         frame.getContentPane().add(pane, c);
@@ -155,6 +196,7 @@ public class Gui {
 
     public void resultadoAtaque(String nome, String territorio, String n_fracassos,
                                 String n_sucessos, boolean resultado) {
+        janela_.setEnabled(false);
         //Configura o frame
         JFrame frame = new JFrame("Resultados do combate");
         JPanel pane = new JPanel(new GridBagLayout());
@@ -162,6 +204,41 @@ public class Gui {
         frame.setLocationRelativeTo(null);
         frame.getContentPane().setLayout(new GridBagLayout());
         frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        frame.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                janela_.setEnabled(true);
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
         GridBagConstraints c = new GridBagConstraints();
 
         //componentes
@@ -177,6 +254,7 @@ public class Gui {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         frame.setVisible(false);
+                        janela_.setEnabled(true);
                     }
                 }
         );
@@ -245,9 +323,7 @@ public class Gui {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         game_.getHumano().setNome(nome_input.getText());
-                        clear();
-                        telaJogo();
-                        game_.iniciarJogo();
+                        game_.distribuiTerritorios();
                         popUpInfo(game_.getHumano().getNome(), game_.getTerritorios(game_.getHumano()),
                                 game_.getCPU().getNome());
                     }
@@ -397,27 +473,20 @@ public class Gui {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        if((!atacando_) && (!movimentando_)) {
-                            if(JOptionPane.showConfirmDialog(tabela_pane,
-                                    "Tem certeza que deseja terminar a rodada?",
-                                    "Tem certeza?", JOptionPane.YES_NO_OPTION) ==
-                                    JOptionPane.YES_OPTION){
+                        if(JOptionPane.showConfirmDialog(tabela_pane,
+                                "Tem certeza que deseja terminar a rodada?",
+                                "Tem certeza?", JOptionPane.YES_NO_OPTION) ==
+                                JOptionPane.YES_OPTION){
 
-                                game_.mudaRodada();
-                                terminado_ataque_ = false;
+                            game_.mudaRodada();
+                            terminado_ataque_ = false;
 
-                                if(selecionado_ != null){
-                                    jogador_atacar_terr.setEnabled(!jogador_atacar_terr.isEnabled());
-                                    jogador_atacar_aereo.setEnabled(!jogador_atacar_terr.isEnabled());
-                                    jogador_movimentar.setEnabled(!jogador_movimentar.isEnabled());
-                                }
+                            if(selecionado_ != null){
+                                jogador_atacar_terr.setEnabled(!jogador_atacar_terr.isEnabled());
+                                jogador_atacar_aereo.setEnabled(!jogador_atacar_terr.isEnabled());
+                                jogador_movimentar.setEnabled(!jogador_movimentar.isEnabled());
                             }
                         }
-                        else{
-                            JOptionPane.showMessageDialog(tabela_pane, "Ataque ou movimentação em andamento, " +
-                                    "cancele ou termine antes de continuar");
-                        }
-
                     }
                 }
         );
@@ -451,7 +520,6 @@ public class Gui {
                             if(t.size() == 0){
                                 JOptionPane.showMessageDialog(janela_, "Este território não faz fronteira com" +
                                         "nenhum terriório que pode ser atacado por ar");
-                                atacando_ = false;
                             }
                             else {
                                 atacarAereo(checkAereo());
@@ -646,6 +714,7 @@ public class Gui {
      * Tela de distribuição de exército
      */
     public void distribuirExercito() {
+        janela_.setEnabled(false);
         int terr_recebidos = game_.getHumano().getTerrestresRecebidos();
         int aereo_recebidos = game_.getHumano().getAereos_recebidos_();
         int i = 1;
@@ -657,9 +726,7 @@ public class Gui {
         frame.getContentPane().setLayout(new GridBagLayout());
         frame.setLocationRelativeTo(null);
         frame.getContentPane().setLayout(new GridBagLayout());
-        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-
-
+        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
         //Classe que configura o comportamento do botão de confirmação
         class Distribuir implements ActionListener{
@@ -704,6 +771,7 @@ public class Gui {
                     game_.distribuirExercitos(game_.getHumano(), valoresTerr, valoresAereo);
                     frame.setVisible(false);
                     updateJogadoresInfos();
+                    janela_.setEnabled(true);
                 } else {
                     JOptionPane.showMessageDialog(null, "Sobraram algumas tropas sem distribuição," +
                             " não abandone-as!","Atenção",JOptionPane.OK_OPTION);
@@ -827,13 +895,14 @@ public class Gui {
      *
      */
     public int defender(Territorio territorio, Territorio alvo, int qtd_ataque) {
+        janela_.setEnabled(false);
         //Configura o frame
         JFrame frame = new JFrame("Defender território");
         JPanel pane = new JPanel(new GridBagLayout());
         frame.getContentPane().setLayout(new GridBagLayout());
         frame.setLocationRelativeTo(null);
         frame.getContentPane().setLayout(new GridBagLayout());
-        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
         int n_tropas = alvo.getNumExTerrestres();
 
@@ -843,6 +912,7 @@ public class Gui {
         JLabel descricao = new JLabel("Os exércitos de " + game_.getCPU().getNome() + " estão atacando!");
 
         JLabel territorio_alvo = new JLabel(alvo.getNome() + " está em perigo!");
+        JLabel tropas_vindo = new JLabel(qtd_ataque + " estão vindo");
         JLabel alvo_info = new JLabel("Tropas neste território: " + n_tropas);
         JLabel defender_text = new JLabel("Defender território com: ");
 
@@ -893,6 +963,14 @@ public class Gui {
         JLabel territorio_atacando = new JLabel(territorio.getNumExTerrestres() + " exércitos marcham de " + territorio.getNome());
 
         JButton defender = new JButton("Defender");
+        defender.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                janela_.setEnabled(true);
+                frame.setVisible(false);
+                game_.atacarTerrestre(game_.getCPU(), territorio, alvo, qtd_ataque, n_defender);
+            }
+        });
 
         //Configura os constrains para cada coluna
         GridBagConstraints c = new GridBagConstraints();
@@ -948,7 +1026,7 @@ public class Gui {
      * Tela de pop-up de ataque
      */
     private void atacarTerrestre() {
-        atacando_ = true;
+        janela_.setEnabled(false);
         n_ataque = 1;
         int n_tropas = selecionado_.getNumExTerrestres();
 
@@ -962,7 +1040,6 @@ public class Gui {
 
         if(f.size() == 0){
             JOptionPane.showMessageDialog(janela_, "Este território não faz fronteira com inimigos");
-            atacando_ = false;
             return;
         }
 
@@ -986,7 +1063,7 @@ public class Gui {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                atacando_ = false;
+                janela_.setEnabled(true);
             }
 
             @Override
@@ -1086,8 +1163,9 @@ public class Gui {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        game_.atacarTerrestre(game_.getHumano(), selecionado_, selecionado_destino, n_ataque);
+                        game_.atacarTerrestre(game_.getHumano(), selecionado_, selecionado_destino, n_ataque, 0);
                         updateInfos();
+                        janela_.setEnabled(true);
                         frame.setVisible(false);
                     }
                 }
@@ -1159,7 +1237,7 @@ public class Gui {
      * Mostra a janela de movimentação de tropas
      */
     private void movimentar(){
-        movimentando_ = true;
+        janela_.setEnabled(false);
 
         //Verifica quantos e quais territórios estão disponíveis para movimentar (aliados)
         List<Territorio> f = new ArrayList<>();
@@ -1171,7 +1249,6 @@ public class Gui {
 
         if(f.size() == 0){
             JOptionPane.showMessageDialog(janela_, "Este território não faz fronteira com aliados");
-            movimentando_ = false;
             return;
         }
 
@@ -1195,7 +1272,7 @@ public class Gui {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                movimentando_ = false;
+                janela_.setEnabled(true);
             }
 
             @Override
@@ -1294,6 +1371,7 @@ public class Gui {
                     public void actionPerformed(ActionEvent e) {
                         game_.movimentar(selecionado_, selecionado_destino, tipo_exerc_, Integer.parseInt(num_exe.getText()));
                         frame.setVisible(false);
+                        janela_.setEnabled(true);
                         updateInfos();
                     }
                 }
@@ -1432,7 +1510,7 @@ public class Gui {
     }
 
     private void atacarAereo(List<Territorio> territorios){
-        atacando_ = true;
+        janela_.setEnabled(false);
         n_ataque = 0;
         int n_tropas = selecionado_.getNumExAereos();
 
@@ -1457,7 +1535,7 @@ public class Gui {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                atacando_ = false;
+                janela_.setEnabled(true);
             }
 
             @Override
@@ -1536,6 +1614,7 @@ public class Gui {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        janela_.setEnabled(true);
                         if(r1.isSelected()){
                             System.out.println("1");
                         }
@@ -1559,7 +1638,8 @@ public class Gui {
                                     "Atenção",JOptionPane.OK_OPTION);
                         }
                         else{
-                            reforcoAereo(t, r1, r2, r3);
+                            frame.setEnabled(false);
+                            reforcoAereo(t, r1, r2, r3, frame);
                         }
                     }
                 }
@@ -1630,7 +1710,8 @@ public class Gui {
 
     }
 
-    private void reforcoAereo(Territorio[] territorios, JRadioButton r1, JRadioButton r2, JRadioButton r3){
+    private void reforcoAereo(Territorio[] territorios, JRadioButton r1, JRadioButton r2, JRadioButton r3, JFrame pai){
+        pai.setEnabled(false);
 
         //Cria a nova janela
         JFrame frame = new JFrame("Ataque aéreo");
@@ -1639,6 +1720,41 @@ public class Gui {
         frame.setLocationRelativeTo(null);
         frame.getContentPane().setLayout(new GridBagLayout());
         frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        frame.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                pai.setEnabled(true);
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
 
         GridBagConstraints c = new GridBagConstraints();
 
@@ -1696,6 +1812,7 @@ public class Gui {
                                     r1.setEnabled(true);
                                 }
                             }
+                            pai.setEnabled(true);
                         }
                         frame.setVisible(false);
                     }
@@ -1753,19 +1870,6 @@ public class Gui {
 
         frame.pack();
         frame.setVisible(true);
-    }
-
-    /**
-     * Atualiza os dados da tela de ataque
-     * @param dono Label do dono do território
-     * @param num_terr O label do número de exércitos terrestres
-     * @param num_aereo Label referente ao número de exércitos aéros
-     * @param t Território utilizado para atualizar os dados
-     */
-    private void updatePopUpInfo(JLabel dono, JLabel num_terr, JLabel num_aereo, Territorio t){
-        dono.setText("Dono: " + t.getOcupante().getNome());
-        num_terr.setText("Exércitos Terrestres: " + t.getNumExTerrestres());
-        num_aereo.setText("Exércitos Aéreos: " + t.getNumExAereos());
     }
 
     private List<Territorio> checkAereo(){
