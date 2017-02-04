@@ -393,7 +393,6 @@ public class Game {
 
             System.out.format(jogador.getNome() + " dominou o territorio " + alvo.getNome() + "\n");
 
-
             for (int i = 0; i < qtd_ataque - n_fracassos; i++) {
                 alvo.insereExTerrestre(territorio.removeExTerrestre());
             }
@@ -405,6 +404,8 @@ public class Game {
         if (jogador == humano_) {
             gui_.resultadoAtaque(jogador.getNome(), territorio.getNome(),
                     Integer.toString(n_fracassos), Integer.toString(n_sucessos), resultado);
+        } else {
+            cpu_.alterarVontade(resultado, n_sucessos, n_fracassos);
         }
     }
 
@@ -427,5 +428,12 @@ public class Game {
      */
     public void setState(GameStates state){
         state_ = state;
+    }
+
+    /**
+     * @return
+     */
+    public Gui getGui_() {
+        return gui_;
     }
 }
