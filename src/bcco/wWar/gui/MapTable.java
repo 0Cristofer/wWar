@@ -1,5 +1,6 @@
 package bcco.wWar.gui;
 
+import bcco.wWar.game.jogadores.Jogador;
 import bcco.wWar.mapa.Mapa;
 import bcco.wWar.mapa.continentes.exceptions.ContinenteException;
 import bcco.wWar.mapa.exceptions.MapaException;
@@ -44,5 +45,15 @@ public class MapTable extends AbstractTableModel{
             System.out.println(e.getMessage());
         }
         return nome;
+    }
+
+    Jogador getOcupante(int row, int col){
+        Jogador jogador = null;
+        try {
+            jogador = mapa_.getContinente(mapa_.getTablaMapa()[row][col][0]).getTerritorio(mapa_.getTablaMapa()[row][col][1]).getOcupante();
+        } catch (ContinenteException | MapaException e) {
+            e.printStackTrace();
+        }
+        return jogador;
     }
 }

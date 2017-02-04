@@ -71,6 +71,10 @@ public class Gui {
         game_ = game;
         tabela_mapa_ = new MapTable(game_.getMapa());
 
+        for(int i = 0; i < tabela_mapa_.getColumnCount(); i++){
+            tabela_mapa_.
+        }
+
         //Configura a janela
         screen_width_ = screen_width;
         screen_heigth_ = screen_height;
