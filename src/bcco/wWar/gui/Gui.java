@@ -1031,22 +1031,17 @@ public class Gui {
         int n_tropas = selecionado_.getNumExTerrestres();
 
         //Verifica quantos e quais territórios estão disponíveis para atacarTerrestre (são inimigos)
-        List<Territorio> f = new ArrayList<>();
-        for(Territorio t : selecionado_.getFronteira()){
-          if(t.getOcupante() != game_.getJogadorDaVez()){
-              f.add(t);
-          }
-        }
+        List<Territorio> f = selecionado_.getFronteirasInimigas(game_.getHumano());
 
         if(f.size() == 0){
             JOptionPane.showMessageDialog(janela_, "Este território não faz fronteira com inimigos");
             return;
         }
 
-        Territorio[] fronteiras = new Territorio[f.size()];
-        for(int i = 0; i < fronteiras.length; i++){
-            fronteiras[i] = f.get(i);
-        }
+        Territorio[] fronteiras = f.toArray(new Territorio[f.size()]);
+        //for(int i = 0; i < fronteiras.length; i++){
+        //    fronteiras[i] = f.get(i);
+        //}
 
         //Cria a nova janela
         JFrame frame = new JFrame("Atacar");
@@ -1240,22 +1235,17 @@ public class Gui {
         janela_.setEnabled(false);
 
         //Verifica quantos e quais territórios estão disponíveis para movimentar (aliados)
-        List<Territorio> f = new ArrayList<>();
-        for(Territorio t : selecionado_.getFronteira()){
-            if(t.getOcupante() == game_.getJogadorDaVez()){
-                f.add(t);
-            }
-        }
+        List<Territorio> f = selecionado_.getFronteirasInimigas(game_.getHumano());
 
         if(f.size() == 0){
             JOptionPane.showMessageDialog(janela_, "Este território não faz fronteira com aliados");
             return;
         }
 
-        Territorio[] fronteiras = new Territorio[f.size()];
-        for(int i = 0; i < fronteiras.length; i++){
-            fronteiras[i] = f.get(i);
-        }
+        Territorio[] fronteiras = f.toArray(new Territorio[f.size()]);
+        //for(int i = 0; i < fronteiras.length; i++){
+        //    fronteiras[i] = f.get(i);
+        //}
 
         //Cria a nova janela
         JFrame frame = new JFrame("Movimentar");

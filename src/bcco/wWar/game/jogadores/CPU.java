@@ -133,7 +133,7 @@ public class CPU extends Jogador {
         List<Territorio> territorios = game_.getTerritorios(this);
         List<Territorio> fronteiras;
 
-        if (i >= territorios.size()) {
+        if (i > territorios.size()) {
             return false;
         }
 
@@ -143,7 +143,7 @@ public class CPU extends Jogador {
         if (vontade_ > agressividade_) {
             fronteiras = territorios.get(i).getFronteirasInimigas(this);
 
-            if (fronteiras == null) {
+            if (fronteiras.size() == 0) {
                 return false;
             }
 

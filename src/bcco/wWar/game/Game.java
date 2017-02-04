@@ -27,7 +27,6 @@ public class Game {
     private CPU cpu_;
 
     private boolean running_ = false;
-    private GameStates state_;
     private int rodada_;
 
     /**
@@ -45,7 +44,6 @@ public class Game {
             }
         }
         humano_ = new Jogador("", this);
-        state_ = GameStates.INICIO;
     }
 
     public void setGui_(Gui gui) {
@@ -186,16 +184,6 @@ public class Game {
     }
 
     /**
-     * @return O jogador que joga nesta rodada
-     */
-    public Jogador getJogadorDaVez(){
-        if((rodada_ % 2) == 0){
-            return getHumano();
-        }
-        return getCPU();
-    }
-
-    /**
      * @return O estado do jogo
      */
     public boolean getRunning(){
@@ -207,13 +195,6 @@ public class Game {
      */
     public Mapa getMapa(){
         return mapa_;
-    }
-
-    /**
-     * @return O estado atual do jogo
-     */
-    public GameStates getState(){
-        return state_;
     }
 
     private boolean verificaVitória(Jogador jogador){
@@ -422,7 +403,7 @@ public class Game {
             resultado = false;
         }
 
-        gui_.resultadoAtaque(jogador.getNome(), territorio.getNome(),
+        gui_.resultadoAtaque(jogador.getNome(), alvo.getNome(),
                 Integer.toString(n_fracassos), Integer.toString(n_sucessos), resultado);
 
         if (jogador == cpu_) {
@@ -447,13 +428,6 @@ public class Game {
      */
     public void setRunning(boolean running){
         running_ = running;
-    }
-
-    /**
-     * @param state O estado atual do jogo
-     */
-    public void setState(GameStates state){
-        state_ = state;
     }
 
     /**
