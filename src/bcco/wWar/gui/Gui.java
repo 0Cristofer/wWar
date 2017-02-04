@@ -194,7 +194,7 @@ public class Gui {
         frame.setVisible(true);
     }
 
-    public void resultadoAtaque(String nome, String territorio, String n_fracassos,
+    public void resultadoAtaque(Jogador jogador, String territorio, String n_fracassos,
                                 String n_sucessos, boolean resultado) {
         janela_.setEnabled(false);
         //Configura o frame
@@ -242,10 +242,15 @@ public class Gui {
         GridBagConstraints c = new GridBagConstraints();
 
         //componentes
-        JLabel l_intro = new JLabel("Os exércitos de " + nome + " atacaram o(a) " + territorio);
+        JLabel l_intro = new JLabel("Os exércitos de " + jogador.getNome() + " atacaram o(a) " + territorio);
         JLabel l_fracassos = new JLabel("Numero de exércitos perdidos em combate: " + n_fracassos);
         JLabel l_sucessos = new JLabel("Número de exércitos defensores mortos: " + n_sucessos);
-        JLabel l_conquista = new JLabel("Parabéns " + nome + " você conquistou o território " + territorio + "!");
+        JLabel l_conquista = new JLabel("Parabéns " + jogador.getNome() +
+                " você conquistou o território " + territorio + "!");
+
+        JLabel l_derrota = new JLabel("Os exércitos de " + jogador.getNome() + "dominaram o(a) "
+                + territorio + " e tomaram posse de suas tropas aereas.");
+
         JLabel l_fim = new JLabel("Fim do relatório de combate");
         JButton ok = new JButton("OK");
 
@@ -274,6 +279,9 @@ public class Gui {
 
         c.gridy = 3;
         if (resultado) {
+            if (jogador == game_.getHumano()) {
+
+            }
             pane.add(l_conquista, c);
         }
 
@@ -543,6 +551,7 @@ public class Gui {
                                 terminado_ataque_ = true;
                                 movimentar();
                                 updateJogadoresInfos();
+                            } else {
                             }
                         }
                         else{
