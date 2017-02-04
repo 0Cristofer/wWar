@@ -491,7 +491,6 @@ public class Gui {
                                 "Tem certeza?", JOptionPane.YES_NO_OPTION) ==
                                 JOptionPane.YES_OPTION){
 
-
                             game_.getCPU().jogar();
                             terminado_ataque_ = false;
 
@@ -553,10 +552,8 @@ public class Gui {
                                     "Tem certeza que deseja movimentar? Você não poderá mais atacarTerrestre",
                                     "Tem certeza?", JOptionPane.YES_NO_OPTION) ==
                                     JOptionPane.YES_OPTION) {
-                                terminado_ataque_ = true;
                                 movimentar();
                                 updateJogadoresInfos();
-                            } else {
                             }
                         }
                         else{
@@ -1172,7 +1169,8 @@ public class Gui {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        game_.atacarTerrestre(game_.getHumano(), selecionado_, selecionado_destino, n_ataque, 0);
+                        game_.atacarTerrestre(game_.getHumano(), selecionado_, selecionado_destino,
+                                n_ataque, 0);
                         updateInfos();
                         janela_.setEnabled(true);
                         frame.setVisible(false);
@@ -1373,9 +1371,11 @@ public class Gui {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        game_.movimentar(selecionado_, selecionado_destino, tipo_exerc_, Integer.parseInt(num_exe.getText()));
+                        game_.movimentar(selecionado_, selecionado_destino, tipo_exerc_,
+                                Integer.parseInt(num_exe.getText()));
                         frame.setVisible(false);
                         janela_.setEnabled(true);
+                        terminado_ataque_ = true;
                         updateInfos();
                     }
                 }
