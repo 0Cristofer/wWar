@@ -6,21 +6,10 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b516ea51-8b46-48f7-bf50-72962dbab64a" name="Default" comment="Terminado sistema de movimentação">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/game/Game.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/game/Game.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$10.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$10.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$2.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$3.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$4.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$5.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$6.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$6.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$7.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$7.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$8.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$8.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$9.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui$9.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/mapa/continentes/Territorio.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/mapa/continentes/Territorio.class" />
+    <list default="true" id="b516ea51-8b46-48f7-bf50-72962dbab64a" name="Default" comment="Corrigido erro de merge">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bcco/wWar/mapa/continentes/Territorio.java" afterPath="$PROJECT_DIR$/src/bcco/wWar/mapa/continentes/Territorio.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bcco/wWar/game/Game.java" afterPath="$PROJECT_DIR$/src/bcco/wWar/game/Game.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java" afterPath="$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -43,25 +32,10 @@
       <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/bcco/wWar/game/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="125" column="28" lean-forward="false" selection-start-line="125" selection-start-column="28" selection-end-line="125" selection-end-column="28" />
+            <state relative-caret-position="567">
+              <caret line="127" column="0" lean-forward="false" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1303#1304#0" expanded="true" />
-                <element signature="e#1329#1330#0" expanded="true" />
-                <element signature="e#5422#5423#0" expanded="true" />
-                <element signature="e#5453#5454#0" expanded="true" />
-                <element signature="e#5543#5544#0" expanded="true" />
-                <element signature="e#5571#5572#0" expanded="true" />
-                <element signature="e#5660#5661#0" expanded="true" />
-                <element signature="e#5689#5690#0" expanded="true" />
-                <element signature="e#5770#5771#0" expanded="true" />
-                <element signature="e#5800#5801#0" expanded="true" />
-                <element signature="e#12255#12256#0" expanded="true" />
-                <element signature="e#12289#12290#0" expanded="true" />
-                <marker date="1486165116362" expanded="false" signature="12120:12131" ph=" { " />
-                <marker date="1486165116362" expanded="false" signature="12143:12149" ph=" }" />
-                <marker date="1486165116362" expanded="false" signature="12393:12403" ph=" { " />
               </folding>
             </state>
           </provider>
@@ -70,9 +44,13 @@
       <file leaf-file-name="CPU.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/bcco/wWar/game/jogadores/CPU.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="648">
-              <caret line="70" column="40" lean-forward="true" selection-start-line="70" selection-start-column="40" selection-end-line="70" selection-end-column="40" />
-              <folding />
+            <state relative-caret-position="1170">
+              <caret line="70" column="40" lean-forward="false" selection-start-line="70" selection-start-column="40" selection-end-line="70" selection-end-column="40" />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#2353#2354#0" expanded="false" />
+                <element signature="e#2388#2389#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -82,92 +60,43 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="639">
               <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
-              <folding>
-                <element signature="e#1366#1367#0" expanded="true" />
-                <element signature="e#1394#1395#0" expanded="true" />
-                <element signature="e#1516#1517#0" expanded="true" />
-                <element signature="e#1553#1554#0" expanded="true" />
-                <element signature="e#2129#2130#0" expanded="true" />
-                <element signature="e#2164#2165#0" expanded="true" />
-                <marker date="1486155987817" expanded="false" signature="2277:2287" ph=" { " />
-                <marker date="1486155987817" expanded="false" signature="2314:2320" ph=" }" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Territorio.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Territorio.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/bcco/wWar/mapa/continentes/Territorio.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="421">
               <caret line="103" column="65" lean-forward="false" selection-start-line="103" selection-start-column="65" selection-end-line="103" selection-end-column="65" />
               <folding>
-                <element signature="e#1892#1893#0" expanded="true" />
-                <element signature="e#1940#1941#0" expanded="true" />
-                <element signature="e#2065#2066#0" expanded="true" />
-                <element signature="e#2109#2110#0" expanded="true" />
-                <element signature="e#2675#2676#0" expanded="true" />
-                <element signature="e#2703#2704#0" expanded="true" />
                 <element signature="e#2746#2747#0" expanded="true" />
                 <element signature="e#2829#2830#0" expanded="true" />
-                <element signature="e#2864#2865#0" expanded="true" />
-                <element signature="e#2939#2940#0" expanded="true" />
-                <element signature="e#3053#3054#0" expanded="true" />
-                <element signature="e#3090#3091#0" expanded="true" />
-                <element signature="e#3192#3193#0" expanded="true" />
-                <element signature="e#3224#3225#0" expanded="true" />
-                <element signature="e#3326#3327#0" expanded="true" />
-                <element signature="e#3377#3378#0" expanded="true" />
-                <element signature="e#3471#3472#0" expanded="true" />
-                <element signature="e#3518#3519#0" expanded="true" />
-                <element signature="e#3634#3635#0" expanded="true" />
-                <element signature="e#3668#3669#0" expanded="true" />
-                <element signature="e#4575#4576#0" expanded="true" />
-                <element signature="e#4615#4616#0" expanded="true" />
-                <element signature="e#4691#4692#0" expanded="true" />
-                <element signature="e#4723#4724#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Gui.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Gui.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="1689" column="60" lean-forward="false" selection-start-line="1689" selection-start-column="60" selection-end-line="1689" selection-end-column="60" />
+            <state relative-caret-position="304">
+              <caret line="914" column="70" lean-forward="true" selection-start-line="914" selection-start-column="70" selection-end-line="914" selection-end-column="70" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4091#4092#0" expanded="true" />
-                <element signature="e#4162#4163#0" expanded="true" />
-                <element signature="e#6192#6193#0" expanded="true" />
-                <element signature="e#6263#6264#0" expanded="true" />
-                <element signature="e#7420#7421#0" expanded="true" />
-                <element signature="e#7501#7502#0" expanded="true" />
-                <element signature="e#9817#9818#0" expanded="true" />
-                <element signature="e#9898#9899#0" expanded="true" />
-                <element signature="e#12235#14076#0" expanded="true" />
-                <element signature="e#14075#14076#0" expanded="true" />
-                <element signature="e#30679#30680#0" expanded="true" />
-                <element signature="e#30741#30742#0" expanded="true" />
-                <element signature="e#30935#30936#0" expanded="true" />
-                <element signature="e#30997#30998#0" expanded="true" />
-                <element signature="e#31191#31192#0" expanded="true" />
-                <element signature="e#31253#31254#0" expanded="true" />
-                <element signature="e#34114#34115#0" expanded="true" />
-                <element signature="e#34163#34164#0" expanded="true" />
-                <element signature="e#36416#36417#0" expanded="true" />
-                <element signature="e#36476#36477#0" expanded="true" />
-                <element signature="e#36670#36671#0" expanded="true" />
-                <element signature="e#36730#36731#0" expanded="true" />
-                <element signature="e#36924#36925#0" expanded="true" />
-                <element signature="e#36984#36985#0" expanded="true" />
-                <element signature="e#40079#40080#0" expanded="true" />
-                <element signature="e#40132#40133#0" expanded="true" />
-                <element signature="e#48236#48237#0" expanded="true" />
-                <element signature="e#48285#48286#0" expanded="true" />
-                <element signature="e#59115#59116#0" expanded="true" />
-                <element signature="e#59146#59147#0" expanded="true" />
+                <element signature="class#3211:3939" expanded="false" />
+                <element signature="class#6441:7169" expanded="false" />
+                <element signature="e#6627#6628#0" expanded="true" />
+                <element signature="e#6683#6684#0" expanded="true" />
+                <element signature="e#35826#35827#0" expanded="true" />
+                <element signature="e#35882#35883#0" expanded="true" />
+                <element signature="e#41818#41819#0" expanded="true" />
+                <element signature="e#41874#41875#0" expanded="true" />
+                <element signature="e#50037#50038#0" expanded="true" />
+                <element signature="e#50093#50094#0" expanded="true" />
+                <element signature="e#55745#55746#0" expanded="true" />
+                <element signature="e#55797#55798#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -176,9 +105,11 @@
       <file leaf-file-name="wWar.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/bcco/wWar/wWar.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-324">
+            <state relative-caret-position="540">
               <caret line="39" column="44" lean-forward="false" selection-start-line="39" selection-start-column="44" selection-end-line="39" selection-end-column="44" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -199,6 +130,8 @@
       <find>poup</find>
       <find>jogador_</find>
       <find>upda</find>
+      <find>dis</find>
+      <find>distri</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -266,9 +199,9 @@
         <option value="$PROJECT_DIR$/src/bcco/wWar/mapa/Mapa.java" />
         <option value="$PROJECT_DIR$/src/bcco/wWar/mapa/continentes/Continente.java" />
         <option value="$PROJECT_DIR$/src/bcco/wWar/game/jogadores/Jogador.java" />
+        <option value="$PROJECT_DIR$/src/bcco/wWar/mapa/continentes/Territorio.java" />
         <option value="$PROJECT_DIR$/src/bcco/wWar/game/Game.java" />
         <option value="$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java" />
-        <option value="$PROJECT_DIR$/src/bcco/wWar/mapa/continentes/Territorio.java" />
       </list>
     </option>
   </component>
@@ -314,7 +247,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -449,8 +384,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -471,122 +404,6 @@
     <key name="OPEN_URL_DIALOG">
       <recent name="http://stackoverflow.com/questions/5585779/converting-string-to-int-in-java" />
     </key>
-  </component>
-  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
-    <UpdatedFiles>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Updated from server" />
-        <option name="myStatusName" value="Changed on server" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="CHANGED_ON_SERVER" />
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Updated" />
-          <option name="myStatusName" value="Changed" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/workspace.xml</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/out/production/wWar/bcco/wWar/game/Game.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/Gui.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/out/production/wWar/bcco/wWar/mapa/continentes/Territorio.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/bcco/wWar/game/Game.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/bcco/wWar/mapa/continentes/Territorio.java</PATH>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Created" />
-          <option name="myStatusName" value="Created" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="CREATED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Deleted" />
-          <option name="myStatusName" value="Deleted" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="true" />
-          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Restored" />
-          <option name="myStatusName" value="Will be restored" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="RESTORED" />
-        </FILE-GROUP>
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Modified" />
-        <option name="myStatusName" value="Modified" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MODIFIED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Skipped" />
-        <option name="myStatusName" value="Skipped" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="SKIPPED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with conflicts" />
-        <option name="myStatusName" value="Will be merged with conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_CONFLICTS" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with tree conflicts" />
-        <option name="myStatusName" value="Merged with tree conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with property conflicts" />
-        <option name="myStatusName" value="Will be merged with property conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged" />
-        <option name="myStatusName" value="Will be merged" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Not in repository" />
-        <option name="myStatusName" value="Not in repository" />
-        <option name="mySupportsDeletion" value="true" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="UNKNOWN" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Locally added" />
-        <option name="myStatusName" value="Locally added" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="LOCALLY_ADDED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Locally removed" />
-        <option name="myStatusName" value="Locally removed" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="LOCALLY_REMOVED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Switched" />
-        <option name="myStatusName" value="Switched" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="SWITCHED" />
-      </FILE-GROUP>
-    </UpdatedFiles>
   </component>
   <component name="RunManager" selected="Application.wWar">
     <configuration default="false" name="wWar" type="Application" factoryName="Application" singleton="true" temporary="true">
@@ -1042,7 +859,8 @@
       <workItem from="1486137103348" duration="1515000" />
       <workItem from="1486139327491" duration="27000" />
       <workItem from="1486139482904" duration="72000" />
-      <workItem from="1486139570499" duration="25731000" />
+      <workItem from="1486139570499" duration="26346000" />
+      <workItem from="1486228429944" duration="5007000" />
     </task>
     <task id="LOCAL-00001" summary="Organizado código da gui">
       <created>1485918006387</created>
@@ -1254,11 +1072,18 @@
       <option name="project" value="LOCAL" />
       <updated>1486165131005</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Corrigido erro de merge">
+      <created>1486165321204</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1486165321204</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="187281000" />
+    <option name="totallyTimeSpent" value="192903000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="24" width="1920" height="1056" extended-state="6" />
@@ -1273,27 +1098,27 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1437309" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925585" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1437309" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17552084" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925585" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39959225" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39959225" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925585" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1324,7 +1149,8 @@
     <MESSAGE value="  Contruindo sistema de reforço aéreo pt.2" />
     <MESSAGE value="Terminado interface de ataque aereo" />
     <MESSAGE value="Terminado sistema de movimentação" />
-    <option name="LAST_COMMIT_MESSAGE" value="Terminado sistema de movimentação" />
+    <MESSAGE value="Corrigido erro de merge" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corrigido erro de merge" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1648,15 +1474,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="251" column="0" lean-forward="false" selection-start-line="251" selection-start-column="0" selection-end-line="251" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/bcco/wWar/wWar.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-324">
+        <state relative-caret-position="540">
           <caret line="39" column="44" lean-forward="false" selection-start-line="39" selection-start-column="44" selection-end-line="39" selection-end-column="44" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1672,73 +1499,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/bcco/wWar/game/jogadores/CPU.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="648">
-          <caret line="70" column="40" lean-forward="true" selection-start-line="70" selection-start-column="40" selection-end-line="70" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="1689" column="60" lean-forward="false" selection-start-line="1689" selection-start-column="60" selection-end-line="1689" selection-end-column="60" />
+        <state relative-caret-position="1170">
+          <caret line="70" column="40" lean-forward="false" selection-start-line="70" selection-start-column="40" selection-end-line="70" selection-end-column="40" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#4091#4092#0" expanded="true" />
-            <element signature="e#4162#4163#0" expanded="true" />
-            <element signature="e#6192#6193#0" expanded="true" />
-            <element signature="e#6263#6264#0" expanded="true" />
-            <element signature="e#7420#7421#0" expanded="true" />
-            <element signature="e#7501#7502#0" expanded="true" />
-            <element signature="e#9817#9818#0" expanded="true" />
-            <element signature="e#9898#9899#0" expanded="true" />
-            <element signature="e#12235#14076#0" expanded="true" />
-            <element signature="e#14075#14076#0" expanded="true" />
-            <element signature="e#30679#30680#0" expanded="true" />
-            <element signature="e#30741#30742#0" expanded="true" />
-            <element signature="e#30935#30936#0" expanded="true" />
-            <element signature="e#30997#30998#0" expanded="true" />
-            <element signature="e#31191#31192#0" expanded="true" />
-            <element signature="e#31253#31254#0" expanded="true" />
-            <element signature="e#34114#34115#0" expanded="true" />
-            <element signature="e#34163#34164#0" expanded="true" />
-            <element signature="e#36416#36417#0" expanded="true" />
-            <element signature="e#36476#36477#0" expanded="true" />
-            <element signature="e#36670#36671#0" expanded="true" />
-            <element signature="e#36730#36731#0" expanded="true" />
-            <element signature="e#36924#36925#0" expanded="true" />
-            <element signature="e#36984#36985#0" expanded="true" />
-            <element signature="e#40079#40080#0" expanded="true" />
-            <element signature="e#40132#40133#0" expanded="true" />
-            <element signature="e#48236#48237#0" expanded="true" />
-            <element signature="e#48285#48286#0" expanded="true" />
-            <element signature="e#59115#59116#0" expanded="true" />
-            <element signature="e#59146#59147#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/bcco/wWar/game/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="125" column="28" lean-forward="false" selection-start-line="125" selection-start-column="28" selection-end-line="125" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1303#1304#0" expanded="true" />
-            <element signature="e#1329#1330#0" expanded="true" />
-            <element signature="e#5422#5423#0" expanded="true" />
-            <element signature="e#5453#5454#0" expanded="true" />
-            <element signature="e#5543#5544#0" expanded="true" />
-            <element signature="e#5571#5572#0" expanded="true" />
-            <element signature="e#5660#5661#0" expanded="true" />
-            <element signature="e#5689#5690#0" expanded="true" />
-            <element signature="e#5770#5771#0" expanded="true" />
-            <element signature="e#5800#5801#0" expanded="true" />
-            <element signature="e#12255#12256#0" expanded="true" />
-            <element signature="e#12289#12290#0" expanded="true" />
-            <marker date="1486165116362" expanded="false" signature="12120:12131" ph=" { " />
-            <marker date="1486165116362" expanded="false" signature="12143:12149" ph=" }" />
-            <marker date="1486165116362" expanded="false" signature="12393:12403" ph=" { " />
+            <element signature="imports" expanded="false" />
+            <element signature="e#2353#2354#0" expanded="false" />
+            <element signature="e#2388#2389#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1747,16 +1513,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="639">
           <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
-          <folding>
-            <element signature="e#1366#1367#0" expanded="true" />
-            <element signature="e#1394#1395#0" expanded="true" />
-            <element signature="e#1516#1517#0" expanded="true" />
-            <element signature="e#1553#1554#0" expanded="true" />
-            <element signature="e#2129#2130#0" expanded="true" />
-            <element signature="e#2164#2165#0" expanded="true" />
-            <marker date="1486155987817" expanded="false" signature="2277:2287" ph=" { " />
-            <marker date="1486155987817" expanded="false" signature="2314:2320" ph=" }" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1765,30 +1522,40 @@
         <state relative-caret-position="421">
           <caret line="103" column="65" lean-forward="false" selection-start-line="103" selection-start-column="65" selection-end-line="103" selection-end-column="65" />
           <folding>
-            <element signature="e#1892#1893#0" expanded="true" />
-            <element signature="e#1940#1941#0" expanded="true" />
-            <element signature="e#2065#2066#0" expanded="true" />
-            <element signature="e#2109#2110#0" expanded="true" />
-            <element signature="e#2675#2676#0" expanded="true" />
-            <element signature="e#2703#2704#0" expanded="true" />
             <element signature="e#2746#2747#0" expanded="true" />
             <element signature="e#2829#2830#0" expanded="true" />
-            <element signature="e#2864#2865#0" expanded="true" />
-            <element signature="e#2939#2940#0" expanded="true" />
-            <element signature="e#3053#3054#0" expanded="true" />
-            <element signature="e#3090#3091#0" expanded="true" />
-            <element signature="e#3192#3193#0" expanded="true" />
-            <element signature="e#3224#3225#0" expanded="true" />
-            <element signature="e#3326#3327#0" expanded="true" />
-            <element signature="e#3377#3378#0" expanded="true" />
-            <element signature="e#3471#3472#0" expanded="true" />
-            <element signature="e#3518#3519#0" expanded="true" />
-            <element signature="e#3634#3635#0" expanded="true" />
-            <element signature="e#3668#3669#0" expanded="true" />
-            <element signature="e#4575#4576#0" expanded="true" />
-            <element signature="e#4615#4616#0" expanded="true" />
-            <element signature="e#4691#4692#0" expanded="true" />
-            <element signature="e#4723#4724#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/bcco/wWar/game/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="567">
+          <caret line="127" column="0" lean-forward="false" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="914" column="70" lean-forward="true" selection-start-line="914" selection-start-column="70" selection-end-line="914" selection-end-column="70" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="class#3211:3939" expanded="false" />
+            <element signature="class#6441:7169" expanded="false" />
+            <element signature="e#6627#6628#0" expanded="true" />
+            <element signature="e#6683#6684#0" expanded="true" />
+            <element signature="e#35826#35827#0" expanded="true" />
+            <element signature="e#35882#35883#0" expanded="true" />
+            <element signature="e#41818#41819#0" expanded="true" />
+            <element signature="e#41874#41875#0" expanded="true" />
+            <element signature="e#50037#50038#0" expanded="true" />
+            <element signature="e#50093#50094#0" expanded="true" />
+            <element signature="e#55745#55746#0" expanded="true" />
+            <element signature="e#55797#55798#0" expanded="true" />
           </folding>
         </state>
       </provider>

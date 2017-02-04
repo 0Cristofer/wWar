@@ -63,7 +63,7 @@ public class Game {
     /**
      * Distribui os territorios aleatoriamente e igualmente
      */
-    private void distribuiTerritorios(){
+    public void distribuiTerritorios(){
         List<List<Territorio>> territorios_livres = new ArrayList<>();
         int mod = new Random().nextInt(2); // Se 0 : Jogador tem vantagem Se 1 : CPU tem vantagem
         int humans = 0;
@@ -125,7 +125,6 @@ public class Game {
      */
     public void iniciarJogo(){
         rodada_ = -1;
-        distribuiTerritorios();
         mudaRodada();
     }
 
