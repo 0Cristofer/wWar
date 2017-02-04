@@ -11,6 +11,7 @@ import java.util.*;
 public class CPU extends Jogador {
     private static List<String> nomesCPU_ = new ArrayList<>();
     private double agressividade_; //Atributo que controla a chance de ataque da CPU
+    private double vontade_;
     Comparator<Territorio> exTerrestreComparator;
 
 
@@ -26,6 +27,7 @@ public class CPU extends Jogador {
         game_ = game;
         agressividade_ = agressividade;
         exTerrestreComparator = new Exercito_Terrestre_Comparator();
+        vontade_ = 0.5;
     }
 
     class Exercito_Terrestre_Comparator implements Comparator<Territorio> {
@@ -71,6 +73,11 @@ public class CPU extends Jogador {
 
     }
 
+    /**
+     * @param territorio
+     * @param qtd_ataque
+     * @return
+     */
     public int defenderTerr(Territorio territorio, int qtd_ataque) {
         int n_defesa = territorio.getNumExTerrestres();
 
@@ -94,24 +101,51 @@ public class CPU extends Jogador {
         }
     }
 
+    public void resetarVontade() {
+        vontade_ = 0.5;
+    }
 
-    public void jogar() {
-        double vontade = 0.5; //Atributo que controla a chance de atacar
+    /**
+     *
+     * @param resultado
+     * @param n_sucessos
+     * @param n_fracassos
+     */
+    public void alterarVontade(boolean resultado, int n_sucessos, int n_fracassos) {
+        if (resultado) {
+            vontade_ += 0.05 + n_sucessos * 0.05;
+        } else {
+            vontade_ -= (0.1 + n_fracassos * 0.05);
+        }
+    }
+
+
+
+    /**
+     *
+     * @param i
+     * @param j
+     */
+    public void atacar(int i, int j) {
         int n_terrestres;
         int qtd_ataque = 0;
-        int i = 0;
-
 
         List<Territorio> territorios = game_.getTerritorios(this);
-        List<Territorio> fronteiras = new ArrayList<>();
+        List<Territorio> fronteiras;
 
+        if (i >= territorios.size()) {
+            return;
+        }
 
         Collections.sort(territorios, exTerrestreComparator);
         Collections.reverse(territorios);
 
+        if (vontade_ > agressividade_) {
+            fronteiras = territorios.get(i).getFronteirasInimigas(this);
+            if (fronteiras == null) {
+                return;
+            }
 
-        while (vontade > agressividade_) {
-            fronteiras = new ArrayList<Territorio>(Arrays.asList(territorios.get(i).getFronteira()));
             Collections.sort(fronteiras, exTerrestreComparator);
 
             n_terrestres = territorios.get(i).getNumExTerrestres();
@@ -126,18 +160,27 @@ public class CPU extends Jogador {
                     qtd_ataque = 1;
                 }
 
-                //Ataca?
+                //Atacou
+                game_.getGui_().defender(territorios.get(i), fronteiras.get(j), qtd_ataque);
 
             } else {
-                vontade -= 0.2;
+                vontade_ -= 0.1;
+                atacar(i + 1, j);
             }
-
-
-            //CHAMAR A DEFESA DO HUMANO// gui_.defender(territorio, alvo, qtd_ataque); //Chama janela de defesa.
-
         }
 
+    }
 
+    /**
+     *
+     */
+    public void jogar() {
+        //TODO implementar um sistema melhor, incluir o movimentar.
+        if (vontade_ > agressividade_) {
+            atacar(0, 0);
+        } else {
+            game_.mudaRodada();
+        }
     }
 
     /**

@@ -115,12 +115,13 @@ public class Game {
         cpu_.distribuirExercitos();
         gui_.distribuirExercito();
 
-
-        rodada_++;
-
-        if (rodada_ > 0) {
+        if (rodada_ >= 0) {
             JOptionPane.showMessageDialog(null, "Fim da rodada! Distribua seus exércitos");
         }
+
+        cpu_.resetarVontade();
+
+        rodada_++;
     }
 
 
@@ -413,7 +414,6 @@ public class Game {
 
             System.out.format(jogador.getNome() + " dominou o territorio " + alvo.getNome() + "\n");
 
-
             for (int i = 0; i < qtd_ataque - n_fracassos; i++) {
                 alvo.insereExTerrestre(territorio.removeExTerrestre());
             }
@@ -422,9 +422,12 @@ public class Game {
             resultado = false;
         }
 
-        if (jogador == humano_) {
-            gui_.resultadoAtaque(jogador.getNome(), territorio.getNome(),
-                    Integer.toString(n_fracassos), Integer.toString(n_sucessos), resultado);
+        gui_.resultadoAtaque(jogador.getNome(), territorio.getNome(),
+                Integer.toString(n_fracassos), Integer.toString(n_sucessos), resultado);
+
+        if (jogador == cpu_) {
+            cpu_.alterarVontade(resultado, n_sucessos, n_fracassos);
+            cpu_.jogar();
         }
 
         if(verificaVitória(jogador)){
@@ -451,5 +454,12 @@ public class Game {
      */
     public void setState(GameStates state){
         state_ = state;
+    }
+
+    /**
+     * @return
+     */
+    public Gui getGui_() {
+        return gui_;
     }
 }

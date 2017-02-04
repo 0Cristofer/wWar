@@ -478,7 +478,8 @@ public class Gui {
                                 "Tem certeza?", JOptionPane.YES_NO_OPTION) ==
                                 JOptionPane.YES_OPTION){
 
-                            game_.mudaRodada();
+
+                            game_.getCPU().jogar();
                             terminado_ataque_ = false;
 
                             if(selecionado_ != null){
