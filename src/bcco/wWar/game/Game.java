@@ -423,6 +423,71 @@ public class Game {
         return cpu_;
     }
 
+    public void atacarAereo(Jogador jogador, Territorio territorio, Territorio alvo, int qtd_ataque){
+        int defesa = alvo.getExercitos_aereos_().get(0).combater();
+        int avioes_derrubados = 0;
+        int terrestres_mortos = 0;
+        System.out.println("Defesa: " + defesa);
+        for(int i = 0; i < qtd_ataque; i++){
+            int comb = territorio.getExercitos_aereos_().get(i).combater();
+            System.out.println("Ataque " + i + ": " + comb);
+
+            if(comb > 0){
+                if(alvo.getNumExAereos() > 0){
+                    alvo.removeExAereo();
+                    avioes_derrubados = avioes_derrubados + 1;
+                }
+                switch (comb) {
+                    case 1:
+                        if (alvo.getNumExTerrestres() > 1) {
+                            alvo.removeExTerrestre();
+                            terrestres_mortos = terrestres_mortos + 1;
+                        }
+                        break;
+                    case 2:
+                        if (alvo.getNumExTerrestres() > 1) {
+                            if (alvo.getNumExTerrestres() > 2) {
+                                alvo.removeExTerrestre();
+                                alvo.removeExTerrestre();
+                                terrestres_mortos = terrestres_mortos + 2;
+                            }
+                            else{
+                                alvo.removeExTerrestre();
+                                terrestres_mortos = terrestres_mortos + 1;
+                            }
+                        }
+                        break;
+                    case 3:
+                        if (alvo.getNumExTerrestres() > 1){
+                            if (alvo.getNumExTerrestres() > 2) {
+                                if(alvo.getNumExTerrestres() > 3){
+                                    alvo.removeExTerrestre();
+                                    alvo.removeExTerrestre();
+                                    alvo.removeExTerrestre();
+                                }
+                                else {
+                                    alvo.removeExTerrestre();
+                                    alvo.removeExTerrestre();
+                                    terrestres_mortos = terrestres_mortos + 2;
+                                }
+                            }
+                            else{
+                                alvo.removeExTerrestre();
+                                terrestres_mortos = terrestres_mortos + 1;
+                            }
+                        }
+                        break;
+                }
+            }
+        }
+
+        for(int i = 0; i < Integer.min(defesa, qtd_ataque); i++){
+            territorio.removeExAereo();
+        }
+
+        gui_.relatorioAereo(jogador, territorio, alvo, defesa, avioes_derrubados, terrestres_mortos);
+    }
+
     /**
      * @param running O estado atual do jogo
      */
