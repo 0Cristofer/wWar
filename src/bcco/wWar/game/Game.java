@@ -403,7 +403,7 @@ public class Game {
             resultado = false;
         }
 
-        gui_.resultadoAtaque(jogador.getNome(), alvo.getNome(),
+        gui_.resultadoAtaque(jogador, alvo.getNome(),
                 Integer.toString(n_fracassos), Integer.toString(n_sucessos), resultado);
 
         if (jogador == cpu_) {

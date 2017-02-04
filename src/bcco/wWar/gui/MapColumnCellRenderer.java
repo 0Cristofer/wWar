@@ -1,6 +1,7 @@
 package bcco.wWar.gui;
 
 import bcco.wWar.game.Game;
+import bcco.wWar.game.jogadores.Jogador;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -26,7 +27,11 @@ public class MapColumnCellRenderer extends DefaultTableCellRenderer {
 
         //Get the status for the current row.
         MapTable tableModel = (MapTable) table.getModel();
-        if (tableModel.getOcupante(row, col).equals(game_.getHumano())) {
+        Jogador ocupante = tableModel.getOcupante(row, col);
+        if(ocupante == null){
+            l.setBackground(Color.CYAN);
+        }
+        else if(ocupante.equals(game_.getHumano())) {
             l.setBackground(Color.GREEN);
         } else {
             l.setBackground(Color.RED);
