@@ -128,7 +128,7 @@ public class CPU extends Jogador {
      */
     public void atacar(int i, int j) {
         int n_terrestres;
-        int qtd_ataque = 0;
+        int qtd_ataque;
 
         List<Territorio> territorios = game_.getTerritorios(this);
         List<Territorio> fronteiras;
