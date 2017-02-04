@@ -882,7 +882,7 @@ public class Gui {
         Jogador cpu = game_.getCPU();
 
         jogador_num_territorios.setText("Número de territórios: " + game_.getNumTerritorios(humano));
-        jogador_num_continentes.setText("Número de continentes: ");
+        jogador_num_continentes.setText("Número de continentes: " + game_.getNumContinentesJogador(humano));
         jogador_num_terr.setText("Exércitos Terrestres: " + game_.getNumTerrestres(humano));
         jogador_num_aereo.setText("Exércitos Aéreos: " + game_.getNumAereos(humano));
         cpu_num_territorios.setText("Número de territórios: " + game_.getNumTerritorios(cpu));
@@ -912,7 +912,6 @@ public class Gui {
         JLabel descricao = new JLabel("Os exércitos de " + game_.getCPU().getNome() + " estão atacando!");
 
         JLabel territorio_alvo = new JLabel(alvo.getNome() + " está em perigo!");
-        JLabel tropas_vindo = new JLabel(qtd_ataque + " estão vindo");
         JLabel alvo_info = new JLabel("Tropas neste território: " + n_tropas);
         JLabel defender_text = new JLabel("Defender território com: ");
 
@@ -960,7 +959,7 @@ public class Gui {
 
         r1.doClick();
 
-        JLabel territorio_atacando = new JLabel(territorio.getNumExTerrestres() + " exércitos marcham de " + territorio.getNome());
+        JLabel territorio_atacando = new JLabel(qtd_ataque + " exércitos marcham de " + territorio.getNome());
 
         JButton defender = new JButton("Defender");
         defender.addActionListener(new ActionListener() {
@@ -1496,7 +1495,7 @@ public class Gui {
 
             Territorio[] fronteira = selecionado_.getFronteira();
 
-            nome_pais.setText("Pais selecionao: " + selecionado_.getNome());
+            nome_pais.setText("Pais selecionado: " + selecionado_.getNome());
             num_terr.setText("Exércitos Terrestres: " + selecionado_.getNumExTerrestres());
             num_aereo.setText("Exércitos Aéreos: " + selecionado_.getNumExAereos());
 
@@ -1870,6 +1869,59 @@ public class Gui {
 
         frame.pack();
         frame.setVisible(true);
+    }
+
+    public void vitoria(Jogador jogador){
+        JFrame frame = new JFrame("Acabou!");
+        JPanel pane = new JPanel(new GridBagLayout());
+        frame.getContentPane().setLayout(new GridBagLayout());
+        frame.setLocationRelativeTo(null);
+        frame.getContentPane().setLayout(new GridBagLayout());
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        String p = "Infelizmente " + jogador.getNome() + " ganhou";
+        if(jogador.equals(game_.getHumano())){
+            p = "Parabéns " + game_.getHumano().getNome() + ", você ganhou";
+        }
+
+        String con = jogador.getNome() + " conquistou 2 continentes, e você perdeu";
+        if(jogador.equals(game_.getHumano())){
+            con = "Você conquistou 2 continentes e ganhou!";
+        }
+
+        JLabel parabens = new JLabel(p);
+        JLabel continuar = new JLabel(con);
+        JButton ok = new JButton("Terminar jogo");
+
+        ok.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        System.exit(0);
+                    }
+                }
+        );
+
+        GridBagConstraints c = new GridBagConstraints();
+
+        c.gridx = 0;
+        c.gridy = 0;
+        c.anchor = GridBagConstraints.LINE_START;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.insets = new Insets(5, 5,5, 5);
+        pane.add(parabens, c);
+
+        c.gridy = 1;
+        pane.add(continuar, c);
+
+        c.gridy = 2;
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.CENTER;
+        pane.add(ok, c);
+
+        frame.getContentPane().add(pane);
+        frame.setVisible(true);
+        frame.pack();
     }
 
     private List<Territorio> checkAereo(){
