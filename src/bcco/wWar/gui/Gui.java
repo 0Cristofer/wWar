@@ -536,7 +536,7 @@ public class Gui {
                                         "nenhum terriório que pode ser atacado por ar");
                             }
                             else {
-                                atacarAereo(checkAereo());
+                                atacarAereo(checkAereo(game_.getHumano()));
                                 updateJogadoresInfos();
                             }
                         }
@@ -556,7 +556,6 @@ public class Gui {
                                 terminado_ataque_ = true;
                                 movimentar();
                                 updateJogadoresInfos();
-                            } else {
                             }
                         }
                         else{

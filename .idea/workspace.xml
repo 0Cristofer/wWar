@@ -6,7 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b516ea51-8b46-48f7-bf50-72962dbab64a" name="Default" comment="Colocado cor nas celulas">
+    <list default="true" id="b516ea51-8b46-48f7-bf50-72962dbab64a" name="Default" comment="Corrigido erro em movimentação e ataque aereo">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/MapTable.class" afterPath="$PROJECT_DIR$/out/production/wWar/bcco/wWar/gui/MapTable.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java" afterPath="$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java" />
@@ -58,49 +58,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Gui.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="1251" column="62" lean-forward="false" selection-start-line="1251" selection-start-column="62" selection-end-line="1251" selection-end-column="62" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#3405#3406#0" expanded="true" />
-                <element signature="e#3461#3462#0" expanded="true" />
-                <element signature="e#6639#6640#0" expanded="true" />
-                <element signature="e#6695#6696#0" expanded="true" />
-                <element signature="e#9562#9563#0" expanded="true" />
-                <element signature="e#9643#9644#0" expanded="true" />
-                <element signature="e#11899#11900#0" expanded="true" />
-                <element signature="e#11980#11981#0" expanded="true" />
-                <element signature="e#14485#16326#0" expanded="true" />
-                <element signature="e#16325#16326#0" expanded="true" />
-                <element signature="e#32719#32720#0" expanded="true" />
-                <element signature="e#32781#32782#0" expanded="true" />
-                <element signature="e#32975#32976#0" expanded="true" />
-                <element signature="e#33037#33038#0" expanded="true" />
-                <element signature="e#33231#33232#0" expanded="true" />
-                <element signature="e#33293#33294#0" expanded="true" />
-                <element signature="e#36346#36347#0" expanded="true" />
-                <element signature="e#36402#36403#0" expanded="true" />
-                <element signature="e#38655#38656#0" expanded="true" />
-                <element signature="e#38715#38716#0" expanded="true" />
-                <element signature="e#38909#38910#0" expanded="true" />
-                <element signature="e#38969#38970#0" expanded="true" />
-                <element signature="e#39163#39164#0" expanded="true" />
-                <element signature="e#39223#39224#0" expanded="true" />
-                <element signature="e#62074#62075#0" expanded="true" />
-                <element signature="e#62145#62146#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Territorio.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Territorio.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/bcco/wWar/mapa/continentes/Territorio.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="192" column="38" lean-forward="false" selection-start-line="192" selection-start-column="38" selection-end-line="192" selection-end-column="38" />
+            <state relative-caret-position="639">
+              <caret line="200" column="0" lean-forward="false" selection-start-line="200" selection-start-column="0" selection-end-line="200" selection-end-column="0" />
               <folding>
                 <element signature="e#2858#2859#0" expanded="true" />
                 <element signature="e#2933#2934#0" expanded="true" />
@@ -115,6 +77,18 @@
             <state relative-caret-position="342">
               <caret line="49" column="20" lean-forward="true" selection-start-line="49" selection-start-column="20" selection-end-line="49" selection-end-column="20" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Gui.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="378">
+              <caret line="558" column="29" lean-forward="false" selection-start-line="558" selection-start-column="29" selection-end-line="558" selection-end-column="29" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -207,8 +181,8 @@
         <option value="$PROJECT_DIR$/src/bcco/wWar/game/Game.java" />
         <option value="$PROJECT_DIR$/src/bcco/wWar/gui/MapTable.java" />
         <option value="$PROJECT_DIR$/src/bcco/wWar/gui/MapColumnCellRenderer.java" />
-        <option value="$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java" />
         <option value="$PROJECT_DIR$/src/bcco/wWar/mapa/continentes/Territorio.java" />
+        <option value="$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java" />
       </list>
     </option>
   </component>
@@ -1066,7 +1040,7 @@
       <workItem from="1486139327491" duration="27000" />
       <workItem from="1486139482904" duration="72000" />
       <workItem from="1486139570499" duration="26346000" />
-      <workItem from="1486228429944" duration="20294000" />
+      <workItem from="1486228429944" duration="20690000" />
     </task>
     <task id="LOCAL-00001" summary="Organizado código da gui">
       <created>1485918006387</created>
@@ -1348,11 +1322,18 @@
       <option name="project" value="LOCAL" />
       <updated>1486250915039</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Corrigido erro em movimentação e ataque aereo">
+      <created>1486251562396</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1486251562396</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="208190000" />
+    <option name="totallyTimeSpent" value="208586000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="24" width="1920" height="1056" extended-state="6" />
@@ -1398,7 +1379,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="Organizado código da gui pt2" />
     <MESSAGE value="Organizado código da gui pt3" />
     <MESSAGE value="Adicionado pop-up de movimentação e organizado detalhes" />
     <MESSAGE value="Adicionado funções ao game" />
@@ -1423,7 +1403,8 @@
     <MESSAGE value="Criado interface de vitória/derrota" />
     <MESSAGE value="Sistema de combate areo pronto" />
     <MESSAGE value="Colocado cor nas celulas" />
-    <option name="LAST_COMMIT_MESSAGE" value="Colocado cor nas celulas" />
+    <MESSAGE value="Corrigido erro em movimentação e ataque aereo" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corrigido erro em movimentação e ataque aereo" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1826,42 +1807,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="1251" column="62" lean-forward="false" selection-start-line="1251" selection-start-column="62" selection-end-line="1251" selection-end-column="62" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3405#3406#0" expanded="true" />
-            <element signature="e#3461#3462#0" expanded="true" />
-            <element signature="e#6639#6640#0" expanded="true" />
-            <element signature="e#6695#6696#0" expanded="true" />
-            <element signature="e#9562#9563#0" expanded="true" />
-            <element signature="e#9643#9644#0" expanded="true" />
-            <element signature="e#11899#11900#0" expanded="true" />
-            <element signature="e#11980#11981#0" expanded="true" />
-            <element signature="e#14485#16326#0" expanded="true" />
-            <element signature="e#16325#16326#0" expanded="true" />
-            <element signature="e#32719#32720#0" expanded="true" />
-            <element signature="e#32781#32782#0" expanded="true" />
-            <element signature="e#32975#32976#0" expanded="true" />
-            <element signature="e#33037#33038#0" expanded="true" />
-            <element signature="e#33231#33232#0" expanded="true" />
-            <element signature="e#33293#33294#0" expanded="true" />
-            <element signature="e#36346#36347#0" expanded="true" />
-            <element signature="e#36402#36403#0" expanded="true" />
-            <element signature="e#38655#38656#0" expanded="true" />
-            <element signature="e#38715#38716#0" expanded="true" />
-            <element signature="e#38909#38910#0" expanded="true" />
-            <element signature="e#38969#38970#0" expanded="true" />
-            <element signature="e#39163#39164#0" expanded="true" />
-            <element signature="e#39223#39224#0" expanded="true" />
-            <element signature="e#62074#62075#0" expanded="true" />
-            <element signature="e#62145#62146#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/bcco/wWar/wWar.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
@@ -1872,11 +1817,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/bcco/wWar/mapa/continentes/Territorio.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="192" column="38" lean-forward="false" selection-start-line="192" selection-start-column="38" selection-end-line="192" selection-end-column="38" />
+        <state relative-caret-position="639">
+          <caret line="200" column="0" lean-forward="false" selection-start-line="200" selection-start-column="0" selection-end-line="200" selection-end-column="0" />
           <folding>
             <element signature="e#2858#2859#0" expanded="true" />
             <element signature="e#2933#2934#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/bcco/wWar/gui/Gui.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="558" column="29" lean-forward="false" selection-start-line="558" selection-start-column="29" selection-end-line="558" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
