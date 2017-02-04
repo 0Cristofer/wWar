@@ -968,6 +968,7 @@ public class Gui {
             public void actionPerformed(ActionEvent e) {
                 janela_.setEnabled(true);
                 frame.setVisible(false);
+                game_.atacarTerrestre(game_.getCPU(), territorio, alvo, qtd_ataque, n_defender);
             }
         });
 
@@ -1162,7 +1163,7 @@ public class Gui {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        game_.atacarTerrestre(game_.getHumano(), selecionado_, selecionado_destino, n_ataque);
+                        game_.atacarTerrestre(game_.getHumano(), selecionado_, selecionado_destino, n_ataque, 0);
                         updateInfos();
                         janela_.setEnabled(true);
                         frame.setVisible(false);
