@@ -10,6 +10,7 @@ import bcco.wWar.mapa.continentes.Territorio;
 import bcco.wWar.mapa.continentes.exceptions.ContinenteException;
 import bcco.wWar.mapa.exceptions.MapaException;
 
+import javax.swing.*;
 import java.util.*;
 
 /** Representa um jogo pronto para ser utilizado
@@ -55,9 +56,9 @@ public class Game {
      * Cria e configura o jogador CPU
      */
     public void createCPU(){
-        cpu_ = new CPU(this);
+        double agressividade = 0.3; //Nível fácil?
 
-        //TODO Implementar uma IA maneira :)
+        cpu_ = new CPU(this, agressividade);
     }
 
     /**
@@ -114,9 +115,12 @@ public class Game {
         cpu_.distribuirExercitos();
         gui_.distribuirExercito();
 
+
         rodada_++;
 
-        //TODO função que exibe um janela com a mensagem "Fim do turno, você rebeceu x terrestres e y aereos
+        if (rodada_ > 0) {
+            JOptionPane.showMessageDialog(null, "Fim da rodada! Distribua seus exércitos");
+        }
     }
 
 
@@ -307,45 +311,29 @@ public class Game {
         return r;
     }
 
-    public void atacarTerrestre(Jogador jogador, Territorio territorio, Territorio alvo, int qtd_ataque) {
+    public void atacarTerrestre(Jogador jogador, Territorio territorio, Territorio alvo, int qtd_ataque, int n_defesa) {
         List<Integer> ataques = new ArrayList<>();
         List<Integer> defesas = new ArrayList<>();
         List<Terrestre> exercitos_alvos = alvo.getExercitos_terrestres_();
         List<Terrestre> exercitos_atacantes = territorio.getExercitos_terrestres_();
 
-        int n_defesa;
         int n_sucessos = 0;
         int n_fracassos = 0;
         boolean resultado;
 
-        //Se humano atacando
+        //Decide defesa
         if (jogador == humano_) {
-            //ataque
-            for (int i = 0; i < qtd_ataque; i++) {
-                ataques.add(exercitos_atacantes.get(i).combater());
-            }
-
-            //defesa
             n_defesa = cpu_.defenderTerr(alvo, qtd_ataque); //IA
-
-            for (int i = 0; i < n_defesa; i++) {
-                defesas.add(exercitos_alvos.get(i).combater());
-            }
         }
-        //Se CPU atacando
-        else {
-            //ataque
-            for (int i = 0; i < qtd_ataque; i++) {
-                ataques.add(exercitos_atacantes.get(i).combater());
-            }
 
-            //defesa
-            n_defesa = gui_.defender(territorio, alvo, qtd_ataque); //Chama janela de defesa.
+        //ataque
+        for (int i = 0; i < qtd_ataque; i++) {
+            ataques.add(exercitos_atacantes.get(i).combater());
+        }
 
-            for (int i = 0; i < n_defesa; i++) {
-                defesas.add(exercitos_alvos.get(i).combater());
-            }
-
+        //defesa
+        for (int i = 0; i < n_defesa; i++) {
+            defesas.add(exercitos_alvos.get(i).combater());
         }
 
         Collections.sort(ataques);
@@ -403,8 +391,8 @@ public class Game {
             System.out.format(jogador.getNome() + " dominou o territorio " + alvo.getNome() + "\n");
 
 
-            for (int i = 0; i < n_sucessos - n_fracassos; i++) {
-                alvo.insereExTerrestre();
+            for (int i = 0; i < qtd_ataque - n_fracassos; i++) {
+                alvo.insereExTerrestre(territorio.removeExTerrestre());
             }
 
         } else {
