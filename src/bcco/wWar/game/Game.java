@@ -133,7 +133,9 @@ public class Game {
 
     /**
      * Recebe uma lista de quantidades de exércitos a serem adicionados aos territórios
-     * @param valoresTerr A lista de valores (deve ter a mesmo tamanho da quantidade de territórios)
+     * @param jogador O jogador que receberá os exércitos
+     * @param valoresTerr Quantidade de exércitos terrestres
+     * @param valoresAereo Quantidade de exércitos aéreos
      */
     public void distribuirExercitos(Jogador jogador, List<Integer> valoresTerr, List<Integer> valoresAereo) {
         List<Territorio> territorios = getTerritorios(jogador);

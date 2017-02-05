@@ -159,7 +159,10 @@ public class Gui {
     }
 
     /**
-     * Tela de informações iniciais do jogo
+     * Mostra a popInicial
+     * @param nome O nome do jogador
+     * @param territorios Os territórios recebidos
+     * @param oponente O nome do oponente
      */
     private void popIncial(String nome, List<Territorio> territorios, String oponente) {
         janela_.setEnabled(false);
@@ -650,8 +653,13 @@ public class Gui {
 
                 //Exercitos terrestres
                 for (JTextField textField : terrTextFields) {
-                    valoresTerr.add(Integer.parseInt(textField.getText()));
-                    somaTerr += Integer.parseInt(textField.getText());
+                    if(textField.getText().equals("")){
+                        valoresTerr.add(0);
+                    }
+                    else {
+                        valoresTerr.add(Integer.parseInt(textField.getText()));
+                        somaTerr += Integer.parseInt(textField.getText());
+                    }
                 }
 
                 //Exercitos aereos
@@ -659,8 +667,10 @@ public class Gui {
                     if(textField.getText().equals("")){
                         valoresAereo.add(0);
                     }
-                    valoresAereo.add(Integer.parseInt(textField.getText()));
-                    somaAereo += Integer.parseInt(textField.getText());
+                    else {
+                        valoresAereo.add(Integer.parseInt(textField.getText()));
+                        somaAereo += Integer.parseInt(textField.getText());
+                    }
                 }
 
                 if (somaTerr > terr_recebidos || somaAereo > aereo_recebidos) {
@@ -793,12 +803,15 @@ public class Gui {
 
     /**
      * Mostra a janela de defesa
+     * @param origem O território de origem
+     * @param destino O território atacado
+     * @param qtd_ataque A quantidade de tropas no ataque
      */
-    public void defender(Territorio territorio, Territorio alvo, int qtd_ataque) {
+    public void defender(Territorio origem, Territorio destino, int qtd_ataque) {
         janela_.setEnabled(false);
 
 
-        int n_tropas = alvo.getNumExTerrestres();
+        int n_tropas = destino.getNumExTerrestres();
 
         //Configura o frame
         JFrame frame = new JFrame("Defender território");
@@ -811,13 +824,13 @@ public class Gui {
 
         //Componentes
         JLabel descricao = new JLabel("Os exércitos de " + game_.getCPU().getNome() + " estão atacando!");
-        JLabel territorio_alvo = new JLabel(alvo.getNome() + " está em perigo!");
+        JLabel territorio_alvo = new JLabel(destino.getNome() + " está em perigo!");
         JLabel alvo_info = new JLabel("Tropas neste território: " + n_tropas);
         JLabel defender_text = new JLabel("Defender território com: ");
         JRadioButton r1 = new JRadioButton("1");
         JRadioButton r2 = new JRadioButton("2");
         JRadioButton r3 = new JRadioButton("3");
-        JLabel territorio_atacando = new JLabel(qtd_ataque + " exércitos marcham de " + territorio.getNome());
+        JLabel territorio_atacando = new JLabel(qtd_ataque + " exércitos marcham de " + origem.getNome());
         JButton defender = new JButton("Defender");
         ButtonGroup bg = new ButtonGroup();
 
@@ -866,7 +879,7 @@ public class Gui {
             public void actionPerformed(ActionEvent e) {
                 janela_.setEnabled(true);
                 frame.setVisible(false);
-                game_.atacarTerrestre(game_.getCPU(), territorio, alvo, qtd_ataque, n_defender);
+                game_.atacarTerrestre(game_.getCPU(), origem, destino, qtd_ataque, n_defender);
             }
         });
 

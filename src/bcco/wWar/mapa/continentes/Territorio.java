@@ -41,7 +41,7 @@ public class Territorio {
     }
 
     /**
-     * Adiciona um exército terrestre a lista de exércitos terrestres
+     * Cria e adiciona um exército terrestre a lista de exércitos terrestres
      */
     public void insereExTerrestre() {
         Terrestre tropa = new Terrestre();
@@ -57,14 +57,16 @@ public class Territorio {
     }
 
     /**
-     * Adiciona um exército terrestre a lista de exércitos terrestres
+     * Adiciona uma tropa ao território
+     * @param tropa O exército a ser adicionado
      */
     public void insereExTerrestre(Terrestre tropa) {
         exercitos_terrestres_.add(tropa);
     }
 
     /**
-     * Adiciona um exército aéreos a lista de exércitos aéreos
+     * Insere um exército aéreo no território
+     * @param tropa O exército a ser adicionado
      */
     public void insereExAereo(Aereo tropa) {
         exercitos_aereos_.add(tropa);

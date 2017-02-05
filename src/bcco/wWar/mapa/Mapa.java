@@ -26,6 +26,7 @@ public class Mapa {
     /**
      * Cria uma instância do mapa com o caminho para a sua leitura
      * @param map_file O caminho para o arquivo
+     * @param table_file O caminho para o arquivo da tabela
      */
     Mapa(String map_file, String table_file){
         map_file_ = map_file;

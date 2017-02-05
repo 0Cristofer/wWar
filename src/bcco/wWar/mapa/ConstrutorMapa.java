@@ -92,6 +92,7 @@ public class ConstrutorMapa {
      * Função privada que efetivamente constrói o mapa. Para informações de como construir o arquivo do mapa, ler map_help.txt
      * @param map_file O caminho para o mapa
      * @param map_text A lista de strings represetando o arquivo
+     * @param new_mapa O mapa a ser construído
      * @throws ConstrutorException caso haja algum erro na interpretação do mapa
      */
     private void buildM(String map_file, List<String> map_text, Mapa new_mapa) throws ConstrutorException {

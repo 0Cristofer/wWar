@@ -25,6 +25,7 @@ public class CPU extends Jogador {
     /**
      * Cria um um jogador CPU
      * @param game Objeto do jogo
+     * @param agressividade A agressividade da CPU
      */
     public CPU(Game game, double agressividade) {
         Random r = new Random();
@@ -141,6 +142,7 @@ public class CPU extends Jogador {
     public void jogar() {
         //TODO implementar um sistema melhor, incluir o movimentar.
         if (vontade_ > agressividade_) {
+            atacarAereo();
             if (!atacar(0, 0)) {
                 game_.mudaRodada();
             }
@@ -228,6 +230,14 @@ public class CPU extends Jogador {
             }
         }
         return true;
+    }
+
+    private void atacarAereo(){
+        for(Territorio terrs :game_.getTerritorios(this)){
+            for(Territorio t : game_.checkAereo(this, terrs)){
+                game_.atacarAereo(this, terrs, t, terrs.getNumExAereos());
+            }
+        }
     }
 
     /**
