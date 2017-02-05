@@ -1,5 +1,7 @@
 package bcco.wWar.mapa.continentes;
 
+//Imports próprios
+
 import bcco.wWar.game.exercitos.Aereo;
 import bcco.wWar.game.exercitos.Terrestre;
 import bcco.wWar.game.jogadores.Jogador;
@@ -8,16 +10,20 @@ import bcco.wWar.mapa.continentes.exceptions.TerritorioException;
 import java.util.ArrayList;
 import java.util.List;
 
+//Imports do sistema
+
 /** Representa um território no tabuleiro que pode ser conquistado.
  *  @author Cristofer Oswald
  *  @since 11/01/17
  */
 public class Territorio {
-
+    //Detalhes do território
     private String nome_;
     private Continente continente_;
     private Territorio[] fronteiras_;
     private Jogador ocupante_;
+
+    //Exércitos que ocupam este território
     private List<Terrestre> exercitos_terrestres_;
     private List<Aereo> exercitos_aereos_;
 
@@ -32,20 +38,6 @@ public class Territorio {
 
         exercitos_terrestres_ = new ArrayList<>();
         exercitos_aereos_ = new ArrayList<>();
-    }
-
-    /**
-     * @return
-     */
-    public List<Terrestre> getExercitos_terrestres_() {
-        return exercitos_terrestres_;
-    }
-
-    /**
-     * @return
-     */
-    public List<Aereo> getExercitos_aereos_() {
-        return exercitos_aereos_;
     }
 
     /**
@@ -78,19 +70,20 @@ public class Territorio {
         exercitos_aereos_.add(tropa);
     }
 
+    /**
+     * Remove um exército terrestre da lista
+     * @return O exército removido
+     */
+    public Terrestre removeExTerrestre(){
+        return exercitos_terrestres_.remove(exercitos_terrestres_.size()-1);
+    }
 
     /**
-     * Escreve o nome e as fronteiras do território na tela
+     * Remove um exército aéreo da lista
+     * @return O exército removido
      */
-    void printTerritorio(){
-        System.out.println("--------------------------");
-        System.out.println("Terriotorio " + nome_ + " faz fronteira com:");
-        for (Territorio territorio : fronteiras_) {
-            System.out.println(territorio.nome_);
-        }
-        System.out.println("Ocupante: " + ocupante_.getNome());
-        System.out.println("--------------------------");
-
+    public Aereo removeExAereo(){
+        return exercitos_aereos_.remove(exercitos_aereos_.size()-1);
     }
 
     /**
@@ -100,13 +93,27 @@ public class Territorio {
         return nome_;
     }
 
-    public Terrestre removeExTerrestre(){
-        return exercitos_terrestres_.remove(exercitos_terrestres_.size()-1);
+    /**
+     * @return O jogador ocupante deste território
+     */
+    public Jogador getOcupante(){
+        return ocupante_;
     }
 
-    public Aereo removeExAereo(){
-        return exercitos_aereos_.remove(exercitos_aereos_.size()-1);
+    /**
+     * @return A lista de exércitos terrestres neste território
+     */
+    public List<Terrestre> getExercitosTerrestres() {
+        return exercitos_terrestres_;
     }
+
+    /**
+     * @return A lista de exércitos aéreos neste território
+     */
+    public List<Aereo> getExercitosAereos() {
+        return exercitos_aereos_;
+    }
+
     /**
      * @return O vetor de territórios que fazem fronteira
      */
@@ -115,10 +122,37 @@ public class Territorio {
     }
 
     /**
-     * @return O jogador ocupante deste território
+     * Cria uma lista com os territórios que fazem fronteira com o especificado mas não pertencem ao jogador
+     * @param jogador Jogador a ser verificado
+     * @return A lista de territórios inimigos
      */
-    public Jogador getOcupante(){
-        return ocupante_;
+    public List<Territorio> getFronteirasInimigas(Jogador jogador) {
+        List<Territorio> fronteirasInimigas = new ArrayList<>();
+
+        for (Territorio t : fronteiras_) {
+            if (t.getOcupante() != jogador) {
+                fronteirasInimigas.add(t);
+            }
+        }
+
+        return fronteirasInimigas;
+    }
+
+    /**
+     * Cria uma lista com os territórios que fazem fronteira com o especificado e que pertencem
+     * @param jogador Jogador a ser verificado
+     * @return A lista de territórios aliados
+     */
+    public List<Territorio> getFronteirasAliadas(Jogador jogador) {
+        List<Territorio> fronteirasInimigas = new ArrayList<>();
+
+        for (Territorio t : fronteiras_) {
+            if (t.getOcupante().equals(jogador)) {
+                fronteirasInimigas.add(t);
+            }
+        }
+
+        return fronteirasInimigas;
     }
 
     /**
@@ -172,35 +206,7 @@ public class Territorio {
     }
 
     /**
-     * @param jogador dono
-     * @return
-     */
-    public List<Territorio> getFronteirasInimigas(Jogador jogador) {
-        List<Territorio> fronteirasInimigas = new ArrayList<>();
-
-        for (Territorio t : fronteiras_) {
-            if (t.getOcupante() != jogador) {
-                fronteirasInimigas.add(t);
-            }
-        }
-
-        return fronteirasInimigas;
-    }
-
-    public List<Territorio> getFronteirasAliadas(Jogador jogador) {
-        List<Territorio> fronteirasInimigas = new ArrayList<>();
-
-        for (Territorio t : fronteiras_) {
-            if (t.getOcupante().equals(jogador)) {
-                fronteirasInimigas.add(t);
-            }
-        }
-
-        return fronteirasInimigas;
-    }
-
-    /**
-     * @return
+     * @return A string que representa este objeto
      */
     @Override
     public String toString(){

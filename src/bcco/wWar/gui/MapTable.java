@@ -47,6 +47,12 @@ public class MapTable extends AbstractTableModel{
         return nome;
     }
 
+    /**
+     * Verifica qual é o ocupante de uma célula
+     * @param row A linha da tabela
+     * @param col A coluna da tabela
+     * @return O jogador que ocupa aquela posição. Null se não houver dono.
+     */
     Jogador getOcupante(int row, int col){
         Jogador jogador = null;
         if(mapa_.getTablaMapa()[row][col][0] != -1) {

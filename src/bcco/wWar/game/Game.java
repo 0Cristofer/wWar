@@ -76,8 +76,8 @@ public class Game {
         int humans = 0;
         int robots = 0;
 
-        for (Continente c : mapa_.getContinentes_()) {
-            territorios_livres.add(new ArrayList<>(Arrays.asList(c.getTerritorios_())));
+        for (Continente c : mapa_.getContinentes()) {
+            territorios_livres.add(new ArrayList<>(Arrays.asList(c.getTerritorios())));
         }
 
         for (List<Territorio> continente : territorios_livres) {
@@ -178,8 +178,8 @@ public class Game {
     public void atacarTerrestre(Jogador jogador, Territorio origem, Territorio destino, int qtd_ataque, int n_defesa) {
         List<Integer> ataques = new ArrayList<>();
         List<Integer> defesas = new ArrayList<>();
-        List<Terrestre> exercitos_alvos = destino.getExercitos_terrestres_();
-        List<Terrestre> exercitos_atacantes = origem.getExercitos_terrestres_();
+        List<Terrestre> exercitos_alvos = destino.getExercitosTerrestres();
+        List<Terrestre> exercitos_atacantes = origem.getExercitosTerrestres();
 
         int n_sucessos = 0;
         int n_fracassos = 0;
@@ -285,12 +285,12 @@ public class Game {
      * @param qtd_ataque Quantidade de tropas no ataque
      */
     public void atacarAereo(Jogador jogador, Territorio origem, Territorio destino, int qtd_ataque){
-        int defesa = destino.getExercitos_aereos_().get(0).combater();
+        int defesa = destino.getExercitosAereos().get(0).combater();
         int avioes_derrubados = 0;
         int terrestres_mortos = 0;
 
         for(int i = 0; i < qtd_ataque; i++){
-            int comb = origem.getExercitos_aereos_().get(i).combater();
+            int comb = origem.getExercitosAereos().get(i).combater();
 
             if(comb > 0){
                 if(destino.getNumExAereos() > 0){
@@ -367,9 +367,9 @@ public class Game {
         int num_terrs;
         int num_cont = 0;
 
-        for(Continente c : mapa_.getContinentes_()) {
+        for(Continente c : mapa_.getContinentes()) {
             num_terrs = 0;
-            for(Territorio t : c.getTerritorios_()){
+            for(Territorio t : c.getTerritorios()){
                 if(t.getOcupante().equals(jogador)){
                     num_terrs = num_terrs + 1;
                 }
