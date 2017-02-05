@@ -1,5 +1,6 @@
 package bcco.wWar.mapa;
 
+//Imports próprios
 import bcco.wWar.mapa.continentes.Continente;
 import bcco.wWar.mapa.continentes.Territorio;
 import bcco.wWar.mapa.continentes.exceptions.ContinenteException;
@@ -12,9 +13,10 @@ import java.util.List;
  *  @since 12/01/17
  */
 public class Mapa {
-
+    //Arquivos de configuração
     private String map_file_;
     private String table_file_;
+
     private Continente[] continentes_;
     private int[][][] tabela_mapa_;
 
@@ -42,37 +44,11 @@ public class Mapa {
         return -1;
     }
 
-    public Continente[] getContinentes_() {
+    /**
+     * @return A lista de continentes
+     */
+    public Continente[] getContinentes() {
         return continentes_;
-    }
-
-    /**
-     * Escreve os detalhes do mapa
-     */
-    public void printMapa(){
-        for (Continente continente: continentes_) {
-            continente.printContinente();
-        }
-    }
-
-    /**
-     * Escreve a tabela de países
-     */
-    public void printTabela(){
-        for (int[][] linha : tabela_mapa_) {
-            for (int[] coluna : linha) {
-                if (coluna[0] == -1) {
-                    System.out.print("--------| ");
-                } else {
-                    try {
-                        System.out.print(getTerritorio(coluna[0], coluna[1]).getNome() + "| ");
-                    } catch (MapaException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            System.out.println();
-        }
     }
 
     /**
@@ -112,7 +88,7 @@ public class Mapa {
     }
 
     /**
-     * @return A matrix representante do mpa
+     * @return A matriz representante do mpa
      */
     public int[][][] getTablaMapa(){
         return tabela_mapa_;

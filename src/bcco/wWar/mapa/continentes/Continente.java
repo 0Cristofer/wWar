@@ -1,20 +1,22 @@
 package bcco.wWar.mapa.continentes;
 
+//Imports próprios
+
 import bcco.wWar.mapa.continentes.exceptions.ContinenteException;
 
 import java.util.ArrayList;
 import java.util.List;
 
+//Imports do sistema
+
 /** Controla os dados referente a um continente
  *  @author Cristofer Oswald
  *  @since 11/01/17
  */
-
 public class Continente{
-
     private String nome_;
     private Territorio[] territorios_;
-    private Continente[] faz_fronteira_;
+    private Continente[] fronteiras;
 
     /**
      * Construtor padrão
@@ -39,17 +41,6 @@ public class Continente{
     }
 
     /**
-     * Escreve o nome do continente na tela
-     */
-    public void printContinente(){
-        System.out.println("+++++++++++++++++++++++");
-        System.out.println("Continente " + nome_ + " tem os seguintes territorios");
-        for (Territorio territorio: territorios_) {
-            territorio.printTerritorio();
-        }
-    }
-
-    /**
      * @return O nome do continente
      */
     public String getNome(){
@@ -60,7 +51,7 @@ public class Continente{
      * @return O vetor com os continentes que fazem fronteira
      */
     public Continente[] getFazFronteira(){
-        return faz_fronteira_;
+        return fronteiras;
     }
 
     /**
@@ -79,9 +70,9 @@ public class Continente{
     }
 
     /**
-     * @return
+     * @return O vetor de territórios deste continente
      */
-    public Territorio[] getTerritorios_() {
+    public Territorio[] getTerritorios() {
         return territorios_;
     }
 
@@ -128,10 +119,10 @@ public class Continente{
             }
         }
 
-        faz_fronteira_ = new Continente[fronteira.size()];
+        fronteiras = new Continente[fronteira.size()];
 
-        for(int i = 0; i < faz_fronteira_.length; i++){
-            faz_fronteira_[i] = fronteira.get(i);
+        for(int i = 0; i < fronteiras.length; i++){
+            fronteiras[i] = fronteira.get(i);
         }
     }
 }
