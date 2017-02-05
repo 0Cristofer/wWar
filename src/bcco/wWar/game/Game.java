@@ -465,13 +465,13 @@ public class Game {
 
     /**
      * Cria um vetor com os territórios que podem enviar exércitos aéreos
-     * @param t O território de origem
+     * @param origem O território de origem
      * @param jogador O jogador dono do território
      * @return O vetor com os territórios
      */
-    public Territorio[] getTerrPossiveisAereo(Territorio t, Jogador jogador){
+    public Territorio[] getTerrPossiveisAereo(Territorio origem, Jogador jogador){
         List<Territorio> territorios = new ArrayList<>();
-        Continente[] fronteira = t.getContinente().getFazFronteira();
+        Continente[] fronteira = origem.getContinente().getFazFronteira();
 
         for (Continente f : fronteira) {
             for (int j = 0; j < f.getNumTerritorios(); j++) {
@@ -489,6 +489,7 @@ public class Game {
                 }
             }
         }
+        territorios.remove(origem);//A orgiem é adicionada pois faz parte do continente
 
         Territorio[] r = new Territorio[territorios.size()];
         r = territorios.toArray(r);

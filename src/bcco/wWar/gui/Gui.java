@@ -881,6 +881,7 @@ public class Gui {
                 janela_.setEnabled(true);
                 frame.setVisible(false);
                 game_.atacarTerrestre(game_.getCPU(), origem, destino, qtd_ataque, n_defender);
+                updateJogadoresInfos();
             }
         });
 
@@ -1459,56 +1460,54 @@ public class Gui {
             return;
         }
 
-        if(selecionado_ != null) {
-            if(selecionado_.getOcupante().equals(game_.getHumano())){
-                nome_pais = jogador_selecao_nome_pais;
-                num_terr = jogador_selecao_num_terr;
-                num_aereo = jogador_selecao_num_aereo;
-                vizinhos1 = jogador_selecao_vizinhos1;
-                vizinhos2 = jogador_selecao_vizinhos2;
+        if(selecionado_.getOcupante().equals(game_.getHumano())){
+            nome_pais = jogador_selecao_nome_pais;
+            num_terr = jogador_selecao_num_terr;
+            num_aereo = jogador_selecao_num_aereo;
+            vizinhos1 = jogador_selecao_vizinhos1;
+            vizinhos2 = jogador_selecao_vizinhos2;
 
-                if(selecionado_.getNumExTerrestres() > 1) {
-                    jogador_atacar_terr.setEnabled(true);
-                }
-                if(selecionado_.getNumExAereos() != 0) {
-                    jogador_atacar_aereo.setEnabled(true);
-                }
-                jogador_movimentar.setEnabled(true);
+            if(selecionado_.getNumExTerrestres() > 1) {
+                jogador_atacar_terr.setEnabled(true);
             }
-            else{
-                nome_pais = cpu_selecao_nome_pais;
-                num_terr = cpu_selecao_num_terr;
-                num_aereo = cpu_selecao_num_aereo;
-                vizinhos1 = cpu_selecao_vizinhos1;
-                vizinhos2 = cpu_selecao_vizinhos2;
-
-                jogador_atacar_terr.setEnabled(false);
-                jogador_atacar_aereo.setEnabled(false);
-                jogador_movimentar.setEnabled(false);
+            if(selecionado_.getNumExAereos() != 0) {
+                jogador_atacar_aereo.setEnabled(true);
             }
-
-            Territorio[] fronteira = selecionado_.getFronteira();
-
-            nome_pais.setText("Pais selecionado: " + selecionado_.getNome());
-            num_terr.setText("Exércitos Terrestres: " + selecionado_.getNumExTerrestres());
-            num_aereo.setText("Exércitos Aéreos: " + selecionado_.getNumExAereos());
-
-            String f1 = "Vizinhos: " + fronteira[0].getNome();
-            if(fronteira.length > 1){
-                f1 = f1 + ", " + fronteira[1].getNome();
-            }
-
-            String f2 = "";
-            if(fronteira.length > 2){
-                f2 = fronteira[2].getNome();
-            }
-            if(fronteira.length > 3){
-                f2 = f2 + ", " +fronteira[3].getNome();
-            }
-
-            vizinhos1.setText(f1);
-            vizinhos2.setText(f2);
+            jogador_movimentar.setEnabled(true);
         }
+        else{
+            nome_pais = cpu_selecao_nome_pais;
+            num_terr = cpu_selecao_num_terr;
+            num_aereo = cpu_selecao_num_aereo;
+            vizinhos1 = cpu_selecao_vizinhos1;
+            vizinhos2 = cpu_selecao_vizinhos2;
+
+            jogador_atacar_terr.setEnabled(false);
+            jogador_atacar_aereo.setEnabled(false);
+            jogador_movimentar.setEnabled(false);
+        }
+
+        Territorio[] fronteira = selecionado_.getFronteira();
+
+        nome_pais.setText("Pais selecionado: " + selecionado_.getNome());
+        num_terr.setText("Exércitos Terrestres: " + selecionado_.getNumExTerrestres());
+        num_aereo.setText("Exércitos Aéreos: " + selecionado_.getNumExAereos());
+
+        String f1 = "Vizinhos: " + fronteira[0].getNome();
+        if(fronteira.length > 1){
+            f1 = f1 + ", " + fronteira[1].getNome();
+        }
+
+        String f2 = "";
+        if(fronteira.length > 2){
+            f2 = fronteira[2].getNome();
+        }
+        if(fronteira.length > 3){
+            f2 = f2 + ", " +fronteira[3].getNome();
+        }
+
+        vizinhos1.setText(f1);
+        vizinhos2.setText(f2);
     }
 
     /**
@@ -1574,7 +1573,7 @@ public class Gui {
         JLabel atacar = new JLabel("Atacar: ");
         JLabel quantidade = new JLabel("Atacar com:");
         JLabel num_terr = new JLabel("Exércitos Terrestres: ");
-        JLabel num_aereo = new JLabel("Exércitos Aereos: " + selecionado_destino.getNumExAereos());
+        JLabel num_aereo = new JLabel("Exércitos Aereos: ");
         JButton reforco = new JButton("Chamar reforço");
         JButton ok = new JButton("Atacar");
         JRadioButton r1 = new JRadioButton("1");
@@ -1822,7 +1821,7 @@ public class Gui {
                             }
                             pai.setEnabled(true);
                         }
-                        frame.setVisible(false);
+                        f.setVisible(false);
                     }
                 }
             }
@@ -1849,7 +1848,7 @@ public class Gui {
         int i;
         for(i = 0; i < territorios.length; i++){
             if(territorios[i].getNumExAereos() != 0) {
-                for (int j = 0; j < territorios[i].getNumExAereos(); j++) {
+                for (int j = 0; j < (territorios[i].getNumExAereos()+1); j++) {
                     terrs_combos.get(i).addItem(j);
                 }
                 terrs_combos.get(i).addActionListener(new AereoListener(territorios[i], selecionados, num_selecionados));
