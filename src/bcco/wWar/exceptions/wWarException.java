@@ -2,6 +2,7 @@ package bcco.wWar.exceptions;
 
 /** Controla as exceções da classe wWar
  *  @author Cristofer Oswald
+ *  @author Bruno Cesar
  *  @since 13/01/17
  */
 public class wWarException extends Exception {

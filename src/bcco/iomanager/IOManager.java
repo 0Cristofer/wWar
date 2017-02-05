@@ -10,7 +10,8 @@ import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 /** Classe responsável por controlar a leitura e escrita de arquivos
- *  @author Cristofer Oswald e Bruno Cesar
+ *  @author Cristofer Oswald
+ *  @author Bruno Cesar
  *  @since 12/01/17
  */
 public class IOManager {

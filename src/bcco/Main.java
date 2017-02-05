@@ -5,7 +5,8 @@ import bcco.wWar.exceptions.wWarException;
 import bcco.wWar.wWar;
 
 /** Classe que executa o jogo
- *  @author Cristofer Oswald e Bruno Cesar
+ *  @author Cristofer Oswald
+ *  @author Bruno Cesar
  *  @since 11/01/17
  */
 public class Main {

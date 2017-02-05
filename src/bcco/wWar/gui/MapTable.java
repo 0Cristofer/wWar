@@ -13,7 +13,8 @@ import javax.swing.table.AbstractTableModel;
 
 /**
  * Modelo de tabela usado para criar o JTable utilizado na GUI
- * @author Cristofer Oswald e Bruno Cesar
+ * @author Cristofer Oswald
+ * @author Bruno Cesar
  * @since 30/01/17
  */
 public class MapTable extends AbstractTableModel{

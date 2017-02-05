@@ -12,7 +12,8 @@ import java.util.List;
 //Imports do sistema
 
 /** Representa o mapa (ou tabuleiro)
- *  @author Cristofer Oswald e Bruno Cesar
+ *  @author Cristofer Oswald
+ *  @author Bruno Cesar
  *  @since 12/01/17
  */
 public class Mapa {

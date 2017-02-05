@@ -22,7 +22,8 @@ import java.util.Objects;
 //Imports do sistema
 
 /** Controla a interface com o usuario
- *  @author Cristofer Oswald e Bruno Cesar
+ *  @author Cristofer Oswald
+ *  @author Bruno Cesar
  *  @since 12/01/17
  */
 public class Gui {

@@ -17,8 +17,9 @@ import java.util.List;
 
 
 /** Singleton que controla o 'backbone' do jogo.
- *  @author Cristofer Oswald e Bruno Cesar
- *  @since 12/01/17
+ * @author Cristofer Oswald
+ * @author Bruno Cesar
+ * @since 12/01/17
  */
 public class wWar {
     //Variáveis de backend

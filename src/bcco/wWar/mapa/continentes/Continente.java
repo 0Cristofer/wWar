@@ -10,7 +10,8 @@ import java.util.List;
 //Imports do sistema
 
 /** Controla os dados referente a um continente
- *  @author Cristofer Oswald e Bruno Cesar
+ *  @author Cristofer Oswald
+ *  @author Bruno Cesar
  *  @since 11/01/17
  */
 public class Continente{

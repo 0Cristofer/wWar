@@ -18,6 +18,7 @@ import java.util.List;
 
 /** Singleton responsável por contruir o mapa
  *  @author Cristofer Oswald
+ *  @author Bruno Cesar
  *  @since 13/01/17
  */
 public class ConstrutorMapa {

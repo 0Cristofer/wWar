@@ -13,7 +13,8 @@ import java.awt.*;
 
 /**
  * Renderer da célula que especifica uma cor para a célula
- * @author Cristofer Oswald e Bruno Cesar
+ * @author Cristofer Oswald
+ * @author Bruno Cesar
  * @since 04/02/17
  */
 public class MapColumnCellRenderer extends DefaultTableCellRenderer {

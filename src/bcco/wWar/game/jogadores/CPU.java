@@ -10,7 +10,8 @@ import java.util.*;
 //Imports do sistema
 
 /** Controla o jogador CPU
- * @author Bruno Cesar e Cristofer Oswald
+ * @author Bruno Cesar
+ * @author Cristofer Oswald
  * @since 02/02/17
  */
 public class CPU extends Jogador {

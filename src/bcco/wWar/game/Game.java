@@ -18,7 +18,8 @@ import java.util.*;
 //Imports do sistema
 
 /** Representa um jogo pronto para ser utilizado
- * @author Cristofer Oswald e Bruno Cesar
+ * @author Cristofer Oswald
+ * @author Bruno Cesar
  * @since 29/01/17
  */
 public class Game {

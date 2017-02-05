@@ -2,6 +2,7 @@ package bcco.wWar.mapa.continentes.exceptions;
 
 /** Classe que gerencia as excessões da classe Continente
  *  @author Cristofer Oswald
+ *  @author Bruno Cesar
  *  @since 13/01/17
  */
 public class ContinenteException extends Exception {
