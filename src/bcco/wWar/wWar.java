@@ -1,5 +1,7 @@
 package bcco.wWar;
 
+//Imports próprios
+
 import bcco.iomanager.IOManager;
 import bcco.wWar.exceptions.wWarException;
 import bcco.wWar.game.Game;
@@ -11,15 +13,18 @@ import bcco.wWar.mapa.exceptions.ConstrutorException;
 import java.io.IOException;
 import java.util.List;
 
+//Imports do sistema
+
 /** Singleton que controla o 'backbone' do jogo.
  *  @author Cristofer Oswald
  *  @since 12/01/17
  */
 public class wWar {
-
+    //Variáveis de backend
     private static wWar instance_;
     private List<String> config_;
 
+    //Variáveis de frontend
     private Game game_;
     private Gui gui_;
 
@@ -30,6 +35,7 @@ public class wWar {
         if(instance_ == null){
             instance_ = new wWar();
         }
+
         return instance_;
     }
 
@@ -46,7 +52,6 @@ public class wWar {
         }
 
         gui_.telaInicial();
-        game_.setRunning(true);
         gui_.show();
     }
 
@@ -55,7 +60,6 @@ public class wWar {
      * @throws wWarException se houver algum erro na inicialização do sistema
      */
     private void initSystems() throws wWarException {
-
         //Tenta ler as configurações
         try {
             readConfigs();
@@ -66,7 +70,7 @@ public class wWar {
 
         //Inicializa a GUI
         gui_ = new Gui("wWar", 1280, 720, game_);
-        game_.setGui_(gui_);
+        game_.setGui(gui_);
     }
 
     /**

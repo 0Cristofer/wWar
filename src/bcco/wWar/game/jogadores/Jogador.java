@@ -1,5 +1,6 @@
 package bcco.wWar.game.jogadores;
 
+//Imports próprios
 import bcco.wWar.game.Game;
 
 /** Controla os dados refrente a um jogador
@@ -7,10 +8,17 @@ import bcco.wWar.game.Game;
  *  @since 12/01/17
  */
 public class Jogador {
-    protected Game game_;
-    protected String nome_;
-    protected int terrestres_recebidos_;
-    protected int aereos_recebidos_;
+    Game game_;
+    String nome_;
+    int terrestres_recebidos_;
+    int aereos_recebidos_;
+
+    /**
+     * Construtor vazio
+     */
+    Jogador() {
+
+    }
 
     /**
      * Cria um jogador com um nome e define se ele é controlado pela CPU
@@ -20,13 +28,6 @@ public class Jogador {
     public Jogador(String nome, Game game) {
         nome_ = nome;
         game_ = game;
-    }
-
-    /**
-     * Construtor vazio
-     */
-    public Jogador() {
-
     }
 
     /**
@@ -46,7 +47,7 @@ public class Jogador {
     /**
      * @return A quantidade de exércitos terrestres recebidos na última rodada
      */
-    public int getAereos_recebidos_() {
+    public int getAereosRecebidos() {
         return aereos_recebidos_;
     }
 

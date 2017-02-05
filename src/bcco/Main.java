@@ -1,5 +1,7 @@
 package bcco;
 
+//Imports próprios
+
 import bcco.wWar.exceptions.wWarException;
 import bcco.wWar.wWar;
 
@@ -8,7 +10,6 @@ import bcco.wWar.wWar;
  *  @since 11/01/17
  */
 public class Main {
-
     /**
      * Função main do sistema
      * @param args Argumentos passados na execução

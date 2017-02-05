@@ -730,7 +730,7 @@ public class Gui {
     public void distribuirExercito() {
         janela_.setEnabled(false);
         int terr_recebidos = game_.getHumano().getTerrestresRecebidos();
-        int aereo_recebidos = game_.getHumano().getAereos_recebidos_();
+        int aereo_recebidos = game_.getHumano().getAereosRecebidos();
         int i = 1;
         List<Territorio> territorios = game_.getTerritorios(game_.getHumano());
 
@@ -801,7 +801,7 @@ public class Gui {
         JLabel terrestre_restante = new JLabel("Exercitos terrestres restantes: " +
                 Integer.toString(game_.getHumano().getTerrestresRecebidos()));
         JLabel aereo_restante = new JLabel("Exercitos aereos restantes: " +
-                Integer.toString(game_.getHumano().getAereos_recebidos_()));
+                Integer.toString(game_.getHumano().getAereosRecebidos()));
         JButton distribuir = new JButton("Distribuir exércitos");
         List<JTextField> terr_text_fields = new ArrayList<>();
         List<JTextField> aereo_text_fields = new ArrayList<>();
