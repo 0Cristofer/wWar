@@ -16,6 +16,8 @@ public class CPU extends Jogador {
     private double agressividade_; //Atributo que controla a chance de ataque da CPU
     private double vontade_;
     private Comparator<Territorio> ex_terrestre_comparator_;
+    private Comparator<Territorio> ex_aereo_comparator_;
+    private Comparator<Territorio> qtd_fronteiras_comparator_;
 
     /**
      * Cria um um jogador CPU
@@ -24,11 +26,13 @@ public class CPU extends Jogador {
     public CPU(Game game, double agressividade) {
         Random r = new Random();
 
+        vontade_ = 0.6; //Pode ser um parametro
         nome_ = nomesCPU_.get(r.nextInt(nomesCPU_.size()));
         game_ = game;
         agressividade_ = agressividade;
         ex_terrestre_comparator_ = new ExercitoTerrestreComparator();
-        vontade_ = 0.5;
+        ex_aereo_comparator_ = new ExercitoAereoComparator();
+        qtd_fronteiras_comparator_ = new QtdFronteirasComparator();
     }
 
     /**
@@ -43,38 +47,89 @@ public class CPU extends Jogador {
      * Distribui os exércitos da CPU
      */
     public void distribuirExercitos() {
+        System.out.println("log - Distribuição exército CPU\n" + terrestres_recebidos_ +
+                " terrestres recebidos\n" + aereos_recebidos_ + " aereos recebidos");
+
         Random rng = new Random();
+        int qtd_add_t = rng.nextInt(terrestres_recebidos_ / 2) + 1;
+        int qtd_add_a = rng.nextInt(aereos_recebidos_ / 2) + 1;
+
+        terrestres_recebidos_ -= qtd_add_t;
+        aereos_recebidos_ -= qtd_add_a;
+
         List<Territorio> territorios = game_.getTerritorios(this);
-        int i;
 
-        while (terrestres_recebidos_ > 0) {
-            i = rng.nextInt(territorios.size());
-            territorios.get(i).insereExTerrestre();
-            terrestres_recebidos_--;
-        }
-
-        while (aereos_recebidos_ > 0) {
-            i = rng.nextInt(territorios.size());
-            territorios.get(i).insereExAereo();
-            aereos_recebidos_--;
-        }
-
-        /* TODO IMPLEMENTAR MÉTODO NÃO ALEATÓRIO
-        boolean r = new Random().nextBoolean();
+        boolean r = rng.nextBoolean();
 
         if (r){
             //Distribuição por quantidade de fronteiras
+            System.out.println("log - Distribuição território CPU por quantidade de fronteiras");
+            territorios.sort(qtd_fronteiras_comparator_);
+            Collections.reverse(territorios);
+
+            for (Territorio t : territorios) {
+                for (int i = 0; i < qtd_add_t; i++) {
+                    t.insereExTerrestre();
+                    System.out.println("Inseriu terrestre em " + t.getNome());
+                }
+
+                for (int i = 0; i < qtd_add_a; i++) {
+                    t.insereExAereo();
+                    System.out.println("Inseriu aereo em " + t.getNome());
+                }
+
+                if (terrestres_recebidos_ == 0 && aereos_recebidos_ == 0) {
+                    break;
+                }
+
+                qtd_add_t = rng.nextInt(terrestres_recebidos_);
+                qtd_add_a = rng.nextInt(aereos_recebidos_);
+
+                terrestres_recebidos_ -= qtd_add_t;
+                aereos_recebidos_ -= qtd_add_a;
+            }
 
         } else {
             //Distribuição buscando equilibrio
+            System.out.println("log - Distribuição território CPU buscando equilibrio");
 
-            for (Territorio t: territorios) {
-                valoresTerr.add(t.getNumExTerrestres());
-                valoresAereo.add(t.getNumExAereos());
+            territorios.sort(ex_terrestre_comparator_);
+
+            for (Territorio t : territorios) {
+                for (int i = 0; i < qtd_add_t; i++) {
+                    t.insereExTerrestre();
+                    System.out.println("Inseriu terrestre em " + t.getNome());
+
+                }
+
+                if (terrestres_recebidos_ == 0) {
+                    break;
+                }
+
+                qtd_add_t = rng.nextInt(terrestres_recebidos_);
+                terrestres_recebidos_ -= qtd_add_t;
+
             }
 
-        }*/
+            territorios.sort(ex_aereo_comparator_);
 
+            for (Territorio t : territorios) {
+
+                for (int i = 0; i < qtd_add_a; i++) {
+                    t.insereExAereo();
+                    System.out.println("Inseriu aereo em " + t.getNome());
+                }
+
+                if (aereos_recebidos_ == 0) {
+                    break;
+                }
+
+                qtd_add_a = rng.nextInt(aereos_recebidos_);
+
+                aereos_recebidos_ -= qtd_add_a;
+
+            }
+        }
     }
 
     /**
@@ -165,7 +220,7 @@ public class CPU extends Jogador {
                 game_.getGui().defender(territorios.get(i), fronteiras.get(j), qtd_ataque);
 
             } else {
-                vontade_ -= 0.1;
+                vontade_ -= 0.01;
                 atacar(i + 1, j);
             }
         }
@@ -182,7 +237,7 @@ public class CPU extends Jogador {
         if (resultado) {
             vontade_ += 0.05 + n_sucessos * 0.05;
         } else {
-            vontade_ -= (0.1 + n_fracassos * 0.05);
+            vontade_ -= (0.05 + n_fracassos * 0.025);
         }
     }
 
@@ -190,7 +245,7 @@ public class CPU extends Jogador {
      * Reseta o atributo vontade para o padrão de inicio de rodada
      */
     public void resetarVontade() {
-        vontade_ = 0.5;
+        vontade_ = 0.6;
     }
 
     /**
@@ -203,4 +258,27 @@ public class CPU extends Jogador {
         }
 
     }
+
+    /**
+     * Classe que implementa o comparador para objetos do tipo Exercito Aereo
+     */
+    class ExercitoAereoComparator implements Comparator<Territorio> {
+
+        public int compare(Territorio t1, Territorio t2) {
+            return t1.getNumExAereos() - t2.getNumExAereos(); //Ascendente
+        }
+
+    }
+
+    /**
+     * Classe que implementa o comparador por quantidade de fronteiras
+     */
+    class QtdFronteirasComparator implements Comparator<Territorio> {
+
+        public int compare(Territorio t1, Territorio t2) {
+            return t1.getFronteirasInimigas(game_.getCPU()).size() -
+                    t2.getFronteirasInimigas(game_.getCPU()).size(); //Ascendente
+        }
+    }
+
 }

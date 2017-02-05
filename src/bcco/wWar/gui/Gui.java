@@ -85,7 +85,7 @@ public class Gui {
     /**
      * Tela de informações iniciais do jogo
      */
-    public void popUpInfo(String nome, List<Territorio> territorios, String oponente) {
+    private void popUpInfo(String nome, List<Territorio> territorios, String oponente) {
         janela_.setEnabled(false);
         String t_territorios = "";
 
@@ -139,7 +139,7 @@ public class Gui {
         }
 
         //componentes
-        JLabel l_bemvindo = new JLabel(nome + "Bem-vindo ao WAR The Game ");
+        JLabel l_bemvindo = new JLabel(nome + " bem-vindo ao WAR The Game ");
         JLabel l_oponente = new JLabel("Neste jogo seu oponente será o maligno " + oponente + "!!!");
         JLabel l_territorios = new JLabel("Você recebeu os territórios: " + t_territorios + ".");
         JLabel l_info = new JLabel("Um exército terrestre e um aereo já se encontram nestes territórios.");
@@ -247,7 +247,7 @@ public class Gui {
         JLabel l_conquista = new JLabel("Parabéns " + jogador.getNome() +
                 " você conquistou o território " + territorio + "!");
 
-        JLabel l_derrota = new JLabel("Os exércitos de " + jogador.getNome() + "dominaram o(a) "
+        JLabel l_derrota = new JLabel("Os exércitos de " + jogador.getNome() + " dominaram o(a) "
                 + territorio + " e tomaram posse de suas tropas aereas.");
 
         JLabel l_fim = new JLabel("Fim do relatório de combate");

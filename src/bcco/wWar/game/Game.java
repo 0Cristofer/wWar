@@ -53,7 +53,7 @@ public class Game {
      * Cria e configura o jogador CPU
      */
     public void createCPU(){
-        double agressividade = 0.3;
+        double agressividade = 0.2;
 
         cpu_ = new CPU(this, agressividade);
     }
