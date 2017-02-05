@@ -1,12 +1,12 @@
 package bcco.wWar.gui;
 
 //Imports próprios
-
 import bcco.wWar.game.Game;
 import bcco.wWar.game.jogadores.Jogador;
 import bcco.wWar.mapa.continentes.Territorio;
 import bcco.wWar.mapa.exceptions.MapaException;
 
+//Imports do sistema
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -19,14 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-//Imports do sistema
-
 /** Controla a interface com o usuario
  *  @author Cristofer Oswald e Bruno Cesar
  *  @since 12/01/17
  */
 public class Gui {
-    //Fram principal
+    //Frame principal
     private JFrame janela_;
 
     //Dados para o ataque e defesa
@@ -228,7 +226,6 @@ public class Gui {
         JLabel l_info = new JLabel("Um exército terrestre e um aéreo já se encontram nestes territórios.");
         JLabel l_fim = new JLabel("Pense estratégicamente, planeje e ataque! Vença a guerra!");
         JButton ok = new JButton("OK");
-
 
         //Listener
         ok.addActionListener(
