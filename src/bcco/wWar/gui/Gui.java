@@ -29,7 +29,6 @@ public class Gui {
     private int screen_heigth_;
     private int n_defender = 0;
     private int n_ataque = 0;
-    private String titulo_;
 
     private Game game_;
     private MapTable tabela_mapa_;
@@ -901,6 +900,8 @@ public class Gui {
         cpu_num_continentes.setText("Número de continentes: ");
         cpu_num_terr.setText("Exércitos Terrestres: " + game_.getNumTerrestres(cpu));
         cpu_num_aereo.setText("Exércitos Aéreos: " + game_.getNumAereos(cpu));
+
+
     }
 
     /**
@@ -1171,9 +1172,9 @@ public class Gui {
                     public void actionPerformed(ActionEvent e) {
                         game_.atacarTerrestre(game_.getHumano(), selecionado_, selecionado_destino,
                                 n_ataque, 0);
-                        updateInfos();
                         janela_.setEnabled(true);
                         frame.setVisible(false);
+                        updateInfos();
                     }
                 }
         );
@@ -1456,7 +1457,7 @@ public class Gui {
     /**
      * Atualiza as informações de seleção de territórios
      */
-    private void updateInfos(){
+    public void updateInfos() {
         JLabel nome_pais;
         JLabel num_terr;
         JLabel num_aereo;
@@ -1629,6 +1630,8 @@ public class Gui {
                             game_.atacarAereo(game_.getHumano(), selecionado_, selecionado_destino, 3);
                         }
                         frame.setVisible(false);
+
+                        updateInfos();
                     }
                 }
         );

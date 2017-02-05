@@ -414,6 +414,8 @@ public class Game {
         if(verificaVitória(jogador)){
             gui_.vitoria(jogador);
         }
+
+        gui_.updateInfos();
     }
 
     /**
