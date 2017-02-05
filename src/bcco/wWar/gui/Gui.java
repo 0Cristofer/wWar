@@ -1,12 +1,12 @@
 package bcco.wWar.gui;
 
 //Imports próprios
+
 import bcco.wWar.game.Game;
 import bcco.wWar.game.jogadores.Jogador;
 import bcco.wWar.mapa.continentes.Territorio;
 import bcco.wWar.mapa.exceptions.MapaException;
 
-//Imports do sistema
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+//Imports do sistema
 
 /** Controla a interface com o usuario
  *  @author Cristofer Oswald e Bruno Cesar
@@ -654,6 +656,9 @@ public class Gui {
 
                 //Exercitos aereos
                 for (JTextField textField : aereoTextFields) {
+                    if(textField.getText().equals("")){
+                        valoresAereo.add(0);
+                    }
                     valoresAereo.add(Integer.parseInt(textField.getText()));
                     somaAereo += Integer.parseInt(textField.getText());
                 }
@@ -787,10 +792,11 @@ public class Gui {
     }
 
     /**
-     *
+     * Mostra a janela de defesa
      */
-    public int defender(Territorio territorio, Territorio alvo, int qtd_ataque) {
+    public void defender(Territorio territorio, Territorio alvo, int qtd_ataque) {
         janela_.setEnabled(false);
+
 
         int n_tropas = alvo.getNumExTerrestres();
 
@@ -819,7 +825,6 @@ public class Gui {
         bg.add(r1);
         bg.add(r2);
         bg.add(r3);
-        r1.doClick();
 
         if (n_tropas < 3) {
             r3.setEnabled(false);
@@ -864,6 +869,8 @@ public class Gui {
                 game_.atacarTerrestre(game_.getCPU(), territorio, alvo, qtd_ataque, n_defender);
             }
         });
+
+        r1.doClick();
 
         //Layout
         c.insets = new Insets(5, 5, 5, 5);
@@ -910,8 +917,6 @@ public class Gui {
         frame.pack();
 
         frame.setVisible(true);
-
-        return n_defender;
     }
 
     /**
@@ -980,6 +985,7 @@ public class Gui {
 
         //Componentes
         JComboBox<Territorio> combo = new JComboBox<>(fronteiras);
+        selecionado_destino = (Territorio) (combo.getSelectedItem());
         JLabel titulo = new JLabel("Atacando de: " + selecionado_.getNome());
         JLabel atacar = new JLabel("Atacar: ");
         JLabel quantidade = new JLabel("Atacar com:");
@@ -995,8 +1001,6 @@ public class Gui {
         bg.add(r2);
         bg.add(r3);
         r1.doClick();
-
-        selecionado_destino = (Territorio) (combo.getSelectedItem());
 
         if (n_tropas <= 3) {
             r3.setEnabled(false);
@@ -1127,7 +1131,7 @@ public class Gui {
         JFrame frame = new JFrame("Resultados do combate");
         JPanel pane = new JPanel(new GridBagLayout());
         frame.getContentPane().setLayout(new GridBagLayout());
-        frame.setLocationRelativeTo(null);
+        frame.setLocationRelativeTo(janela_);
         frame.getContentPane().setLayout(new GridBagLayout());
         frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         frame.addWindowListener(new WindowListener() {
@@ -1308,7 +1312,6 @@ public class Gui {
         aereo.setActionCommand("Aereo");
         bg.add(terr);
         bg.add(aereo);
-        terr.doClick();
 
         TropasListener terr_listener = new TropasListener(num_exe, (selecionado_.getNumExTerrestres() - 1));
         TropasListener aereo_listener = new TropasListener(num_exe, selecionado_.getNumExAereos());
@@ -1356,6 +1359,7 @@ public class Gui {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        System.out.println(tipo_exerc_);
                         game_.movimentar(selecionado_, selecionado_destino, tipo_exerc_,
                                 Integer.parseInt(num_exe.getText()));
                         frame.setVisible(false);
@@ -1365,6 +1369,8 @@ public class Gui {
                     }
                 }
         );
+
+        terr.doClick();
 
         dono.setText("Dono: " + selecionado_destino.getOcupante().getNome());
         num_terr.setText("Exércitos Terrestres: " + selecionado_destino.getNumExTerrestres());
