@@ -15,8 +15,9 @@ import java.util.List;
 
 //Imports do sistema
 
+
 /** Singleton que controla o 'backbone' do jogo.
- *  @author Cristofer Oswald
+ *  @author Cristofer Oswald e Bruno Cesar
  *  @since 12/01/17
  */
 public class wWar {

@@ -1,11 +1,16 @@
 package bcco.iomanager;
 
+//Imports do sistema
+
 import java.io.IOException;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 /** Classe responsável por controlar a leitura e escrita de arquivos
- *  @author Cristofer Oswald
+ *  @author Cristofer Oswald e Bruno Cesar
  *  @since 12/01/17
  */
 public class IOManager {

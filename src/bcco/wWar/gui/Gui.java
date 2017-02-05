@@ -1,5 +1,7 @@
 package bcco.wWar.gui;
 
+//Imports próprios
+
 import bcco.wWar.game.Game;
 import bcco.wWar.game.jogadores.Jogador;
 import bcco.wWar.mapa.continentes.Territorio;
@@ -17,33 +19,38 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+//Imports do sistema
+
 /** Controla a interface com o usuario
- *  @author Cristofer Oswald
+ *  @author Cristofer Oswald e Bruno Cesar
  *  @since 12/01/17
  */
 public class Gui {
-
+    //Fram principal
     private JFrame janela_;
 
-    private int screen_width_;
-    private int screen_heigth_;
+    //Dados para o ataque e defesa
     private int n_defender = 0;
     private int n_ataque = 0;
 
+    //Dados do jogo
     private Game game_;
     private MapTable tabela_mapa_;
 
+    //Informações necessárias para a atualização da tela
     private boolean terminado_ataque_ = false;
     private Territorio selecionado_ = null;
     private Territorio selecionado_destino = null;
     private String tipo_exerc_;
 
+    //Componentes da janela principal
     private JLabel jogador_num_territorios;
     private JLabel jogador_num_continentes;
     private JLabel jogador_num_terr;
     private JLabel jogador_num_aereo;
     private JLabel jogador_selecao_nome_pais;
-    private JLabel jogador_selecao_vizinhos;
+    private JLabel jogador_selecao_vizinhos1;
+    private JLabel jogador_selecao_vizinhos2;
     private JLabel jogador_selecao_num_terr;
     private JLabel jogador_selecao_num_aereo;
     private JButton jogador_atacar_terr;
@@ -54,7 +61,8 @@ public class Gui {
     private JLabel cpu_num_terr;
     private JLabel cpu_num_aereo;
     private JLabel cpu_selecao_nome_pais;
-    private JLabel cpu_selecao_vizinhos;
+    private JLabel cpu_selecao_vizinhos1;
+    private JLabel cpu_selecao_vizinhos2;
     private JLabel cpu_selecao_num_terr;
     private JLabel cpu_selecao_num_aereo;
     private JTable tabela;
@@ -63,19 +71,16 @@ public class Gui {
      * Cria as estruturas basicas para a janela_
      * @param titulo O titulo da janela_
      * @param screen_width A largura
-     * @param screen_height A altura
+     * @param screen_heigth A altura
      * @param game O jogo a qual esta janela_ esta ligado
      */
-    public Gui(String titulo, int screen_width, int screen_height, Game game){
+    public Gui(String titulo, int screen_width, int screen_heigth, Game game){
         game_ = game;
         tabela_mapa_ = new MapTable(game_.getMapa());
 
         //Configura a janela
-        screen_width_ = screen_width;
-        screen_heigth_ = screen_height;
         janela_ = new JFrame(titulo);
-
-        janela_.setSize(screen_width_, screen_heigth_);
+        janela_.setSize(screen_width, screen_heigth);
         //Posiciona a tela no centro
         janela_.setLocationRelativeTo(null);
         janela_.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -83,11 +88,81 @@ public class Gui {
     }
 
     /**
+     * Mostra a tela inicial
+     */
+    public void telaInicial(){
+        //Define o contentPane como um JPanel com background
+        try {
+            final Image background_image = ImageIO.read(new File("tela_inicial.png"));
+            janela_.setContentPane(new JPanel(new GridBagLayout()) {
+                @Override
+                public void paintComponent(Graphics g) {
+                    g.drawImage(background_image, 0, 0, null);
+                }
+            });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        GridBagConstraints c = new GridBagConstraints();
+        JPanel pane = new JPanel(new GridBagLayout());
+
+        //Componentes
+        JLabel nome = new JLabel("Insira seu nome:");
+        JTextField nome_input = new JTextField(10);
+        JLabel inicio = new JLabel("Bem vindo ao War Game");
+        JButton inicia = new JButton("Inciar jogo");
+
+        //Listeners
+        inicia.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        game_.getHumano().setNome(nome_input.getText());
+                        game_.distribuiTerritorios();
+                        popIncial(game_.getHumano().getNome(), game_.getTerritorios(game_.getHumano()),
+                                game_.getCPU().getNome());
+                    }
+                }
+        );
+
+        //Layout
+        c.insets = new Insets(10, 10, 10, 10);
+        c.gridx = 0;
+        c.gridy = 0;
+        c.gridwidth = 3;
+        c.gridheight = 2;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        pane.add(inicio, c);
+
+        c.gridx = 0;
+        c.gridy = 2;
+        c.gridwidth = 1;
+        c.gridheight = 1;
+        c.fill = GridBagConstraints.NONE;
+        pane.add(nome, c);
+
+        c.gridx = 1;
+        c.gridwidth = 2;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        pane.add(nome_input,c);
+
+        c.gridx = 0;
+        c.gridy = 3;
+        c.gridwidth = 3;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        pane.add(inicia, c);
+
+        //Adiciona tudo ao pane principal
+        janela_.getContentPane().add(pane, c);
+
+    }
+
+    /**
      * Tela de informações iniciais do jogo
      */
-    public void popUpInfo(String nome, List<Territorio> territorios, String oponente) {
+    private void popIncial(String nome, List<Territorio> territorios, String oponente) {
         janela_.setEnabled(false);
-        String t_territorios = "";
 
         //Configura o frame
         JFrame frame = new JFrame("Bem-vindo!");
@@ -133,20 +208,29 @@ public class Gui {
         });
         GridBagConstraints c = new GridBagConstraints();
 
-
-        for (Territorio t : territorios) {
-            t_territorios += t.getNome() + ", ";
+        //Cria 2 strings com os nomes dos territórios ganhos
+        String t_territorios1 = "";
+        for (int i = 0; i < territorios.size()-8; i++) {
+            t_territorios1 += territorios.get(i).getNome() + ", ";
         }
 
-        //componentes
-        JLabel l_bemvindo = new JLabel(nome + "Bem-vindo ao WAR The Game ");
+        String t_territorios2 = "";
+        for (int i = territorios.size()-8; i < territorios.size()-1; i++) {
+            t_territorios2 += territorios.get(i).getNome() + ", ";
+        }
+
+        //Componentes
+        JLabel l_bemvindo = new JLabel(nome + ", bem-vindo ao WAR The Game");
         JLabel l_oponente = new JLabel("Neste jogo seu oponente será o maligno " + oponente + "!!!");
-        JLabel l_territorios = new JLabel("Você recebeu os territórios: " + t_territorios + ".");
-        JLabel l_info = new JLabel("Um exército terrestre e um aereo já se encontram nestes territórios.");
+        JLabel l_territorios1 = new JLabel("Você recebeu os territórios: " + t_territorios1);
+        JLabel l_territorios2 = new JLabel(t_territorios2 + territorios.get(territorios.size()-1).getNome() +
+                ".");
+        JLabel l_info = new JLabel("Um exército terrestre e um aéreo já se encontram nestes territórios.");
         JLabel l_fim = new JLabel("Pense estratégicamente, planeje e ataque! Vença a guerra!");
         JButton ok = new JButton("OK");
 
 
+        //Listener
         ok.addActionListener(
                 new ActionListener() {
                     @Override
@@ -160,7 +244,10 @@ public class Gui {
                 }
         );
 
+        //Layout
+
         c.insets = new Insets(5, 5, 5, 5);
+        c.gridx = 0;
         c.gridy = 0;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.CENTER;
@@ -171,213 +258,29 @@ public class Gui {
         pane.add(l_oponente, c);
 
         c.gridy = 2;
-        pane.add(l_territorios, c);
+        pane.add(l_territorios1, c);
 
         c.gridy = 3;
+        pane.add(l_territorios2, c);
+
+        c.gridy = 4;
         pane.add(l_info, c);
 
-        c.gridy = 4;
+        c.gridy = 5;
         pane.add(l_oponente, c);
 
-        c.gridy = 5;
-        pane.add(l_fim, c);
-
-        c.fill = GridBagConstraints.NONE;
-        c.anchor = GridBagConstraints.CENTER;
         c.gridy = 6;
-        pane.add(ok, c);
-
-        frame.getContentPane().add(pane, c);
-        frame.pack();
-
-        frame.setVisible(true);
-    }
-
-    public void resultadoAtaque(Jogador jogador, String territorio, String n_fracassos,
-                                String n_sucessos, boolean resultado) {
-        janela_.setEnabled(false);
-        //Configura o frame
-        JFrame frame = new JFrame("Resultados do combate");
-        JPanel pane = new JPanel(new GridBagLayout());
-        frame.getContentPane().setLayout(new GridBagLayout());
-        frame.setLocationRelativeTo(null);
-        frame.getContentPane().setLayout(new GridBagLayout());
-        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-        frame.addWindowListener(new WindowListener() {
-            @Override
-            public void windowOpened(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowClosing(WindowEvent e) {
-                janela_.setEnabled(true);
-            }
-
-            @Override
-            public void windowClosed(WindowEvent e) {
-            }
-
-            @Override
-            public void windowIconified(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowDeiconified(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowActivated(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowDeactivated(WindowEvent e) {
-
-            }
-        });
-        GridBagConstraints c = new GridBagConstraints();
-
-        //componentes
-        JLabel l_intro = new JLabel("Os exércitos de " + jogador.getNome() + " atacaram o(a) " + territorio);
-        JLabel l_fracassos = new JLabel("Numero de exércitos perdidos em combate: " + n_fracassos);
-        JLabel l_sucessos = new JLabel("Número de exércitos defensores mortos: " + n_sucessos);
-        JLabel l_conquista = new JLabel("Parabéns " + jogador.getNome() +
-                " você conquistou o território " + territorio + "!");
-
-        JLabel l_derrota = new JLabel("Os exércitos de " + jogador.getNome() + "dominaram o(a) "
-                + territorio + " e tomaram posse de suas tropas aereas.");
-
-        JLabel l_fim = new JLabel("Fim do relatório de combate");
-        JButton ok = new JButton("OK");
-
-        ok.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        frame.setVisible(false);
-                        janela_.setEnabled(true);
-                    }
-                }
-        );
-
-        c.insets = new Insets(5, 5, 5, 5);
-        c.gridy = 0;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.anchor = GridBagConstraints.CENTER;
-        pane.add(l_intro, c);
-
-        c.anchor = GridBagConstraints.LINE_START;
-        c.gridy = 1;
-        pane.add(l_fracassos, c);
-
-        c.gridy = 2;
-        pane.add(l_sucessos, c);
-
-        c.gridy = 3;
-        if (resultado) {
-            if (jogador == game_.getHumano()) {
-                pane.add(l_conquista, c);
-            } else {
-                pane.add(l_derrota, c);
-            }
-        }
-
-        c.gridy = 4;
         pane.add(l_fim, c);
 
         c.fill = GridBagConstraints.NONE;
         c.anchor = GridBagConstraints.CENTER;
-        c.gridy = 5;
+        c.gridy = 7;
         pane.add(ok, c);
 
         frame.getContentPane().add(pane, c);
         frame.pack();
 
         frame.setVisible(true);
-    }
-
-    /**
-     * Mostra a tela inicial
-     */
-    public void telaInicial(){
-        //Define o contentPane como um JPanel com background
-        try {
-            final Image background_image = ImageIO.read(new File("tela_inicial.png"));
-            janela_.setContentPane(new JPanel(new GridBagLayout()) {
-                @Override
-                public void paintComponent(Graphics g) {
-                    g.drawImage(background_image, 0, 0, null);
-                }
-            });
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        GridBagConstraints c = new GridBagConstraints();
-        JPanel pane = new JPanel(new GridBagLayout());
-
-        //Componentes
-        JLabel nome = new JLabel("Insira seu nome:");
-        JTextField nome_input = new JTextField(10);
-        JLabel inicio = new JLabel("Bem vindo ao War Game");
-        JButton inicia = new JButton("Inciar jogo");
-
-        //Listeners
-        inicia.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        game_.getHumano().setNome(nome_input.getText());
-                        game_.distribuiTerritorios();
-                        popUpInfo(game_.getHumano().getNome(), game_.getTerritorios(game_.getHumano()),
-                                game_.getCPU().getNome());
-                    }
-                }
-        );
-
-        //Layout
-        c.gridx = 0;
-        c.gridy = 0;
-        c.gridwidth = 3;
-        c.gridheight = 2;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.insets = new Insets(10, 10, 10, 10);
-
-        pane.add(inicio, c);
-
-        c.gridx = 0;
-        c.gridy = 2;
-        c.gridwidth = 1;
-        c.gridheight = 1;
-        c.fill = GridBagConstraints.NONE;
-
-        pane.add(nome, c);
-
-        c.gridx = 1;
-        c.gridwidth = 2;
-        c.fill = GridBagConstraints.HORIZONTAL;
-
-        pane.add(nome_input,c);
-
-        c.gridx = 0;
-        c.gridy = 3;
-        c.gridwidth = 3;
-        c.fill = GridBagConstraints.HORIZONTAL;
-
-        pane.add(inicia, c);
-
-        c.gridx = 0;
-        c.gridy = 0;
-        c.gridwidth = 1;
-
-        c.fill = GridBagConstraints.BOTH;
-
-        //Adiciona tudo ao pane principal
-        janela_.getContentPane().add(pane, c);
-
     }
 
     /**
@@ -412,7 +315,8 @@ public class Gui {
         jogador_num_aereo = new JLabel("Exércitos Aéreos: ");
         JLabel jogador_selecao_titulo = new JLabel("Informções do país");
         jogador_selecao_nome_pais = new JLabel("Nome: Nenhum");
-        jogador_selecao_vizinhos = new JLabel("Vizinhos: Nenhum");
+        jogador_selecao_vizinhos1 = new JLabel("Vizinhos: Nenhum");
+        jogador_selecao_vizinhos2 = new JLabel();
         jogador_selecao_num_terr = new JLabel("Exércitos Terrestres: 0");
         jogador_selecao_num_aereo = new JLabel("Exércitos Aéreos: 0");
         jogador_movimentar = new JButton("Movimentar tropas");
@@ -425,14 +329,17 @@ public class Gui {
         cpu_num_aereo = new JLabel("Exércitos Aéreos: ");
         JLabel cpu_selecao_titulo = new JLabel("Informções do país");
         cpu_selecao_nome_pais = new JLabel("Nome: Nenhum");
-        cpu_selecao_vizinhos = new JLabel("Vizinhos: Nenhum");
+        cpu_selecao_vizinhos1 = new JLabel("Vizinhos: Nenhum");
+        cpu_selecao_vizinhos2 = new JLabel();
         cpu_selecao_num_terr = new JLabel("Exércitos Terrestres: 0");
         cpu_selecao_num_aereo = new JLabel("Exércitos Aéreos: 0");
         tabela = new JTable(tabela_mapa_);
         JButton prox_rodada = new JButton("Terminar rodada");
 
+        //Colore as células
         for(int i = 0; i <tabela.getColumnCount(); i++){
             tabela.getColumnModel().getColumn(i).setCellRenderer(new MapColumnCellRenderer(game_));
+            tabela.getColumnModel().getColumn(i).setMinWidth(90);
         }
 
         updateJogadoresInfos();
@@ -458,19 +365,20 @@ public class Gui {
                                 e1.printStackTrace();
                             }
 
+                            updateInfos();
                             if(selecionado_.getOcupante() == game_.getHumano()){
-                                updateInfos();
                                 cpu_selecao_nome_pais.setText("Nome: Nenhum");
                                 cpu_selecao_num_terr.setText("Exércitos Terrestres: 0");
                                 cpu_selecao_num_aereo.setText("Exércitos Aéreo: 0");
-                                cpu_selecao_vizinhos.setText("Vizinhos: Nenhum");
+                                cpu_selecao_vizinhos1.setText("Vizinhos: Nenhum");
+                                cpu_selecao_vizinhos2.setText("");
                             }
                             else {
-                                updateInfos();
                                 jogador_selecao_nome_pais.setText("Nome: Nenhum");
                                 jogador_selecao_num_terr.setText("Exércitos Terrestres: 0");
                                 jogador_selecao_num_aereo.setText("Exércitos Aéreo: 0");
-                                jogador_selecao_vizinhos.setText("Vizinhos: Nenhum");
+                                jogador_selecao_vizinhos1.setText("Vizinhos: Nenhum");
+                                jogador_selecao_vizinhos2.setText("");
                             }
                         }
                         else{
@@ -523,18 +431,18 @@ public class Gui {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        List<Territorio> t = game_.checkAereo(game_.getHumano(), selecionado_);
                         if(terminado_ataque_){
                             JOptionPane.showMessageDialog(tabela_pane, "Você começou a movimentar tropas," +
                                     "não pode mais atacarTerrestre");
                         }
                         else{
-                            List<Territorio> t = checkAereo(game_.getHumano());
                             if(t.size() == 0){
                                 JOptionPane.showMessageDialog(janela_, "Este território não faz fronteira com" +
                                         "nenhum terriório que pode ser atacado por ar");
                             }
                             else {
-                                atacarAereo(checkAereo(game_.getHumano()));
+                                atacarAereo(t);
                                 updateJogadoresInfos();
                             }
                         }
@@ -564,38 +472,34 @@ public class Gui {
         );
 
         //Layouts
+
         //Pane humano
+        c.insets = new Insets(5, 5, 5, 5);
         c.gridx = 0;
         c.gridy = 0;
         c.gridwidth = 1;
         c.gridheight = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.LINE_START;
-        c.insets = new Insets(5, 5, 5, 5);
-
         jogador_nome.setFont(new Font(jogador_nome.getFont().getName(), Font.BOLD, 24));
         jogador_pane.add(jogador_nome, c);
 
         c.gridy = 1;
-
         jogador_pane.add(jogador_num_territorios, c);
 
         c.gridy = 2;
-
         jogador_pane.add(jogador_num_continentes, c);
 
         c.gridy = 3;
-
         jogador_pane.add(jogador_num_terr, c);
 
         c.gridy = 4;
         c.insets = new Insets(5, 5, 15, 5);
-
         jogador_pane.add(jogador_num_aereo, c);
 
         c.gridy = 5;
         c.anchor = GridBagConstraints.CENTER;
-        c.fill = GridBagConstraints.VERTICAL;
+        c.fill = GridBagConstraints.BOTH;
         c.insets = new Insets(5, 5, 5, 5);
 
         jogador_pane.add(jogador_selecao_titulo, c);
@@ -606,39 +510,35 @@ public class Gui {
         jogador_pane.add(jogador_selecao_nome_pais, c);
 
         c.gridy = 7;
-
         jogador_pane.add(jogador_selecao_num_terr, c);
 
         c.gridy = 8;
-
         jogador_pane.add(jogador_selecao_num_aereo, c);
 
         c.gridy = 9;
-
-        jogador_pane.add(jogador_selecao_vizinhos, c);
+        jogador_pane.add(jogador_selecao_vizinhos1, c);
 
         c.gridy = 10;
+        jogador_pane.add(jogador_selecao_vizinhos2, c);
+
+        c.gridy = 11;
         c.anchor = GridBagConstraints.CENTER;
         c.fill = GridBagConstraints.VERTICAL;
 
         jogador_pane.add(jogador_atacar_terr, c);
 
-        c.gridy = 11;
-
+        c.gridy = 12;
         jogador_pane.add(jogador_atacar_aereo, c);
 
-        c.gridy = 12;
-
+        c.gridy = 13;
         jogador_pane.add(jogador_movimentar, c);
 
         //Pane tabela
         c.gridx = 0;
         c.gridy = 0;
-
         tabela_pane.add(prox_rodada, c);
 
         c.gridy = 1;
-
         tabela.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tabela_pane.add(tabela, c);
 
@@ -649,72 +549,59 @@ public class Gui {
         c.gridheight = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.LINE_START;
-
         cpu_nome.setFont(new Font(cpu_nome.getFont().getName(), Font.BOLD, 24));
         cpu_pane.add(cpu_nome, c);
 
         c.gridy = 1;
-
         cpu_pane.add(cpu_num_territorios, c);
 
         c.gridy = 2;
-
         cpu_pane.add(cpu_num_continentes, c);
 
         c.gridy = 3;
-
         cpu_pane.add(cpu_num_terr, c);
 
         c.gridy = 4;
         c.insets = new Insets(5, 5, 15, 5);
-
         cpu_pane.add(cpu_num_aereo, c);
 
         c.gridy = 5;
         c.anchor = GridBagConstraints.CENTER;
         c.fill = GridBagConstraints.VERTICAL;
         c.insets = new Insets(5, 5, 5, 5);
-
         cpu_pane.add(cpu_selecao_titulo, c);
 
         c.gridy = 6;
         c.anchor = GridBagConstraints.LINE_START;
-
         cpu_pane.add(cpu_selecao_nome_pais, c);
 
         c.gridy = 7;
-
         cpu_pane.add(cpu_selecao_num_terr, c);
 
         c.gridy = 8;
-
         cpu_pane.add(cpu_selecao_num_aereo, c);
 
         c.gridy = 9;
+        cpu_pane.add(cpu_selecao_vizinhos1, c);
 
-        cpu_pane.add(cpu_selecao_vizinhos, c);
-
-        //Adição de panels ao panl principal
+        //Adição de panels ao panel principal
         c.gridx = 0;
         c.gridy = 0;
         c.anchor = GridBagConstraints.FIRST_LINE_START;
         c.fill = GridBagConstraints.BOTH;
-        c.insets = new Insets(280, -100, 5, 50);
-
+        c.insets = new Insets(280, -70, 100, 30);
         jogador_pane.setOpaque(false); //Panel transparente
         janela_.getContentPane().add(jogador_pane, c);
 
         c.gridx = 1;
         c.anchor = GridBagConstraints.PAGE_START;
-        c.insets = new Insets(580, 0, 5, 0);
-
+        c.insets = new Insets(530, 0, 25, 0);
         tabela_pane.setOpaque(false);
         janela_.getContentPane().add(tabela_pane, c);
 
         c.gridx = 2;
         c.anchor = GridBagConstraints.FIRST_LINE_START;
-        c.insets = new Insets(280, 50, 5, 0);
-
+        c.insets = new Insets(280, 30, 175, 0);
         cpu_pane.setOpaque(false);
         janela_.getContentPane().add(cpu_pane, c);
 
@@ -726,6 +613,8 @@ public class Gui {
      */
     public void distribuirExercito() {
         janela_.setEnabled(false);
+
+        //Dados necessários para a configuração da tela
         int terr_recebidos = game_.getHumano().getTerrestresRecebidos();
         int aereo_recebidos = game_.getHumano().getAereosRecebidos();
         int i = 1;
@@ -864,12 +753,10 @@ public class Gui {
 
         //Layout pt.2
         c1.gridy = i + 1;
-
         pane.add(terrestre_restante, c1);
 
         c1.gridy++;
         c1.anchor = GridBagConstraints.LINE_START;
-
         pane.add(aereo_restante, c1);
 
         c4.gridy = i + 1;
@@ -897,11 +784,9 @@ public class Gui {
         jogador_num_terr.setText("Exércitos Terrestres: " + game_.getNumTerrestres(humano));
         jogador_num_aereo.setText("Exércitos Aéreos: " + game_.getNumAereos(humano));
         cpu_num_territorios.setText("Número de territórios: " + game_.getNumTerritorios(cpu));
-        cpu_num_continentes.setText("Número de continentes: ");
+        cpu_num_continentes.setText("Número de continentes: " + game_.getNumContinentesJogador(cpu));
         cpu_num_terr.setText("Exércitos Terrestres: " + game_.getNumTerrestres(cpu));
         cpu_num_aereo.setText("Exércitos Aéreos: " + game_.getNumAereos(cpu));
-
-
     }
 
     /**
@@ -909,32 +794,35 @@ public class Gui {
      */
     public int defender(Territorio territorio, Territorio alvo, int qtd_ataque) {
         janela_.setEnabled(false);
+
+        int n_tropas = alvo.getNumExTerrestres();
+
         //Configura o frame
         JFrame frame = new JFrame("Defender território");
         JPanel pane = new JPanel(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
         frame.getContentPane().setLayout(new GridBagLayout());
         frame.setLocationRelativeTo(null);
         frame.getContentPane().setLayout(new GridBagLayout());
         frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
-        int n_tropas = alvo.getNumExTerrestres();
-
-
         //Componentes
-
         JLabel descricao = new JLabel("Os exércitos de " + game_.getCPU().getNome() + " estão atacando!");
-
         JLabel territorio_alvo = new JLabel(alvo.getNome() + " está em perigo!");
         JLabel alvo_info = new JLabel("Tropas neste território: " + n_tropas);
         JLabel defender_text = new JLabel("Defender território com: ");
-
-        ButtonGroup bg = new ButtonGroup();
         JRadioButton r1 = new JRadioButton("1");
         JRadioButton r2 = new JRadioButton("2");
         JRadioButton r3 = new JRadioButton("3");
+        JLabel territorio_atacando = new JLabel(qtd_ataque + " exércitos marcham de " + territorio.getNome());
+        JButton defender = new JButton("Defender");
+        ButtonGroup bg = new ButtonGroup();
+
+        //Confirgura os radio buttons
         bg.add(r1);
         bg.add(r2);
         bg.add(r3);
+        r1.doClick();
 
         if (n_tropas < 3) {
             r3.setEnabled(false);
@@ -943,6 +831,7 @@ public class Gui {
             }
         }
 
+        //Listeners
         r1.addActionListener(
                 new ActionListener() {
                     @Override
@@ -970,11 +859,6 @@ public class Gui {
                 }
         );
 
-        r1.doClick();
-
-        JLabel territorio_atacando = new JLabel(qtd_ataque + " exércitos marcham de " + territorio.getNome());
-
-        JButton defender = new JButton("Defender");
         defender.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -984,12 +868,10 @@ public class Gui {
             }
         });
 
-        //Configura os constrains para cada coluna
-        GridBagConstraints c = new GridBagConstraints();
+        //Layout
         c.insets = new Insets(5, 5, 5, 5);
         c.gridx = 0;
         c.gridy = 0;
-
         c.gridwidth = 5;
         c.anchor = GridBagConstraints.CENTER;
         pane.add(descricao, c);
@@ -1031,6 +913,7 @@ public class Gui {
         frame.pack();
 
         frame.setVisible(true);
+
         return n_defender;
     }
 
@@ -1039,6 +922,7 @@ public class Gui {
      */
     private void atacarTerrestre() {
         janela_.setEnabled(false);
+
         n_ataque = 1;
         int n_tropas = selecionado_.getNumExTerrestres();
 
@@ -1051,11 +935,8 @@ public class Gui {
         }
 
         Territorio[] fronteiras = f.toArray(new Territorio[f.size()]);
-        //for(int i = 0; i < fronteiras.length; i++){
-        //    fronteiras[i] = f.get(i);
-        //}
 
-        //Cria a nova janela
+        //Configura o frame
         JFrame frame = new JFrame("Atacar");
         JPanel pane = new JPanel(new GridBagLayout());
         frame.getContentPane().setLayout(new GridBagLayout());
@@ -1102,23 +983,23 @@ public class Gui {
 
         //Componentes
         JComboBox<Territorio> combo = new JComboBox<>(fronteiras);
-        selecionado_destino = (Territorio) (combo.getSelectedItem());
-
         JLabel titulo = new JLabel("Atacando de: " + selecionado_.getNome());
         JLabel atacar = new JLabel("Atacar: ");
         JLabel quantidade = new JLabel("Atacar com:");
         JLabel num_terr = new JLabel("Exércitos Terrestres: ");
         JLabel num_aereo = new JLabel("Exércitos Aereos: " + selecionado_destino.getNumExAereos());
         JButton ok = new JButton("Atacar");
-
         ButtonGroup bg = new ButtonGroup();
         JRadioButton r1 = new JRadioButton("1");
         JRadioButton r2 = new JRadioButton("2");
         JRadioButton r3 = new JRadioButton("3");
+
         bg.add(r1);
         bg.add(r2);
         bg.add(r3);
         r1.doClick();
+
+        selecionado_destino = (Territorio) (combo.getSelectedItem());
 
         if (n_tropas <= 3) {
             r3.setEnabled(false);
@@ -1185,36 +1066,29 @@ public class Gui {
 
         //Layout
         c.insets = new Insets(5, 5, 5, 5);
-
         c.gridx = 0;
         c.gridy = 0;
         c.gridwidth = 1;
         c.gridheight = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.CENTER;
-
         pane.add(titulo, c);
 
         c.gridy = 1;
-
         pane.add(atacar, c);
 
         c.gridx = 1;
-
         pane.add(combo, c);
 
         c.gridx = 0;
         c.gridy = 2;
-
         pane.add(num_terr, c);
 
         c.gridx = 1;
-
         pane.add(num_aereo, c);
 
         c.gridx = 0;
         c.gridy = 3;
-
         pane.add(quantidade, c);
 
         c.gridy = 4;
@@ -1240,6 +1114,122 @@ public class Gui {
         frame.setVisible(true);
     }
 
+    /**
+     * Exibe a janela com o realtóriode ataque
+     * @param jogador Jogador atacante
+     * @param territorio Território atacado
+     * @param n_fracassos Quantidade de tropas que perderam
+     * @param n_sucessos Quantidade de tropas que ganhanram
+     * @param resultado O sucesso do ataque (True para vitória, False para derrota)
+     */
+    public void relatorioAtaque(Jogador jogador, String territorio, String n_fracassos,
+                                String n_sucessos, boolean resultado) {
+        janela_.setEnabled(false);
+
+        //Configura o frame
+        JFrame frame = new JFrame("Resultados do combate");
+        JPanel pane = new JPanel(new GridBagLayout());
+        frame.getContentPane().setLayout(new GridBagLayout());
+        frame.setLocationRelativeTo(null);
+        frame.getContentPane().setLayout(new GridBagLayout());
+        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        frame.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                janela_.setEnabled(true);
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
+        GridBagConstraints c = new GridBagConstraints();
+
+        //Componentes
+        JLabel l_intro = new JLabel("Os exércitos de " + jogador.getNome() + " atacaram o(a) " + territorio);
+        JLabel l_fracassos = new JLabel("Numero de exércitos perdidos em combate: " + n_fracassos);
+        JLabel l_sucessos = new JLabel("Número de exércitos defensores mortos: " + n_sucessos);
+        JLabel l_conquista = new JLabel("Parabéns " + jogador.getNome() +
+                " você conquistou o território " + territorio + "!");
+        JLabel l_derrota = new JLabel("Os exércitos de " + jogador.getNome() + "dominaram o(a) "
+                + territorio + " e tomaram posse de suas tropas aereas.");
+        JLabel l_fim = new JLabel("Fim do relatório de combate");
+        JButton ok = new JButton("OK");
+
+        //Listener
+        ok.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        frame.setVisible(false);
+                        janela_.setEnabled(true);
+                    }
+                }
+        );
+
+        //Layout
+        c.insets = new Insets(5, 5, 5, 5);
+        c.gridx = 0;
+        c.gridy = 0;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.anchor = GridBagConstraints.CENTER;
+        pane.add(l_intro, c);
+
+        c.anchor = GridBagConstraints.LINE_START;
+        c.gridy = 1;
+        pane.add(l_fracassos, c);
+
+        c.gridy = 2;
+        pane.add(l_sucessos, c);
+
+        c.gridy = 3;
+        if (resultado) {
+            if (jogador == game_.getHumano()) {
+                pane.add(l_conquista, c);
+            } else {
+                pane.add(l_derrota, c);
+            }
+        }
+
+        c.gridy = 4;
+        pane.add(l_fim, c);
+
+        c.fill = GridBagConstraints.NONE;
+        c.anchor = GridBagConstraints.CENTER;
+        c.gridy = 5;
+        pane.add(ok, c);
+
+        frame.getContentPane().add(pane, c);
+        frame.pack();
+
+        frame.setVisible(true);
+    }
+
 
     /**
      * Mostra a janela de movimentação de tropas
@@ -1256,11 +1246,8 @@ public class Gui {
         }
 
         Territorio[] fronteiras = f.toArray(new Territorio[f.size()]);
-        //for(int i = 0; i < fronteiras.length; i++){
-        //    fronteiras[i] = f.get(i);
-        //}
 
-        //Cria a nova janela
+        //Configuar o frame
         JFrame frame = new JFrame("Movimentar");
         JPanel pane = new JPanel(new GridBagLayout());
         frame.getContentPane().setLayout(new GridBagLayout());
@@ -1313,12 +1300,9 @@ public class Gui {
         JLabel num_aereo = new JLabel("Exércitos Aéreos: ");
         JLabel num = new JLabel("Quantidade: ");
         JComboBox<Territorio> combo = new JComboBox<>(fronteiras);
-        selecionado_destino = (Territorio) (combo.getSelectedItem());
-
-        ButtonGroup bg = new ButtonGroup();
         JRadioButton terr = new JRadioButton("Terrestre");
         JRadioButton aereo = new JRadioButton("Aereo");
-
+        ButtonGroup bg = new ButtonGroup();
         JTextField num_exe = new JTextField(3);
         JButton ok = new JButton("Cofirmar");
 
@@ -1327,9 +1311,12 @@ public class Gui {
         aereo.setActionCommand("Aereo");
         bg.add(terr);
         bg.add(aereo);
+        terr.doClick();
 
         TropasListener terr_listener = new TropasListener(num_exe, (selecionado_.getNumExTerrestres() - 1));
         TropasListener aereo_listener = new TropasListener(num_exe, selecionado_.getNumExAereos());
+
+        selecionado_destino = (Territorio) (combo.getSelectedItem());
 
         //Listeners
         combo.addActionListener(
@@ -1382,8 +1369,6 @@ public class Gui {
                 }
         );
 
-        terr.doClick(); //Simula um clique
-
         dono.setText("Dono: " + selecionado_destino.getOcupante().getNome());
         num_terr.setText("Exércitos Terrestres: " + selecionado_destino.getNumExTerrestres());
         num_aereo.setText("Exércitos Aéreos " + selecionado_destino.getNumExAereos());
@@ -1397,55 +1382,41 @@ public class Gui {
         c.gridheight = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.CENTER;
-
         pane.add(titulo, c);
 
         c.gridy = 1;
-
         pane.add(atacar, c);
 
         c.gridx = 1;
-
         pane.add(combo, c);
 
         c.gridx = 0;
         c.gridy = 2;
-
         pane.add(num_terr, c);
 
         c.gridx = 1;
-
         pane.add(num_aereo, c);
 
         c.gridx = 0;
         c.gridy = 3;
-
         pane.add(dono, c);
 
         c.gridy = 4;
-
         pane.add(terr, c);
 
         c.gridy = 5;
-
         pane.add(aereo, c);
 
         c.gridx = 1;
         c.gridy = 4;
-
         pane.add(num, c);
 
         c.gridx = 2;
-
         pane.add(num_exe, c);
 
         c.gridx = 0;
         c.gridy = 6;
-
         pane.add(ok, c);
-
-        c.gridx = 0;
-        c.gridy = 0;
 
         frame.getContentPane().add(pane, c);
 
@@ -1461,20 +1432,9 @@ public class Gui {
         JLabel nome_pais;
         JLabel num_terr;
         JLabel num_aereo;
-        JLabel vizinhos;
+        JLabel vizinhos1;
+        JLabel vizinhos2;
 
-        if(selecionado_.getOcupante() == game_.getHumano()){
-            nome_pais = jogador_selecao_nome_pais;
-            num_terr = jogador_selecao_num_terr;
-            num_aereo = jogador_selecao_num_aereo;
-            vizinhos = jogador_selecao_vizinhos;
-        }
-        else{
-            nome_pais = cpu_selecao_nome_pais;
-            num_terr = cpu_selecao_num_terr;
-            num_aereo = cpu_selecao_num_aereo;
-            vizinhos = cpu_selecao_vizinhos;
-        }
         //Se a célula for vazia desativa o botão
         if(selecionado_ == null){
             jogador_atacar_terr.setEnabled(false);
@@ -1482,9 +1442,14 @@ public class Gui {
             return;
         }
 
-        //Atualiza os campos com os respectivos dados
         if(selecionado_ != null) {
             if(selecionado_.getOcupante().equals(game_.getHumano())){
+                nome_pais = jogador_selecao_nome_pais;
+                num_terr = jogador_selecao_num_terr;
+                num_aereo = jogador_selecao_num_aereo;
+                vizinhos1 = jogador_selecao_vizinhos1;
+                vizinhos2 = jogador_selecao_vizinhos2;
+
                 if(selecionado_.getNumExTerrestres() > 1) {
                     jogador_atacar_terr.setEnabled(true);
                 }
@@ -1494,6 +1459,12 @@ public class Gui {
                 jogador_movimentar.setEnabled(true);
             }
             else{
+                nome_pais = cpu_selecao_nome_pais;
+                num_terr = cpu_selecao_num_terr;
+                num_aereo = cpu_selecao_num_aereo;
+                vizinhos1 = cpu_selecao_vizinhos1;
+                vizinhos2 = cpu_selecao_vizinhos2;
+
                 jogador_atacar_terr.setEnabled(false);
                 jogador_atacar_aereo.setEnabled(false);
                 jogador_movimentar.setEnabled(false);
@@ -1505,27 +1476,37 @@ public class Gui {
             num_terr.setText("Exércitos Terrestres: " + selecionado_.getNumExTerrestres());
             num_aereo.setText("Exércitos Aéreos: " + selecionado_.getNumExAereos());
 
-            String f = "Vizinhos: ";
-            for (Territorio aFronteira : fronteira) {
-                f = f + aFronteira.getNome() + ", ";
+            String f1 = "Vizinhos: " + fronteira[0].getNome();
+            if(fronteira.length > 1){
+                f1 = f1 + ", " + fronteira[1].getNome();
             }
 
-            vizinhos.setText(f);
+            String f2 = "";
+            if(fronteira.length > 2){
+                f2 = fronteira[2].getNome();
+            }
+            if(fronteira.length > 3){
+                f2 = f2 + ", " +fronteira[3].getNome();
+            }
+
+            vizinhos1.setText(f1);
+            vizinhos2.setText(f2);
         }
     }
 
+    /**
+     * Tela de ataques aéreos
+     * @param territorios A lista de territórios que podem ser atacados
+     */
     private void atacarAereo(List<Territorio> territorios){
         janela_.setEnabled(false);
+
         n_ataque = 0;
         int n_tropas = selecionado_.getNumExAereos();
 
-        Territorio[] terrs = new Territorio[territorios.size()];
+        Territorio[] terrs = territorios.toArray(new Territorio[territorios.size()]);
 
-        for(int i = 0; i < terrs.length; i++){
-            terrs[i] = territorios.get(i);
-        }
-
-        //Cria a nova janela
+        //Configura a janela
         JFrame frame = new JFrame("Ataque aéreo");
         JPanel pane = new JPanel(new GridBagLayout());
         frame.getContentPane().setLayout(new GridBagLayout());
@@ -1572,8 +1553,6 @@ public class Gui {
 
         //Componentes
         JComboBox<Territorio> combo = new JComboBox<>(terrs);
-        selecionado_destino = (Territorio) (combo.getSelectedItem());
-
         JLabel titulo = new JLabel("Atacando de: " + selecionado_.getNome());
         JLabel atacar = new JLabel("Atacar: ");
         JLabel quantidade = new JLabel("Atacar com:");
@@ -1581,15 +1560,17 @@ public class Gui {
         JLabel num_aereo = new JLabel("Exércitos Aereos: " + selecionado_destino.getNumExAereos());
         JButton reforco = new JButton("Chamar reforço");
         JButton ok = new JButton("Atacar");
-
-        ButtonGroup bg = new ButtonGroup();
         JRadioButton r1 = new JRadioButton("1");
         JRadioButton r2 = new JRadioButton("2");
         JRadioButton r3 = new JRadioButton("3");
+        ButtonGroup bg = new ButtonGroup();
+
         bg.add(r1);
         bg.add(r2);
         bg.add(r3);
         r1.doClick();
+
+        selecionado_destino = (Territorio) (combo.getSelectedItem());
 
         if (n_tropas < 3) {
             r3.setEnabled(false);
@@ -1659,36 +1640,29 @@ public class Gui {
 
         //Layout
         c.insets = new Insets(5, 5, 5, 5);
-
         c.gridx = 0;
         c.gridy = 0;
         c.gridwidth = 1;
         c.gridheight = 1;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.anchor = GridBagConstraints.CENTER;
-
         pane.add(titulo, c);
 
         c.gridy = 1;
-
         pane.add(atacar, c);
 
         c.gridx = 1;
-
         pane.add(combo, c);
 
         c.gridx = 0;
         c.gridy = 2;
-
         pane.add(num_terr, c);
 
         c.gridx = 1;
-
         pane.add(num_aereo, c);
 
         c.gridx = 0;
         c.gridy = 3;
-
         pane.add(quantidade, c);
 
         c.gridy = 4;
@@ -1718,11 +1692,19 @@ public class Gui {
 
     }
 
+    /**
+     * Mostra janela de reforço aéreo
+     * @param territorios O vetor territórios que podem apoiar
+     * @param r1 Radio button 1
+     * @param r2 Radio button 2
+     * @param r3 Radio button 3
+     * @param pai Frame o qual chamou essa janela
+     */
     private void reforcoAereo(Territorio[] territorios, JRadioButton r1, JRadioButton r2, JRadioButton r3, JFrame pai){
         pai.setEnabled(false);
 
-        //Cria a nova janela
-        JFrame frame = new JFrame("Ataque aéreo");
+        //Configura o frame
+        JFrame frame = new JFrame("Reforço aéreo");
         JPanel pane = new JPanel(new GridBagLayout());
         frame.getContentPane().setLayout(new GridBagLayout());
         frame.setLocationRelativeTo(null);
@@ -1772,7 +1754,6 @@ public class Gui {
             terrs_combos.add(new JComboBox<>());
         }
         JLabel[] terrs_labels = new JLabel[territorios.length];
-
         JLabel titulo = new JLabel("Reforçar: " + selecionado_.getNome());
         JLabel local = new JLabel("De");
         JLabel quantidade = new JLabel("Reforçar com");
@@ -1781,6 +1762,7 @@ public class Gui {
         List<Territorio> selecionados = new ArrayList<>();
         List<Integer> num_selecionados = new ArrayList<>();
 
+        //Cria um listener especial para o os combo boxes
         class AereoListener implements ActionListener{
             private Territorio t_;
             private List<Territorio> sel_;
@@ -1797,6 +1779,7 @@ public class Gui {
             }
         }
 
+        //Cria um listener especial para o botão de confirmação
         class ConfirmarListener implements ActionListener{
             private List<Territorio> t_;
             private List<Integer> n_;
@@ -1835,19 +1818,17 @@ public class Gui {
         c.gridy = 0;
         c.anchor = GridBagConstraints.CENTER;
         c.gridwidth = 2;
-
         pane.add(titulo, c);
 
         c.gridy = 1;
         c.gridwidth = 1;
         c.anchor = GridBagConstraints.LINE_START;
-
         pane.add(local, c);
 
         c.gridx = 1;
-
         pane.add(quantidade, c);
 
+        //Colaca os combo boxes na tela
         int i;
         for(i = 0; i < territorios.length; i++){
             if(territorios[i].getNumExAereos() != 0) {
@@ -1880,7 +1861,16 @@ public class Gui {
         frame.setVisible(true);
     }
 
-    public void relatorioAereo(Jogador jogador, Territorio territorio, Territorio alvo,
+    /**
+     * Mostra o relatório do ataque aéreo
+     * @param jogador O jogador que atacou
+     * @param origem Território que atacou
+     * @param destino Território que foi atacado
+     * @param defesa Quantidade de aviões perdidos
+     * @param avioes_derrubados Quantidade de aviões derrubados
+     * @param terrestres_mortos Quantidade de exércitos terrestres mortos
+     */
+    public void relatorioAereo(Jogador jogador, Territorio origem, Territorio destino,
                                int defesa, int avioes_derrubados, int terrestres_mortos){
 
         //Configura o frame
@@ -1893,13 +1883,14 @@ public class Gui {
         GridBagConstraints c = new GridBagConstraints();
 
         //componentes
-        JLabel l_intro = new JLabel("Os aviões de " + jogador.getNome() + " atacaram o(a) " + alvo.getNome());
+        JLabel l_intro = new JLabel("Os aviões de " + jogador.getNome() + " atacaram o(a) " + destino.getNome());
         JLabel l_fracassos = new JLabel("Numero de aviões perdidos em combate: " + defesa);
         JLabel l_sucessos_avioes = new JLabel("Número de aviões defensores mortos: " + avioes_derrubados);
         JLabel l_sucessos_terrs = new JLabel("Número de tropas mortas: " + terrestres_mortos);
         JLabel l_fim = new JLabel("Fim do relatório de combate");
         JButton ok = new JButton("OK");
 
+        //Listener
         ok.addActionListener(
                 new ActionListener() {
                     @Override
@@ -1939,6 +1930,10 @@ public class Gui {
         frame.setVisible(true);
     }
 
+    /**
+     * Tela de de vitória
+     * @param jogador O jogador que ganhou
+     */
     public void vitoria(Jogador jogador){
         JFrame frame = new JFrame("Acabou!");
         JPanel pane = new JPanel(new GridBagLayout());
@@ -1947,6 +1942,9 @@ public class Gui {
         frame.getContentPane().setLayout(new GridBagLayout());
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        GridBagConstraints c = new GridBagConstraints();
+
+        //Cria a string dependendo de quem ganhou
         String p = "Infelizmente " + jogador.getNome() + " ganhou";
         if(jogador.equals(game_.getHumano())){
             p = "Parabéns " + game_.getHumano().getNome() + ", você ganhou";
@@ -1957,10 +1955,12 @@ public class Gui {
             con = "Você conquistou 2 continentes e ganhou!";
         }
 
+        //Componentes
         JLabel parabens = new JLabel(p);
         JLabel continuar = new JLabel(con);
         JButton ok = new JButton("Terminar jogo");
 
+        //Listener
         ok.addActionListener(
                 new ActionListener() {
                     @Override
@@ -1969,8 +1969,6 @@ public class Gui {
                     }
                 }
         );
-
-        GridBagConstraints c = new GridBagConstraints();
 
         c.gridx = 0;
         c.gridy = 0;
@@ -1990,18 +1988,6 @@ public class Gui {
         frame.getContentPane().add(pane);
         frame.setVisible(true);
         frame.pack();
-    }
-
-    private List<Territorio> checkAereo(Jogador jogador){
-        List<Territorio> pode_atacar = new ArrayList<>();
-
-        for(Territorio t : selecionado_.getFronteirasInimigas(jogador)){
-            if((t.getNumExTerrestres() > 3) && (t.getNumExAereos() > 0)){
-                pode_atacar.add(t);
-            }
-        }
-
-        return pode_atacar;
     }
 
     /**
@@ -2030,6 +2016,9 @@ public class Gui {
         }
     }
 
+    /**
+     * Listener criado para verificar a entrada de texto
+     */
     class TropasListener implements DocumentListener {
         private JTextField text;
         private int num;

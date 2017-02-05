@@ -18,7 +18,7 @@ import java.util.*;
 //Imports do sistema
 
 /** Representa um jogo pronto para ser utilizado
- * @author Cristofer Oswald
+ * @author Cristofer Oswald e Bruno Cesar
  * @since 29/01/17
  */
 public class Game {
@@ -262,7 +262,7 @@ public class Game {
             resultado = false;
         }
 
-        gui_.resultadoAtaque(jogador, destino.getNome(),
+        gui_.relatorioAtaque(jogador, destino.getNome(),
                 Integer.toString(n_fracassos), Integer.toString(n_sucessos), resultado);
 
         if (jogador == cpu_) {
@@ -347,6 +347,24 @@ public class Game {
         }
 
         gui_.relatorioAereo(jogador, origem, destino, defesa, avioes_derrubados, terrestres_mortos);
+    }
+
+    /**
+     * Cria uma lista de territórios que podem ser atacados pelo ar
+     * @param jogador Jogador atacante
+     * @param origem Território de origem
+     * @return A lista de territórios
+     */
+    public List<Territorio> checkAereo(Jogador jogador, Territorio origem){
+        List<Territorio> pode_atacar = new ArrayList<>();
+
+        for(Territorio t : origem.getFronteirasInimigas(jogador)){
+            if((t.getNumExTerrestres() > 3) && (t.getNumExAereos() > 0)){
+                pode_atacar.add(t);
+            }
+        }
+
+        return pode_atacar;
     }
 
     /**

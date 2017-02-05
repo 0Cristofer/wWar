@@ -1,12 +1,11 @@
 package bcco;
 
 //Imports próprios
-
 import bcco.wWar.exceptions.wWarException;
 import bcco.wWar.wWar;
 
 /** Classe que executa o jogo
- *  @author Cristofer Oswald
+ *  @author Cristofer Oswald e Bruno Cesar
  *  @since 11/01/17
  */
 public class Main {

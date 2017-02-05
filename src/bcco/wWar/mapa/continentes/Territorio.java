@@ -13,7 +13,7 @@ import java.util.List;
 //Imports do sistema
 
 /** Representa um território no tabuleiro que pode ser conquistado.
- *  @author Cristofer Oswald
+ *  @author Cristofer Oswald e Bruno Cesar
  *  @since 11/01/17
  */
 public class Territorio {
@@ -212,7 +212,5 @@ public class Territorio {
     public String toString(){
         return getNome();
     }
-
-
 
 }

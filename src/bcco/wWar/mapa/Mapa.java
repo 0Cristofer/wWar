@@ -1,6 +1,7 @@
 package bcco.wWar.mapa;
 
 //Imports próprios
+
 import bcco.wWar.mapa.continentes.Continente;
 import bcco.wWar.mapa.continentes.Territorio;
 import bcco.wWar.mapa.continentes.exceptions.ContinenteException;
@@ -8,8 +9,10 @@ import bcco.wWar.mapa.exceptions.MapaException;
 
 import java.util.List;
 
+//Imports do sistema
+
 /** Representa o mapa (ou tabuleiro)
- *  @author Cristofer Oswald
+ *  @author Cristofer Oswald e Bruno Cesar
  *  @since 12/01/17
  */
 public class Mapa {

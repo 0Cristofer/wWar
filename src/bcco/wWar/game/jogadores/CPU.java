@@ -1,10 +1,13 @@
 package bcco.wWar.game.jogadores;
 
 //Imports próprios
+
 import bcco.wWar.game.Game;
 import bcco.wWar.mapa.continentes.Territorio;
 
 import java.util.*;
+
+//Imports do sistema
 
 /** Controla o jogador CPU
  * @author Bruno Cesar e Cristofer Oswald

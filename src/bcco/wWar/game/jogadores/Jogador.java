@@ -4,7 +4,7 @@ package bcco.wWar.game.jogadores;
 import bcco.wWar.game.Game;
 
 /** Controla os dados refrente a um jogador
- *  @author Cristofer Oswald
+ *  @author Cristofer Oswald e Bruno Cesar
  *  @since 12/01/17
  */
 public class Jogador {

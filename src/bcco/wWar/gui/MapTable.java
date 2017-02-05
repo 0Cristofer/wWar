@@ -1,5 +1,7 @@
 package bcco.wWar.gui;
 
+//Impots próprios
+
 import bcco.wWar.game.jogadores.Jogador;
 import bcco.wWar.mapa.Mapa;
 import bcco.wWar.mapa.continentes.exceptions.ContinenteException;
@@ -7,12 +9,14 @@ import bcco.wWar.mapa.exceptions.MapaException;
 
 import javax.swing.table.AbstractTableModel;
 
+//Imports do sistema
+
 /**
- * @author Cristofer Oswald
+ * Modelo de tabela usado para criar o JTable utilizado na GUI
+ * @author Cristofer Oswald e Bruno Cesar
  * @since 30/01/17
  */
 public class MapTable extends AbstractTableModel{
-
     private Mapa mapa_;
 
     /**

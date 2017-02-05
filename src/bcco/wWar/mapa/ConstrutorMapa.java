@@ -1,5 +1,7 @@
 package bcco.wWar.mapa;
 
+//Imports próprios
+
 import bcco.iomanager.IOManager;
 import bcco.wWar.mapa.continentes.Continente;
 import bcco.wWar.mapa.continentes.Territorio;
@@ -11,6 +13,8 @@ import bcco.wWar.mapa.exceptions.MapaException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+//Imports do sistema
 
 /** Singleton responsável por contruir o mapa
  *  @author Cristofer Oswald
