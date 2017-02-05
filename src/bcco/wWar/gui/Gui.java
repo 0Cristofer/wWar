@@ -29,7 +29,6 @@ public class Gui {
     private int screen_heigth_;
     private int n_defender = 0;
     private int n_ataque = 0;
-    private String titulo_;
 
     private Game game_;
     private MapTable tabela_mapa_;
@@ -491,7 +490,6 @@ public class Gui {
                                 "Tem certeza?", JOptionPane.YES_NO_OPTION) ==
                                 JOptionPane.YES_OPTION){
 
-
                             game_.getCPU().jogar();
                             terminado_ataque_ = false;
 
@@ -553,7 +551,6 @@ public class Gui {
                                     "Tem certeza que deseja movimentar? Você não poderá mais atacarTerrestre",
                                     "Tem certeza?", JOptionPane.YES_NO_OPTION) ==
                                     JOptionPane.YES_OPTION) {
-                                terminado_ataque_ = true;
                                 movimentar();
                                 updateJogadoresInfos();
                             }
@@ -903,6 +900,8 @@ public class Gui {
         cpu_num_continentes.setText("Número de continentes: ");
         cpu_num_terr.setText("Exércitos Terrestres: " + game_.getNumTerrestres(cpu));
         cpu_num_aereo.setText("Exércitos Aéreos: " + game_.getNumAereos(cpu));
+
+
     }
 
     /**
@@ -1171,10 +1170,11 @@ public class Gui {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        game_.atacarTerrestre(game_.getHumano(), selecionado_, selecionado_destino, n_ataque, 0);
-                        updateInfos();
+                        game_.atacarTerrestre(game_.getHumano(), selecionado_, selecionado_destino,
+                                n_ataque, 0);
                         janela_.setEnabled(true);
                         frame.setVisible(false);
+                        updateInfos();
                     }
                 }
         );
@@ -1372,9 +1372,11 @@ public class Gui {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        game_.movimentar(selecionado_, selecionado_destino, tipo_exerc_, Integer.parseInt(num_exe.getText()));
+                        game_.movimentar(selecionado_, selecionado_destino, tipo_exerc_,
+                                Integer.parseInt(num_exe.getText()));
                         frame.setVisible(false);
                         janela_.setEnabled(true);
+                        terminado_ataque_ = true;
                         updateInfos();
                     }
                 }
@@ -1455,7 +1457,7 @@ public class Gui {
     /**
      * Atualiza as informações de seleção de territórios
      */
-    private void updateInfos(){
+    public void updateInfos() {
         JLabel nome_pais;
         JLabel num_terr;
         JLabel num_aereo;
@@ -1628,6 +1630,8 @@ public class Gui {
                             game_.atacarAereo(game_.getHumano(), selecionado_, selecionado_destino, 3);
                         }
                         frame.setVisible(false);
+
+                        updateInfos();
                     }
                 }
         );
